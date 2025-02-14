@@ -1,15 +1,44 @@
 import { defineConfig } from "vite";
-import tailwindcss from "@tailwindcss/vite";
-import { resolve } from "path";
-
 import vue from "@vitejs/plugin-vue";
-
-// https://vite.dev/config/
+import vueJsx from "@vitejs/plugin-vue-jsx";
+import { resolve } from "path";
+import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
-  plugins: [vue(), tailwindcss()],
+  plugins: [
+    vue(),
+    tailwindcss(),
+    vueJsx({
+      // 启用 Composition API 语法糖
+      optimize: true,
+      // 启用 JSX 转换
+      include: /\.[jt]sx$/,
+    }),
+  ],
   resolve: {
     alias: {
-      "@": resolve(__dirname, "src"),
+      "@": resolve(__dirname, "./src"),
     },
+  },
+  build: {
+    lib: {
+      entry: resolve(__dirname, "src/index.ts"),
+      name: "MyComponentLibrary",
+      fileName: "my-component-library",
+    },
+    minify: true,
+    sourcemap: true,
+    cssCodeSplit: true,
+    rollupOptions: {
+      external: ["vue"],
+      output: {
+        globals: {
+          vue: "Vue",
+        },
+        exports: "named",
+      },
+    },
+  },
+  optimizeDeps: {
+    include: ["vue"],
   },
 });
