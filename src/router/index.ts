@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
+
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
@@ -11,15 +12,20 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/views/Home.vue"),
   },
   {
+    path: "/button",
+    name: "button",
+    component: () => import("@/views/ButtonView"),
+  },
+  {
     path: "/:pathMatch(.*)*",
-    name: "mian",
+    name: "not-found",
     component: () => import("@/views/Error.vue"),
   },
 ];
 
 const router = createRouter({
-  routes,
   history: createWebHistory(),
+  routes,
 });
 
 export default router;
