@@ -41,4 +41,5 @@ export default defineConfig({
   optimizeDeps: {
     include: ["vue"],
   },
+  base: '/', // 修改这行，使用根路径
 });
