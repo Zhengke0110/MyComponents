@@ -3,6 +3,7 @@ import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import { resolve } from "path";
 import tailwindcss from "@tailwindcss/vite";
+
 export default defineConfig({
   plugins: [
     vue(),
@@ -20,16 +21,10 @@ export default defineConfig({
     },
   },
   build: {
-    lib: {
-      entry: resolve(__dirname, "src/index.ts"),
-      name: "MyComponentLibrary",
-      fileName: "my-component-library",
-    },
     minify: true,
     sourcemap: true,
     cssCodeSplit: true,
     rollupOptions: {
-      external: ["vue"],
       output: {
         globals: {
           vue: "Vue",
