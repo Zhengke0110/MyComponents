@@ -119,10 +119,10 @@ export const DemoBlock = defineComponent({
               class="text-sm text-gray-500 cursor-pointer hover:text-gray-700 group flex items-center gap-1 relative"
               onClick={() => showCode.value = !showCode.value}
             >
-              <div class={`icon-[solar--minimalistic-arrow-down-linear] w-4 h-4 absolute transition-all duration-200 ease-out transform will-change-transform ${
+              <div class={`icon-[solar--map-arrow-down-linear] w-4 h-4 absolute transition-all duration-200 ease-out transform will-change-transform ${
                 showCode.value ? 'opacity-0 -translate-y-1' : 'opacity-100 translate-y-0'
               }`} />
-              <div class={`icon-[solar--minimalistic-arrow-up-linear] w-4 h-4 absolute transition-all duration-200 ease-out transform will-change-transform ${
+              <div class={`icon-[solar--map-arrow-up-linear] w-4 h-4 absolute transition-all duration-200 ease-out transform will-change-transform ${
                 showCode.value ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
               }`} />
               <span class="pl-5 transition-colors duration-200 group-hover:text-gray-900">
