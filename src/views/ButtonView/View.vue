@@ -148,22 +148,6 @@
     </DemoBlock>
 
     <!-- 组合示例 -->
-    <section class="border-b border-gray-200 pb-8 last:border-b-0 last:pb-0">
-      <h2 class="mb-4 text-xl font-bold">组合示例</h2>
-      <div class="space-y-4">
-        <div class="flex gap-4">
-          <Button type="primary" icon="icon-[solar--download-broken]" size="lg" :loading="isLoading"
-            @click="handleDownload">
-            {{ isLoading ? "下载中..." : "下载文件" }}
-          </Button>
-          <Button type="error" icon="icon-[solar--trash-bin-minimalistic-broken]" size="lg" :disabled="isLoading">
-            删除
-          </Button>
-        </div>
-      </div>
-    </section>
-
-    <!-- 组合示例 -->
     <DemoBlock title="组合示例" description="通过组合按钮，可以实现更复杂的交互效果。">
       <template #default>
         <div class="flex flex-wrap gap-4">
@@ -181,7 +165,7 @@
           \{\{ isLoading ? "下载中..." : "下载文件" \}\}
         </Button>
         <Button type="error" icon="icon-[solar--trash-bin-minimalistic-broken]" size="lg" :disabled="isLoading">
-          删除
+         删除
         </Button>`}}
       </template>
     </DemoBlock>

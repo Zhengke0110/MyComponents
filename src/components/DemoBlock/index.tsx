@@ -1,4 +1,6 @@
 import { defineComponent, ref, computed, type VNode } from 'vue'
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css';
 
 export const DemoBlock = defineComponent({
   name: 'DemoBlock',
@@ -16,32 +18,74 @@ export const DemoBlock = defineComponent({
     const showCode = ref(false)
     const copySuccess = ref(false)
 
-    // 改进的代码格式化函数
-    const formatCode = (code: unknown): string => {
-      if (!code) return ''
-      
-      // 处理 VNode 数组
-      if (Array.isArray(code)) {
-        return code
-          .map(node => {
-            if (typeof node === 'string') return node
-            if (node.children && typeof node.children === 'string') return node.children
-            return ''
-          })
-          .join('')
-          .split('\n')
-          .map(line => line.trim())
-          .filter(Boolean)
-          .join('\n')
+    const extractCodeFromMarkdown = (code: string): { language: string; code: string } => {
+      const match = code.match(/```(\w+)?\s*([\s\S]+?)```/);
+      if (match) {
+        return {
+          language: match[1] || 'typescript',
+          code: match[2].trim()
+        };
       }
+      return { language: 'typescript', code: code.trim() };
+    };
+
+    const formatCode = (code: unknown): string => {
+      if (!code) return '';
       
-      // 处理单个 VNode
-      if (typeof code === 'object' && 'children' in code) {
-        return typeof code.children === 'string' ? code.children.trim() : ''
+      // Convert code to string and handle VNode arrays
+      let rawCode = '';
+      if (Array.isArray(code)) {
+        rawCode = code
+          .map(node => {
+            if (typeof node === 'string') return node;
+            if (node.children && typeof node.children === 'string') return node.children;
+            return '';
+          })
+          .join('');
+      } else if (typeof code === 'object' && 'children' in code) {
+        rawCode = typeof code.children === 'string' ? code.children : '';
+      } else {
+        rawCode = String(code);
       }
 
-      return String(code).trim()
-    }
+      // Extract code and language from markdown style blocks
+      const { language, code: extractedCode } = extractCodeFromMarkdown(rawCode);
+
+      // Process the code to handle line breaks and indentation
+      const processedCode = extractedCode
+        .replace(/}\s*([a-zA-Z])/g, '}\n\n$1') // Add line breaks between functions
+        .split('\n')
+        .map(line => line.trim()) // Remove existing indentation
+        .filter(Boolean) // Remove empty lines
+        .join('\n'); // Join lines back together
+
+      // Format the code with proper indentation
+      let indent = 0;
+      const formattedLines = processedCode.split('\n').map(line => {
+        // Decrease indent for closing braces
+        if (line.match(/^[}\])]/) && indent > 0) {
+          indent--;
+        }
+
+        // Add indentation
+        const formattedLine = '  '.repeat(indent) + line;
+
+        // Increase indent for opening braces
+        if (line.match(/[{\[(]$/)) {
+          indent++;
+        }
+
+        return formattedLine;
+      });
+
+      const formattedCode = formattedLines.join('\n');
+
+      // Apply syntax highlighting
+      return hljs.highlight(formattedCode, { 
+        language: language === 'vue' ? 'html' : language,
+        ignoreIllegals: true 
+      }).value;
+    };
 
     const handleCopy = async (code: string) => {
       try {
@@ -112,7 +156,9 @@ export const DemoBlock = defineComponent({
             }}
           >
             <div class="p-4">
-              <pre class="text-sm font-mono whitespace-pre"><code>{formatCode(slots.code?.())}</code></pre>
+              <pre class="text-sm font-mono whitespace-pre-wrap break-all rounded bg-gray-50 p-4">
+                <code v-html={formatCode(slots.code?.())} class="!bg-transparent"></code>
+              </pre>
             </div>
           </div>
         </div>

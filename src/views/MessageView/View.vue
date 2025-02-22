@@ -31,12 +31,13 @@
       </div>
 
       <template #code>
-        ```typescript const showClosable = () => { Message.success('Click to
-        close this message', { closable: true, onClose: () => {
+        ```typescript const showClosable = () => { Message.success('Click
+        toclose this message', { closable: true, onClose: () => {
         console.log('Message closed') } }) } const showLongDuration = () => {
-        Message.success('This message will stay for 10 seconds', { duration:
-        10000 }) } const showBottomPosition = () => { Message.success('Message
-        at bottom position', { position: 'bottom' }) } ```
+        Message.success('This message will stay for 10 seconds', {
+        duration:10000 }) } const showBottomPosition = () => {
+        Message.success('Message at bottom position', { position: 'bottom' }) }
+        ```
       </template>
     </DemoBlock>
 
