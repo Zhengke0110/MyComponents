@@ -15,7 +15,10 @@ interface ButtonProps {
 }
 
 const iconValidator = (value: string): boolean => {
-  return value.startsWith('icon-[') && value.endsWith(']')
+  // 拆分空格分隔的类名
+  const classes = value.split(' ')
+  // 检查是否至少有一个类符合 icon-[xxx] 格式
+  return classes.some(cls => cls.startsWith('icon-[') && cls.endsWith(']'))
 }
 
 export const Button = defineComponent({
@@ -108,13 +111,13 @@ export const Button = defineComponent({
         }}
       >
         {props.loading && (
-          <span class={[iconSizeStyles.value, 'inline-flex']} role="status">
-            <div class="icon-[mingcute--loading-line] animate-spin" />
+          <span class={[iconSizeStyles.value, 'inline-flex items-center']} role="status">
+            <div class="icon-[mingcute--loading-line] animate-spin w-full h-full" />
           </span>
         )}
         {!props.loading && props.icon && (
-          <span class={[iconSizeStyles.value, 'inline-flex']}>
-            <div class={iconClass.value} style={{ color: props.iconColor }} />
+          <span class={[iconSizeStyles.value, 'inline-flex items-center']}>
+            <div class={iconClass.value} style={{ width: '100%', height: '100%', color: props.iconColor }} />
           </span>
         )}
         {!isIconOnly.value && (

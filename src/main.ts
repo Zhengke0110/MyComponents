@@ -6,10 +6,10 @@ import { createPinia } from "pinia";
 import router from "./router";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
-import { useREM } from "./utils/flexible";
+// import { useREM } from "./utils/flexible";
 
 // 初始化 rem
-useREM();
+// useREM();
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
