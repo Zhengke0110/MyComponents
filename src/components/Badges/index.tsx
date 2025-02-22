@@ -1,9 +1,9 @@
 import { defineComponent, computed, type PropType } from 'vue';
 
-type ColorScheme = 'red' | 'orange' | 'yellow' | 'green' | 'blue' | 'indigo' | 'purple' | 'gray';
-type Size = 'sm' | 'md' | 'lg';
-type Variant = 'solid' | 'soft' | 'outline';
-type Rounded = 'sm' | 'md' | 'lg' | 'full';
+export type ColorScheme = 'red' | 'orange' | 'yellow' | 'green' | 'blue' | 'indigo' | 'purple' | 'gray';
+export type Size = 'sm' | 'md' | 'lg';
+export type Variant = 'solid' | 'soft' | 'outline';
+export type Rounded = 'sm' | 'md' | 'lg' | 'full';
 
 const variantMap = {
   solid: {

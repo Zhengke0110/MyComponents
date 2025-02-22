@@ -3,7 +3,7 @@
         <DemoBlock title="基础用法" description="Badge 支持多种颜色方案">
             <template #default>
                 <div class="flex flex-wrap gap-2">
-                    <Badge v-for="color in colors" :key="color" :text="color" :color="color" />
+                    <Badge v-for="color in colors" :key="color" :text="color" :color="color as ColorScheme" />
                 </div>
             </template>
             <template #code>{{ `
@@ -18,7 +18,7 @@
             <template #default>
                 <div class="space-y-4">
                     <div v-for="variant in variants" :key="variant" class="flex flex-wrap gap-2">
-                        <Badge v-for="color in colors" :key="color" :text="color" :color="color" :variant="variant" />
+                        <Badge v-for="color in colors" :key="color" :text="color" :color="color as ColorScheme" :variant="variant as Variant" />
                     </div>
                 </div>
             </template>
@@ -33,7 +33,7 @@
         <DemoBlock title="尺寸" description="支持 sm、md 和 lg 三种尺寸">
             <template #default>
                 <div class="flex flex-wrap items-center gap-2">
-                    <Badge v-for="size in sizes" :key="size" :text="size" :size="size" />
+                    <Badge v-for="size in sizes" :key="size" :text="size" :size="size as Size" />
                 </div>
             </template>
             <template #code>{{ `
@@ -46,7 +46,7 @@
         <DemoBlock title="圆角" description="支持不同程度的圆角">
             <template #default>
                 <div class="flex flex-wrap gap-2">
-                    <Badge v-for="rounded in roundedTypes" :key="rounded" :text="rounded" :rounded="rounded" />
+                    <Badge v-for="rounded in roundedTypes" :key="rounded" :text="rounded" :rounded="rounded as Rounded" />
                 </div>
             </template>
             <template #code>{{ `
@@ -103,7 +103,7 @@
 <script setup lang="ts">
 import { Badge } from "../../components/Badges";
 import { DemoBlock } from "../../components/DemoBlock";
-
+import { ColorScheme,Size,Variant,Rounded } from "../../components/Badges";
 const colors = [
     "red",
     "orange",
