@@ -19,7 +19,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/Message",
     name: "Message",
-    component: () => import("@/lib/Message/Demo.vue"),
+    component: () => import("@/views/MessageView"),
   },
   {
     path: "/Calendars",
