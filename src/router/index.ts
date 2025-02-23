@@ -62,6 +62,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/views/PaginationView"),
   },
   {
+    path: "/Popover",
+    name: "Popover",
+    component: () => import("@/views/PopoverView"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "not-found",
     component: () => import("@/views/Error.vue"),
