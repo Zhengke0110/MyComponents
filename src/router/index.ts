@@ -37,6 +37,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/views/CheckBoxView"),
   },
   {
+    path: "/ColorInput",
+    name: "ColorInput",
+    component: () => import("@/views/ColorInputView"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "not-found",
     component: () => import("@/views/Error.vue"),
