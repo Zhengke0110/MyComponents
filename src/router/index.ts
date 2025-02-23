@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
 
 const routes: RouteRecordRaw[] = [
@@ -27,6 +27,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/views/BadgesView"),
   },
   {
+    path: "/Calendars",
+    name: "Calendars",
+    component: () => import("@/views/CalendarsView"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "not-found",
     component: () => import("@/views/Error.vue"),
@@ -34,7 +39,7 @@ const routes: RouteRecordRaw[] = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 });
 
