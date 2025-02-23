@@ -32,6 +32,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/views/CalendarsView"),
   },
   {
+    path: "/CheckBox",
+    name: "CheckBox",
+    component: () => import("@/views/CheckBoxView"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "not-found",
     component: () => import("@/views/Error.vue"),
