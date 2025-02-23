@@ -1,4 +1,4 @@
-import { computed, defineComponent, TransitionGroup } from 'vue';
+import { computed, defineComponent, h, TransitionGroup } from 'vue';
 import type { PropType } from 'vue';
 
 type ThemeType = 'primary' | 'success' | 'warning' | 'danger' | 'info';
@@ -40,6 +40,37 @@ export interface PaginationProps {
   theme?: ThemeType;
 }
 
+const PageButton = defineComponent({
+  name: 'PageButton',
+  props: {
+    item: {
+      type: Object as PropType<{ value: number | string; key: string }>,
+      required: true
+    },
+    current: Number,
+    disabled: Boolean,
+    themeClasses: Object as PropType<typeof themeColors[ThemeType]>,
+    onClick: Function as PropType<(value: number) => void>
+  },
+  setup(props) {
+    return () => (
+      <button
+        class={[
+          'inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium transition-all duration-200 ease-in-out',
+          props.current === props.item.value
+            ? `${props.themeClasses?.border || ''} ${props.themeClasses?.text || ''}`
+            : `border-transparent text-gray-500 ${props.themeClasses?.hover || ''}`,
+          props.disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
+        ]}
+        disabled={props.disabled}
+        onClick={() => typeof props.item.value === 'number' && props.onClick?.(props.item.value)}
+      >
+        {props.item.value}
+      </button>
+    );
+  }
+});
+
 export default defineComponent({
   name: 'Pagination',
   props: {
@@ -78,17 +109,17 @@ export default defineComponent({
       const count = pageCount.value;
       const current = props.current;
       const delta = 2;
-      const range: (number | string)[] = [];
+      const range = [];
 
       for (let i = Math.max(2, current - delta); i <= Math.min(count - 1, current + delta); i++) {
-        range.push(i);
+        range.push({ value: i, key: `page-${i}` });
       }
 
-      if (current - delta > 2) range.unshift('...');
-      if (current + delta < count - 1) range.push('...');
+      if (current - delta > 2) range.unshift({ value: '...', key: 'ellipsis-start' });
+      if (current + delta < count - 1) range.push({ value: '...', key: 'ellipsis-end' });
 
-      range.unshift(1);
-      if (count > 1) range.push(count);
+      range.unshift({ value: 1, key: 'page-1' });
+      if (count > 1) range.push({ value: count, key: `page-${count}` });
 
       return range;
     });
@@ -129,24 +160,23 @@ export default defineComponent({
         </div>
 
         <div class="hidden md:-mt-px md:flex">
-          <TransitionGroup name="fade">
-            {displayedPages.value.map(page => (
-              <button
-                key={page}
-                class={[
-                  'inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium transition-all duration-200 ease-in-out',
-                  props.current === page
-                    ? `${themeClasses.value.border} ${themeClasses.value.text}`
-                    : `border-transparent text-gray-500 ${themeClasses.value.hover}`,
-                  props.disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
-                ]}
-                disabled={props.disabled}
-                onClick={() => typeof page === 'number' && handlePageChange(page)}
-              >
-                {page}
-              </button>
-            ))}
-          </TransitionGroup>
+          {h(TransitionGroup, 
+            { 
+              name: 'fade',
+              tag: 'div',
+              class: 'flex'
+            }, 
+            () => displayedPages.value.map(item => 
+              h(PageButton, {
+                key: item.key,
+                item,
+                current: props.current,
+                disabled: props.disabled,
+                themeClasses: themeClasses.value,
+                onClick: handlePageChange
+              })
+            )
+          )}
         </div>
 
         {props.showQuickJumper && (
