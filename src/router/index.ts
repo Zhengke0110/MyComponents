@@ -52,6 +52,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/views/DropdownsView"),
   },
   {
+    path: "/ModalBox",
+    name: "ModalBox",
+    component: () => import("@/views/ModalBoxView"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "not-found",
     component: () => import("@/views/Error.vue"),
