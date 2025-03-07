@@ -102,6 +102,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/views/TextInputView"),
   },
   {
+    path: "/Tooltip",
+    name: "Tooltip",
+    component: () => import("@/views/TooltipView"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "not-found",
     component: () => import("@/views/Error.vue"),
