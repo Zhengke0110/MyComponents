@@ -1,0 +1,81 @@
+/* 标签动画效果 */
+.tag-enter-active,
+.tag-leave-active {
+  transition: all 0.3s ease;
+}
+
+.tag-enter-from,
+.tag-leave-to {
+  opacity: 0;
+  transform: translateY(-5px);
+}
+
+.tag-move {
+  transition: transform 0.3s ease;
+}
+
+/* 按钮 hover 效果 */
+button.hover-effect:hover {
+  background-color: var(--hover-bg);
+  opacity: 0.8;
+}
+
+button.hover-effect:focus {
+  --tw-ring-color: var(--ring-color);
+  outline: 2px solid var(--ring-color);
+  outline-offset: 1px;
+}
+
+button.hover-effect {
+  color: var(--button-text);
+}
+
+/* 主题相关样式 */
+.theme-input {
+  --tw-ring-color: var(--theme-ring, blue-500);
+  border-color: var(--theme-border, #bfdbfe); /* default blue-200 */
+  transform-origin: center;
+}
+
+.theme-input:focus {
+  --tw-ring-color: var(--theme-ring, #3b82f6); /* blue-500 */
+  border-color: var(--theme-border-focus, #3b82f6); /* blue-500 */
+}
+
+/* 输入框动画 */
+.input-animation {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.input-focused {
+  transform: scale(1.01);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* 输入框文本动画 */
+.input-animation::placeholder {
+  transition: all 0.3s ease;
+  opacity: 0.7;
+}
+
+.input-focused::placeholder {
+  opacity: 0.5;
+  transform: translateX(5px);
+}
+
+/* 添加脉冲效果的环 */
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.3);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(59, 130, 246, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
+
+.input-focused {
+  animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
