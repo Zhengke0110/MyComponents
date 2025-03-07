@@ -107,6 +107,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/views/TooltipView"),
   },
   {
+    path: "/Waterfall",
+    name: "Waterfall",
+    component: () => import("@/views/WaterfallView"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "not-found",
     component: () => import("@/views/Error.vue"),
