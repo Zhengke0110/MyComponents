@@ -77,6 +77,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/views/SearchInputView"),
   },
   {
+    path: "/Segment",
+    name: "Segment",
+    component: () => import("@/views/SegmentView"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "not-found",
     component: () => import("@/views/Error.vue"),

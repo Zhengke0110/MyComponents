@@ -1,0 +1,44 @@
+.segment-container {
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.segment-button {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.segment-button:not(.is-active):hover {
+  transform: translateY(-1px);
+}
+
+.segment-button:not(.is-active):active {
+  transform: translateY(0);
+}
+
+.segment-button.is-active {
+  animation: selectAnimation 0.3s var(--transition-timing);
+}
+
+@keyframes selectAnimation {
+  0% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 优化焦点状态 */
+.segment-button:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: -2px;
+}
+
+/* 添加按压效果的阴影变化 */
+.segment-button.is-active {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
