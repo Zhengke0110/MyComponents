@@ -92,9 +92,9 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/views/TabsView"),
   },
   {
-    path: "/TagsInput",
-    name: "TagsInput",
-    component: () => import("@/views/TagsInputView"),
+    path: "/TagsList",
+    name: "TagsList",
+    component: () => import("@/views/TagsListView"),
   },
   {
     path: "/:pathMatch(.*)*",

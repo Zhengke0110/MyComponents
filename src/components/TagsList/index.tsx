@@ -1,33 +1,31 @@
-import { computed, defineComponent, ref, type PropType, Transition, h, TransitionGroup } from 'vue'
+import { computed, defineComponent, ref, type PropType, Transition, TransitionGroup, h } from 'vue'
 import Tag from './components/Tag'
-import './styles.css'
-
-export type TagsInputSize = 'sm' | 'md' | 'lg'
-export type ValidationFunction = (tag: string) => boolean | string
-// 定义颜色枚举类型
+import type { TagSize } from './components/Tag'
 export type ThemeColor = 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone' | 
                          'red' | 'orange' | 'amber' | 'yellow' | 'lime' |
                          'green' | 'emerald' | 'teal' | 'cyan' | 'sky' |
                          'blue' | 'indigo' | 'violet' | 'purple' | 'fuchsia' |
                          'pink' | 'rose'
 
-export interface TagsInputProps {
-  modelValue?: string[]
+export { TagSize }
+
+export interface TagsListProps {
+  modelValue: string[]
   color?: ThemeColor
-  size?: TagsInputSize
+  size?: TagSize
   placeholder?: string
-  maxTags: number
-  validation?: ValidationFunction
+  maxTags?: number
+  validation?: (tag: string) => boolean | string
   allowDuplicates?: boolean
   randomColors?: boolean
 }
 
-export const TagsInput = defineComponent({
-  name: 'TagsInput',
+export const TagsList = defineComponent({
+  name: 'TagsList',
   props: {
     modelValue: {
       type: Array as PropType<string[]>,
-      default: () => []
+      required: true
     },
     color: {
       type: String as PropType<ThemeColor>,
@@ -44,7 +42,7 @@ export const TagsInput = defineComponent({
       }
     },
     size: {
-      type: String as PropType<TagsInputSize>,
+      type: String as PropType<TagSize>,
       default: 'md'
     },
     placeholder: {
@@ -56,7 +54,7 @@ export const TagsInput = defineComponent({
       default: Infinity
     },
     validation: {
-      type: Function as PropType<ValidationFunction>,
+      type: Function as PropType<(tag: string) => boolean | string>,
       default: undefined
     },
     allowDuplicates: {
@@ -69,7 +67,7 @@ export const TagsInput = defineComponent({
     }
   },
   emits: ['update:modelValue', 'error'],
-  setup(props: TagsInputProps, { emit }) {
+  setup(props, { emit }) {
     const newTag = ref('')
     const isFocused = ref(false)
     const hasError = ref(false)
@@ -78,14 +76,36 @@ export const TagsInput = defineComponent({
     const inputSize = computed(() => ({
       sm: 'px-2 py-1 text-sm',
       md: 'p-2',
-      lg: 'px-4 py-3 text-lg'
-    }[props.size || 'md']))
+      lg: 'px-4 py-3 text-lg',
+    }[props.size]))
 
     const containerClass = computed(() => ({
       sm: 'text-sm',
       md: 'text-base',
-      lg: 'text-lg'
-    }[props.size || 'md']))
+      lg: 'text-lg',
+    }[props.size]))
+
+    // 获取主题颜色相关的样式
+    const themeStyles = computed(() => {
+      const color = props.color || 'blue'
+      return {
+        '--theme-color': color,
+        '--theme-ring': `${color}-500`,
+        '--theme-border-focus': `${color}-500`,
+        '--theme-border': `${color}-200`
+      }
+    })
+
+    const setError = (message: string) => {
+      hasError.value = true
+      errorMessage.value = message
+      emit('error', message)
+      
+      setTimeout(() => {
+        hasError.value = false
+        errorMessage.value = ''
+      }, 3000)
+    }
 
     const validateAndAddTag = (tag: string): boolean => {
       hasError.value = false
@@ -96,12 +116,12 @@ export const TagsInput = defineComponent({
         return false
       }
 
-      if (!props.allowDuplicates && props.modelValue?.includes(tag)) {
+      if (!props.allowDuplicates && props.modelValue.includes(tag)) {
         setError('标签已存在')
         return false
       }
 
-      if ((props.modelValue?.length || 0) >= props.maxTags) {
+      if (props.modelValue.length >= props.maxTags) {
         setError(`最多只能添加 ${props.maxTags} 个标签`)
         return false
       }
@@ -117,47 +137,25 @@ export const TagsInput = defineComponent({
       return true
     }
 
-    const setError = (message: string) => {
-      hasError.value = true
-      errorMessage.value = message
-      emit('error', message)
-
-      setTimeout(() => {
-        hasError.value = false
-        errorMessage.value = ''
-      }, 3000)
-    }
-
     const addTag = () => {
       const tag = newTag.value.trim()
       if (validateAndAddTag(tag)) {
-        emit('update:modelValue', [...(props.modelValue || []), tag])
+        emit('update:modelValue', [...props.modelValue, tag])
         newTag.value = ''
       }
     }
 
     const removeTag = (index: number) => {
-      const newTags = [...(props.modelValue || [])]
+      const newTags = [...props.modelValue]
       newTags.splice(index, 1)
       emit('update:modelValue', newTags)
     }
 
     const removeLastTag = (event: KeyboardEvent) => {
-      if (event.key === 'Backspace' && newTag.value === '' && props.modelValue && props.modelValue.length > 0) {
+      if (event.key === 'Backspace' && newTag.value === '' && props.modelValue.length > 0) {
         removeTag(props.modelValue.length - 1)
       }
     }
-
-    // 获取主题颜色相关的样式
-    const themeStyles = computed(() => {
-      const color = props.color || 'blue'
-      return {
-        '--theme-color': color,
-        '--theme-ring': `${color}-500`,
-        '--theme-border-focus': `${color}-500`,
-        '--theme-border': `${color}-200`
-      }
-    })
 
     return () => (
       <div 
@@ -167,8 +165,8 @@ export const TagsInput = defineComponent({
         <div class="flex items-center mb-2 relative">
           <input
             value={newTag.value}
-            onInput={(e) => { newTag.value = (e.target as HTMLInputElement).value }}
-            onKeydown={(e) => {
+            onInput={(e: Event) => { newTag.value = (e.target as HTMLInputElement).value }}
+            onKeydown={(e: KeyboardEvent) => {
               if (e.key === 'Enter') {
                 e.preventDefault()
                 addTag()
@@ -188,6 +186,7 @@ export const TagsInput = defineComponent({
               { 'input-focused': isFocused.value }
             ]}
           />
+
           <Transition
             enterActiveClass="transition duration-200 ease-out"
             enterFromClass="transform scale-95 opacity-0"
@@ -199,18 +198,14 @@ export const TagsInput = defineComponent({
             {hasError.value && (
               <div class="absolute left-0 -bottom-7 flex items-center space-x-1 text-sm text-red-500 bg-red-50 px-2 py-1 rounded-md shadow-sm">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>{errorMessage.value}</span>
               </div>
             )}
           </Transition>
         </div>
+
         <div class="flex flex-wrap gap-2">
           {h(TransitionGroup, 
             { 
@@ -218,18 +213,18 @@ export const TagsInput = defineComponent({
               tag: 'div',
               class: 'flex flex-wrap gap-2'
             }, 
-            () => (props.modelValue || []).map((tag, index) => 
+            () => props.modelValue.map((tag, index) => (
               h(Tag, {
-                key: `tag-${index}-${tag}`,
-                index: index,
+                key: `${tag}-${index}`, // Explicit key for each child
                 text: tag,
+                index: index,
                 color: props.color,
                 size: props.size,
                 randomColor: props.randomColors,
                 class: 'transition-all duration-200 ease-in-out',
                 onRemove: removeTag
               })
-            )
+            ))
           )}
         </div>
         <style scoped>{`
@@ -247,10 +242,20 @@ export const TagsInput = defineComponent({
           .tag-move {
             transition: transform 0.3s ease;
           }
+          
+          .theme-input {
+            border-color: var(--theme-border);
+          }
+          
+          .input-focused,
+          .input-animation:focus {
+            border-color: var(--theme-border-focus);
+            box-shadow: 0 0 0 2px rgba(var(--theme-ring), 0.25);
+          }
         `}</style>
       </div>
     )
   }
 })
 
-export default TagsInput
+export default TagsList
