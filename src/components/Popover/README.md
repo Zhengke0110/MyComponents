@@ -77,6 +77,18 @@
     </template>
     自定义背景色的 Popover
   </Popover>
+  
+  <!-- 使用背景色属性自定义样式 -->
+  <Popover 
+    backgroundColor="rgba(219, 234, 254, 0.9)" 
+    darkBackgroundColor="rgba(30, 64, 175, 0.5)"
+    arrow
+  >
+    <template #reference>
+      <Button>使用属性自定义样式</Button>
+    </template>
+    使用背景色属性设置背景色
+  </Popover>
 </template>
 ```
 
@@ -96,6 +108,8 @@
 | showDelay | number | 0 | 显示延迟时间(ms) |
 | hideDelay | number | 300 | 隐藏延迟时间(ms) |
 | persistent | boolean | false | 是否保持显示状态 |
+| backgroundColor | string | 'rgba(255, 255, 255, 0.9)' | 自定义背景色（亮色模式） |
+| darkBackgroundColor | string | 'rgba(39, 39, 42, 0.9)' | 自定义背景色（暗色模式） |
 
 ### 事件
 

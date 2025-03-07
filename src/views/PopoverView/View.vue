@@ -80,9 +80,59 @@
           arrow
         >
           <template #reference>
-            <Button>自定义样式</Button>
+            <Button>使用类自定义</Button>
           </template>
-          自定义背景色的 Popover
+          使用Tailwind类的自定义背景
+        </Popover>
+      </div>
+    </section>
+    
+    <!-- 自定义背景色 -->
+    <section class="space-y-4">
+      <h2 class="text-xl font-bold">自定义背景色</h2>
+      <div class="flex gap-4 flex-wrap">
+        <Popover 
+          backgroundColor="rgba(219, 234, 254, 0.9)" 
+          darkBackgroundColor="rgba(30, 64, 175, 0.5)"
+          arrow
+        >
+          <template #reference>
+            <Button>蓝色背景</Button>
+          </template>
+          蓝色系自定义背景色
+        </Popover>
+        
+        <Popover 
+          backgroundColor="rgba(254, 226, 226, 0.9)" 
+          darkBackgroundColor="rgba(153, 27, 27, 0.5)"
+          arrow
+        >
+          <template #reference>
+            <Button>红色背景</Button>
+          </template>
+          红色系自定义背景色
+        </Popover>
+        
+        <Popover 
+          backgroundColor="rgba(236, 253, 245, 0.9)" 
+          darkBackgroundColor="rgba(6, 95, 70, 0.5)"
+          arrow
+        >
+          <template #reference>
+            <Button>绿色背景</Button>
+          </template>
+          绿色系自定义背景色
+        </Popover>
+        
+        <Popover 
+          backgroundColor="rgba(255, 251, 235, 0.9)" 
+          darkBackgroundColor="rgba(146, 64, 14, 0.5)"
+          arrow
+        >
+          <template #reference>
+            <Button>橙色背景</Button>
+          </template>
+          橙色系自定义背景色
         </Popover>
       </div>
     </section>

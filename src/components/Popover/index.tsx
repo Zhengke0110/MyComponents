@@ -10,7 +10,7 @@ import {
   tryOnUnmounted,
   whenever,
 } from "@vueuse/core";
-// import { usePopover } from '../../lib/Popover';
+
 import "./styles.css"; // 引入外部样式文件
 export type PlacementType =
   | "top"
@@ -38,6 +38,9 @@ export interface PopoverProps {
   showDelay?: number;
   hideDelay?: number;
   persistent?: boolean;
+  // 添加自定义背景色属性
+  backgroundColor?: string;
+  darkBackgroundColor?: string;
 }
 // Hook: usePopover
 export function usePopover(
@@ -136,10 +139,10 @@ export function usePopover(
   const getArrowPositionClass = computed(() => {
     const baseClasses = "border-gray-200 dark:border-zinc-700";
     const positions = {
-      top: `bottom-[-7px] border-b border-r ${baseClasses}`,
-      bottom: `top-[-7px] border-t border-l ${baseClasses}`,
-      left: `right-[-7px] border-r border-t ${baseClasses}`,
-      right: `left-[-7px] border-l border-b ${baseClasses}`,
+      top: `bottom-[-6px] border-b border-r ${baseClasses}`,
+      bottom: `top-[-6px] border-t border-l ${baseClasses}`,
+      left: `right-[-6px] border-r border-t ${baseClasses}`,
+      right: `left-[-6px] border-l border-b ${baseClasses}`,
     };
 
     const direction = props.placement?.split("-")[0] as keyof typeof positions;
@@ -158,8 +161,12 @@ export function usePopover(
     );
   });
 
+  // 获取当前视口尺寸
+  const viewportWidth = computed(() => window.innerWidth);
+  const viewportHeight = computed(() => window.innerHeight);
+
   const popoverStyle = computed(() => {
-    const style: Record<string, string | number> = {}; // 修改类型以支持数字值
+    const style: Record<string, string | number> = {};
     if (!triggerBounds.width.value || !popoverBounds.width.value) return style;
 
     const {
@@ -167,66 +174,145 @@ export function usePopover(
       height: triggerHeight,
       left: triggerLeft,
       top: triggerTop,
+      right: triggerRight,
+      bottom: triggerBottom,
     } = triggerBounds;
 
     const { width: popoverWidth, height: popoverHeight } = popoverBounds;
 
     const offset = props.offset ?? 8;
+    let mainPlacement = props.placement?.split("-")[0] as string;
+    let alignment = props.placement?.split("-")[1];
 
-    // 计算位置样式
-    switch (props.placement) {
-      case "top":
-      case "top-start":
-      case "top-end":
-        style.bottom = `${triggerHeight.value + offset}px`;
-        if (props.placement === "top-start") {
-          style.left = 0;
-        } else if (props.placement === "top-end") {
-          style.right = 0;
-        } else {
-          style.left = `${(triggerWidth.value - popoverWidth.value) / 2}px`;
-        }
-        break;
+    // 基本位置计算
+    let calcPosition = () => {
+      switch (mainPlacement) {
+        case "top":
+          style.bottom = `${triggerHeight.value + offset}px`;
+          if (alignment === "start") {
+            style.left = "0px";
+          } else if (alignment === "end") {
+            style.right = "0px";
+          } else {
+            style.left = `${(triggerWidth.value - popoverWidth.value) / 2}px`;
+          }
+          break;
 
-      case "bottom":
-      case "bottom-start":
-      case "bottom-end":
-        style.top = `${triggerHeight.value + offset}px`;
-        if (props.placement === "bottom-start") {
-          style.left = 0;
-        } else if (props.placement === "bottom-end") {
-          style.right = 0;
-        } else {
-          style.left = `${(triggerWidth.value - popoverWidth.value) / 2}px`;
-        }
-        break;
+        case "bottom":
+          style.top = `${triggerHeight.value + offset}px`;
+          if (alignment === "start") {
+            style.left = "0px";
+          } else if (alignment === "end") {
+            style.right = "0px";
+          } else {
+            style.left = `${(triggerWidth.value - popoverWidth.value) / 2}px`;
+          }
+          break;
 
-      case "left":
-      case "left-start":
-      case "left-end":
-        style.right = `${triggerWidth.value + offset}px`;
-        if (props.placement === "left-start") {
-          style.top = 0;
-        } else if (props.placement === "left-end") {
-          style.bottom = 0;
-        } else {
-          style.top = `${(triggerHeight.value - popoverHeight.value) / 2}px`;
-        }
-        break;
+        case "left":
+          style.right = `${triggerWidth.value + offset}px`;
+          if (alignment === "start") {
+            style.top = "0px";
+          } else if (alignment === "end") {
+            style.bottom = "0px";
+          } else {
+            style.top = `${(triggerHeight.value - popoverHeight.value) / 2}px`;
+          }
+          break;
 
-      case "right":
-      case "right-start":
-      case "right-end":
-        style.left = `${triggerWidth.value + offset}px`;
-        if (props.placement === "right-start") {
-          style.top = 0;
-        } else if (props.placement === "right-end") {
-          style.bottom = 0;
+        case "right":
+          style.left = `${triggerWidth.value + offset}px`;
+          if (alignment === "start") {
+            style.top = "0px";
+          } else if (alignment === "end") {
+            style.bottom = "0px";
+          } else {
+            style.top = `${(triggerHeight.value - popoverHeight.value) / 2}px`;
+          }
+          break;
+      }
+    };
+
+    // 执行基本位置计算
+    calcPosition();
+
+    // 安全区域检测与调整逻辑
+    nextTick(() => {
+      if (!popoverRef.value || !containerRef.value) return;
+
+      const popoverRect = popoverRef.value.getBoundingClientRect();
+      const containerRect = containerRef.value.getBoundingClientRect();
+      const safeMargin = 10; // 安全边距
+
+      // 计算容器在视口中的绝对位置
+      const containerAbsLeft = containerRect.left;
+      const containerAbsTop = containerRect.top;
+      
+      // 检查并调整水平位置
+      if (popoverRect.right > viewportWidth.value - safeMargin) {
+        // 如果右侧超出视口
+        if (mainPlacement === "left" || mainPlacement === "right") {
+          // 对于左右定位，调整为相反方向
+          if (mainPlacement === "right") {
+            delete style.left;
+            style.right = `${triggerWidth.value + offset}px`;
+          }
         } else {
-          style.top = `${(triggerHeight.value - popoverHeight.value) / 2}px`;
+          // 对于上下定位，调整水平偏移
+          delete style.left;
+          style.right = "0px";
         }
-        break;
-    }
+      } else if (popoverRect.left < safeMargin) {
+        // 如果左侧超出视口
+        if (mainPlacement === "left" || mainPlacement === "right") {
+          // 对于左右定位，调整为相反方向
+          if (mainPlacement === "left") {
+            delete style.right;
+            style.left = `${triggerWidth.value + offset}px`;
+          }
+        } else {
+          // 对于上下定位，调整水平偏移
+          delete style.right;
+          style.left = "0px";
+        }
+      }
+
+      // 检查并调整垂直位置
+      if (popoverRect.bottom > viewportHeight.value - safeMargin) {
+        // 如果底部超出视口
+        if (mainPlacement === "top" || mainPlacement === "bottom") {
+          // 对于上下定位，调整为相反方向
+          if (mainPlacement === "bottom") {
+            delete style.top;
+            style.bottom = `${triggerHeight.value + offset}px`;
+          }
+        } else {
+          // 对于左右定位，调整垂直偏移
+          delete style.top;
+          style.bottom = "0px";
+        }
+      } else if (popoverRect.top < safeMargin) {
+        // 如果顶部超出视口
+        if (mainPlacement === "top" || mainPlacement === "bottom") {
+          // 对于上下定位，调整为相反方向
+          if (mainPlacement === "top") {
+            delete style.bottom;
+            style.top = `${triggerHeight.value + offset}px`;
+          }
+        } else {
+          // 对于左右定位，调整垂直偏移
+          delete style.bottom;
+          style.top = "0px";
+        }
+      }
+
+      // 应用调整后的样式
+      Object.keys(style).forEach(key => {
+        if (popoverRef.value) {
+          popoverRef.value.style[key as any] = style[key] as string;
+        }
+      });
+    });
 
     return style;
   });
@@ -264,6 +350,9 @@ export default defineComponent({
     showDelay: { type: Number, default: 0 },
     hideDelay: { type: Number, default: 300 },
     persistent: { type: Boolean, default: false },
+    // 新增自定义背景色属性
+    backgroundColor: { type: String, default: 'rgba(255, 255, 255, 0.9)' },
+    darkBackgroundColor: { type: String, default: 'rgba(39, 39, 42, 0.9)' },
   },
   emits: ["show", "hide"],
   setup(props, { slots, emit }) {
@@ -276,6 +365,64 @@ export default defineComponent({
       getAnimationClass,
       popoverStyle,
     } = usePopover(props, (event) => emit(event));
+
+    // 检测当前是否为暗黑模式
+    const isDarkMode = computed(() => {
+      if (typeof window === 'undefined') return false;
+      return document.documentElement.classList.contains('dark');
+    });
+
+    // 计算背景色样式
+    const backgroundStyle = computed(() => {
+      // 如果指定了自定义类，优先使用自定义类
+      if (props.customClass) {
+        return {};
+      }
+      
+      return {
+        backgroundColor: isDarkMode.value 
+          ? props.darkBackgroundColor 
+          : props.backgroundColor,
+        backdropFilter: 'blur(8px)',
+      };
+    });
+    
+    // 合并所有样式
+    const mergedPopoverStyle = computed(() => {
+      return {
+        ...popoverStyle.value,
+        ...backgroundStyle.value
+      } as StyleValue;
+    });
+
+    // 处理箭头背景色
+    const arrowStyle = computed(() => {
+      if (!props.arrow) return {};
+      
+      // 如果指定了自定义类，不应用内联背景色
+      if (props.customClass) {
+        return { backgroundColor: 'inherit' };
+      }
+      
+      // 使用与主体相同的背景色
+      return {
+        backgroundColor: isDarkMode.value 
+          ? props.darkBackgroundColor 
+          : props.backgroundColor,
+      };
+    });
+
+    // 使用监听器动态更新箭头背景色
+    whenever(isDarkMode, () => {
+      if (popoverRef.value && props.arrow) {
+        const arrowElement = popoverRef.value.querySelector('.popover-arrow') as HTMLElement;
+        if (arrowElement) {
+          arrowElement.style.backgroundColor = isDarkMode.value 
+            ? props.darkBackgroundColor 
+            : props.backgroundColor;
+        }
+      }
+    });
 
     return () => (
       <div ref={containerRef} class="relative inline-block">
@@ -293,16 +440,14 @@ export default defineComponent({
               ref={popoverRef}
               class={[
                 "absolute z-50",
-                "backdrop-blur-lg",
                 "border border-gray-200/50 dark:border-zinc-700/50",
                 "shadow-lg shadow-gray-200/20 dark:shadow-zinc-900/30",
                 "rounded-xl",
                 "transform-gpu",
                 "popover-animate",
-                props.customClass, // 移到默认背景色之前
-                "bg-white/90 dark:bg-zinc-800/90", // 移到最后，允许被自定义类覆盖
+                props.customClass,
               ].filter(Boolean)}
-              style={popoverStyle.value as StyleValue}
+              style={mergedPopoverStyle.value}
             >
               <div class={["p-2", props.contentClass].filter(Boolean)}>
                 {slots.default?.()}
@@ -310,10 +455,10 @@ export default defineComponent({
               {props.arrow && (
                 <div
                   class={[
-                    "absolute h-4 w-4 rotate-45 border",
-                    "bg-inherit", // 移动到最后，继承父元素的背景色
+                    "absolute h-4 w-4 rotate-45 border popover-arrow",
                     getArrowPositionClass.value,
                   ]}
+                  style={arrowStyle.value}
                 />
               )}
             </div>
