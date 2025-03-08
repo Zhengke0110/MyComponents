@@ -1,0 +1,1 @@
+.dark h1,.dark h2,.dark h3,.dark h4,.dark h5,.dark h6{color:#fff}:root{color-scheme:light}.dark{color-scheme:dark}@media (prefers-color-scheme: dark){:root{color-scheme:dark}}
