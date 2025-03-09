@@ -115,12 +115,12 @@
                 <Badge text="可点击" clickable @click="handleBadgeClick('普通点击')" theme="primary" title="点击我试试" />
                 <Badge text="带图标" clickable @click="handleBadgeClick('带图标点击')" theme="success" rounded="full">
                     <template #prefix>
-                        <div class="i-carbon-checkmark-filled mr-1 h-3 w-3" />
+                        <div class="icon-[material-symbols--check-circle-rounded] mr-1 h-3 w-3" />
                     </template>
                 </Badge>
                 <Badge text="删除标签" theme="danger" clickable @click="handleBadgeClick('删除')" rounded="full">
                     <template #suffix>
-                        <div class="i-carbon-close ml-1 h-3 w-3" />
+                        <div class="icon-[material-symbols--close-rounded] ml-1 h-3 w-3" />
                     </template>
                 </Badge>
             </div>
@@ -166,7 +166,7 @@
             <div class="mb-6 flex items-center gap-8">
                 <div class="relative">
                     <button class="rounded-full p-2 hover:bg-gray-100">
-                        <div class="i-carbon-notification h-6 w-6" />
+                        <div class="icon-[material-symbols--circle-notifications-outline-rounded] h-6 w-6" />
                     </button>
                     <Badge text="3" theme="danger" variant="solid" rounded="full" size="sm"
                         class="absolute -top-1 -right-1" />
@@ -174,7 +174,7 @@
 
                 <div class="relative">
                     <button class="rounded-full p-2 hover:bg-gray-100">
-                        <div class="i-carbon-email h-6 w-6" />
+                        <div class="icon-[material-symbols--mark-email-unread-outline-rounded] h-6 w-6" />
                     </button>
                     <Badge text="12" theme="primary" variant="solid" rounded="full" size="sm"
                         class="absolute -top-1 -right-1" />
@@ -182,7 +182,7 @@
 
                 <div class="relative">
                     <button class="rounded-full p-2 hover:bg-gray-100">
-                        <div class="i-carbon-shopping-cart h-6 w-6" />
+                        <div class="icon-[material-symbols--remove-shopping-cart-rounded] h-6 w-6" />
                     </button>
                     <Badge text="购物车" color="emerald" variant="soft" rounded="full" size="sm"
                         class="absolute -top-2 -right-12" />
@@ -197,7 +197,7 @@
             <div class="mb-6 max-w-md rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
                 <div class="mb-3 flex items-center gap-3">
                     <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
-                        <div class="i-carbon-user h-6 w-6 text-blue-600 dark:text-blue-400" />
+                        <div class="icon-[material-symbols--supervised-user-circle-outline] h-6 w-6 text-blue-600 dark:text-blue-400" />
                     </div>
                     <div>
                         <div class="font-medium text-gray-900 dark:text-white">用户状态</div>
@@ -486,7 +486,7 @@
                                 <template #prefix>
                                     <div :class="[
                                         'mr-1 h-3 w-3',
-                                        isDark ? 'i-carbon-sun' : 'i-carbon-moon'
+                                        isDark ? 'icon-[material-symbols--wb-sunny-outline-rounded]' : 'icon-[material-symbols--dark-mode-outline-rounded]'
                                     ]"></div>
                                 </template>
                             </Badge>
@@ -494,7 +494,7 @@
                             <Badge text="系统偏好" theme="secondary" variant="outline" rounded="full" clickable
                                 @click="preferredDark ? toggleDark(false) : toggleDark(true)">
                                 <template #prefix>
-                                    <div class="i-carbon-settings-adjust mr-1 h-3 w-3"></div>
+                                    <div class="icon-[material-symbols--settings-outline-rounded] mr-1 h-3 w-3"></div>
                                 </template>
                             </Badge>
                         </div>

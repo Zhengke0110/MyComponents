@@ -2,16 +2,39 @@
   <div class="p-4 md:p-8 max-w-7xl mx-auto">
     <h1 class="text-2xl font-bold mb-8">日历组件展示</h1>
 
-    <!-- 暗色模式切换 - 改进样式使按钮更突出 -->
+    <!-- 暗色模式切换 - 使用 @vueuse/core 的实现 -->
     <div class="mb-6 flex justify-end">
-      <button @click="toggleDarkMode" class="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 shadow-sm
-               bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600
-               dark:from-indigo-400 dark:to-purple-500 dark:hover:from-indigo-500 dark:hover:to-purple-600
-               text-white font-medium transform hover:scale-105 hover:shadow-md active:scale-95">
-        <span v-if="isDarkMode" class="icon-[material-symbols--wb-sunny-outline-rounded] size-5"></span>
-        <span v-else class="icon-[material-symbols--dark-mode-outline-rounded]  size-5"></span>
-        <span>{{ isDarkMode ? '切换到亮色模式' : '切换到暗色模式' }}</span>
-      </button>
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2">
+            <span class="text-sm">暗色模式</span>
+            <div class="relative inline-block h-6 w-11 cursor-pointer rounded-full bg-gray-200 transition-colors duration-200 ease-in-out dark:bg-blue-600"
+                @click="toggleDark()">
+                <span :class="[
+                    'absolute left-1 top-1 h-4 w-4 rounded-full bg-white transition-transform duration-200 ease-in-out',
+                    isDark ? 'translate-x-5' : 'translate-x-0'
+                ]"></span>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <button 
+                class="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 bg-blue-500 hover:bg-blue-600 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white font-medium"
+                @click="toggleDark()">
+                <span :class="[
+                    isDark ? 'icon-[material-symbols--wb-sunny-outline-rounded]' : 'icon-[material-symbols--dark-mode-outline-rounded]',
+                    'size-5'
+                ]"></span>
+                <span>{{ isDark ? '切换到亮色模式' : '切换到暗色模式' }}</span>
+            </button>
+
+            <button 
+                class="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium"
+                @click="preferredDark ? toggleDark(false) : toggleDark(true)">
+                <span class="icon-[material-symbols--settings-outline-rounded] size-5"></span>
+                <span>系统偏好</span>
+            </button>
+        </div>
+      </div>
     </div>
 
     <!-- 所有颜色展示 -->
@@ -145,35 +168,66 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted, watch, onBeforeUnmount } from 'vue';
 import Calendars, {ColorType, colorGroups, getColorButtonClass, colorHexMap } from '../../components/Calendars';
 import dayjs from 'dayjs';
+import { useDark, useToggle } from '@vueuse/core';
 
-// 暗色模式控制
-const isDarkMode = ref(false);
+// 使用 vueuse/core 的暗色模式钩子
+const isDark = useDark({
+  selector: 'html',
+  attribute: 'class',
+  valueDark: 'dark',
+  valueLight: ''
+});
+const toggleDark = useToggle(isDark);
 
-// 在组件挂载时检查暗色模式
+// 检查系统颜色偏好
+const preferredDark = ref(false);
+if (window.matchMedia) {
+    preferredDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
+// 确保暗色模式正确应用
 onMounted(() => {
-  // 检查系统偏好或本地存储
-  const darkModePreference = localStorage.getItem('darkMode');
-  if (darkModePreference === 'true' ||
-    (!darkModePreference && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  // 初始应用暗色模式
+  if (isDark.value) {
     document.documentElement.classList.add('dark');
-    isDarkMode.value = true;
+    document.body.classList.add('dark-mode');
   }
+  
+  // 自动检测并添加使用暗色模式的标记类
+  document.documentElement.classList.add('using-dark-mode');
+  
+  // 初始化示例数据
+  initializeExampleDates();
 });
 
-// 切换暗色模式
-const toggleDarkMode = () => {
-  isDarkMode.value = !isDarkMode.value;
-  if (isDarkMode.value) {
+// 监听暗色模式变化
+watch(isDark, (newVal) => {
+  if (newVal) {
     document.documentElement.classList.add('dark');
-    localStorage.setItem('darkMode', 'true');
+    document.body.classList.add('dark-mode');
   } else {
     document.documentElement.classList.remove('dark');
-    localStorage.setItem('darkMode', 'false');
+    document.body.classList.remove('dark-mode');
   }
-};
+  
+  // 强制触发重新渲染
+  setTimeout(() => {
+    document.body.style.transition = 'background-color 0.3s ease';
+    if (newVal) {
+      document.body.style.backgroundColor = '#1f2937';
+    } else {
+      document.body.style.backgroundColor = '';
+    }
+  }, 0);
+});
+
+// 清理函数
+onBeforeUnmount(() => {
+  document.documentElement.classList.remove('using-dark-mode');
+});
 
 // 颜色组的名称映射
 const colorGroupNames = {
@@ -320,15 +374,39 @@ onMounted(() => {
 </script>
 
 <style>
-/* 全局样式 */
-.dark {
-  color-scheme: dark;
+/* 增强暗黑模式文字显示，确保所有标题都有明确的暗模式颜色 */
+/* 确保暗模式生效的基本样式 */
+:root {
+  color-scheme: light;
 }
 
-/* 暗色模式下的背景色 */
-.dark body {
-  background-color: #1f2937;
-  color: #f9fafb;
+:root.dark, html.dark {
+  color-scheme: dark;
+  background-color: #1f2937; /* gray-800 */
+}
+
+body.dark-mode {
+  background-color: #1f2937; /* gray-800 */
+}
+
+/* 确保所有标题和文本在暗色模式下显示为白色 */
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6,
+.dark .text-gray-900 {
+  color: white !important;
+}
+
+/* 暗色模式下其他文本颜色适配 */
+.dark .text-gray-700 {
+  color: #d1d5db !important; /* gray-300 */
+}
+
+.dark .text-gray-600 {
+  color: #9ca3af !important; /* gray-400 */
 }
 
 /* 过渡效果 */
@@ -336,36 +414,14 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* 主题切换按钮动画 */
-@keyframes pulse-light {
-
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+/* 系统暗色模式自动适配 */
+@media (prefers-color-scheme: dark) {
+  :root.using-dark-mode:not(.light) {
+    background-color: #1f2937;
   }
-
-  50% {
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+  
+  :root:not(.using-dark-mode) {
+    color-scheme: dark;
   }
-}
-
-@keyframes pulse-dark {
-
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4);
-  }
-
-  50% {
-    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
-  }
-}
-
-.dark .theme-toggle-button {
-  animation: pulse-dark 2s infinite;
-}
-
-.theme-toggle-button {
-  animation: pulse-light 2s infinite;
 }
 </style>
