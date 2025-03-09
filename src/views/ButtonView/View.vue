@@ -43,29 +43,6 @@
       </div>
     </section>
 
-    <!-- 展示不同主题下按钮 -->
-    <section class="mb-10">
-      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
-        亮色/暗色主题下的按钮
-      </h2>
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-        <!-- 亮色模式按钮展示 -->
-        <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-          <h3 class="mb-4 text-lg font-medium text-gray-900">亮色模式按钮</h3>
-          <div class="flex flex-wrap gap-3">
-            <!-- ...existing button components for light mode... -->
-          </div>
-        </div>
-
-        <!-- 暗色模式按钮展示 -->
-        <div class="rounded-lg border border-gray-700 bg-gray-800 p-6 shadow-sm">
-          <h3 class="mb-4 text-lg font-medium text-white">暗色模式按钮</h3>
-          <div class="flex flex-wrap gap-3">
-            <!-- ...existing button components for dark mode... -->
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- 基础用法 -->
     <section class="mb-10">
