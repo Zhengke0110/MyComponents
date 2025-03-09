@@ -1,5 +1,5 @@
 import { computed, defineComponent, ref, onMounted, onUnmounted } from "vue";
-import { ThemeColorType, THEME_COLOR_MAP } from "../colors";
+import { ThemeColorType, THEME_COLOR_MAP } from "./config";
 import {
   checkBoxProps,
   type CheckBoxEmits,
@@ -14,7 +14,7 @@ import {
   baseIconClasses,
   darkModeIconClasses,
   svgPaths
-} from "./styles";
+} from "./config";
 
 export const CheckBox = defineComponent({
   name: "CheckBox",
