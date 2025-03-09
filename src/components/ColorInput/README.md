@@ -9,6 +9,8 @@
 - 支持键盘导航
 - 支持多种颜色格式（hex、0x）
 - 支持弹出层位置自定义
+- 支持主题色选择和各种强度
+- 支持暗色模式
 - 响应式设计和优雅的动画效果
 
 ## 基础用法
@@ -82,6 +84,52 @@ const color = ref('0x000000')
 </template>
 ```
 
+### 使用主题色系统
+
+启用主题色系统，可以选择标准化的颜色和强度。
+
+```vue
+<template>
+  <ColorInput
+    v-model="color"
+    :theme="true"
+  />
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+const color = ref('#3B82F6') // blue-500
+</script>
+```
+
+### 自定义主题色选项
+
+可以指定可用的主题色列表和默认强度。
+
+```vue
+<template>
+  <ColorInput
+    v-model="color"
+    :theme="true"
+    :theme-colors="['blue', 'red', 'green', 'purple']"
+    :selected-intensity="600"
+  />
+</template>
+```
+
+### 暗色模式
+
+支持暗色模式下的样式调整。
+
+```vue
+<template>
+  <ColorInput
+    v-model="color"
+    :dark="true"
+  />
+</template>
+```
+
 ## Props
 
 | 属性名 | 类型 | 默认值 | 说明 |
@@ -91,6 +139,10 @@ const color = ref('0x000000')
 | colors | string[] | [...] | 预设颜色列表 |
 | allowCustom | boolean | true | 是否允许自定义颜色输入 |
 | colorOptions | { outputFormat: 'hex' \| '0x' } | { outputFormat: 'hex' } | 颜色输出格式配置 |
+| theme | boolean | false | 是否启用主题色系统 |
+| themeColors | ColorType[] | ['blue', 'indigo', ...] | 可选的主题色列表 |
+| dark | boolean | false | 是否启用暗色模式 |
+| selectedIntensity | number | 500 | 默认的颜色强度（50-900） |
 
 ## Events
 
@@ -108,3 +160,17 @@ const color = ref('0x000000')
 | Home | 移动到第一个颜色 |
 | End | 移动到最后一个颜色 |
 | Escape | 关闭颜色选择面板 |
+
+## 主题色系统
+
+组件支持以下主题色类型：
+
+- 灰色系列: slate, gray, zinc, neutral, stone
+- 暖色系列: red, orange, amber, yellow
+- 绿色系列: lime, green, emerald, teal
+- 蓝色系列: cyan, sky, blue, indigo
+- 紫粉系列: violet, purple, fuchsia, pink, rose
+
+每种颜色都有 10 个强度等级：50, 100, 200, 300, 400, 500, 600, 700, 800, 900。
+
+默认强度为 500，可以通过 `selectedIntensity` 属性修改。

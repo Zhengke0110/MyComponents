@@ -49,11 +49,7 @@
         基础用法
       </h2>
       <div class="space-y-4">
-        <CheckBox 
-          id="basic-checkbox" 
-          v-model="checkState.basic" 
-          label="基础复选框"
-        />
+        <CheckBox id="basic-checkbox" v-model="checkState.basic" label="基础复选框" />
         <div class="text-sm text-gray-600 dark:text-gray-400">
           当前状态: {{ checkState.basic ? '已选中' : '未选中' }}
         </div>
@@ -94,7 +90,7 @@
             <CheckBox id="color-stone" v-model="checkState.stone" color="stone" label="石灰" />
           </div>
         </div>
-        
+
         <div>
           <h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-white">
             暖色系
@@ -118,7 +114,7 @@
             <CheckBox id="color-teal" v-model="checkState.teal" color="teal" label="蓝绿色" />
           </div>
         </div>
-        
+
         <div>
           <h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-white">
             蓝色系
@@ -164,18 +160,8 @@
         禁用状态
       </h2>
       <div class="space-y-4">
-        <CheckBox
-          id="disabled-unchecked"
-          v-model="checkState.disabledUnchecked"
-          disabled
-          label="禁用状态（未选中）"
-        />
-        <CheckBox
-          id="disabled-checked"
-          v-model="checkState.disabledChecked"
-          disabled
-          label="禁用状态（已选中）"
-        />
+        <CheckBox id="disabled-unchecked" v-model="checkState.disabledUnchecked" disabled label="禁用状态（未选中）" />
+        <CheckBox id="disabled-checked" v-model="checkState.disabledChecked" disabled label="禁用状态（已选中）" />
       </div>
     </section>
 
@@ -186,22 +172,11 @@
       </h2>
       <div class="space-y-4">
         <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
-          <CheckBox
-            id="parent-checkbox"
-            v-model="parentSelected"
-            :indeterminate="indeterminate"
-            theme="primary"
-            label="全选"
-          />
+          <CheckBox id="parent-checkbox" v-model="parentSelected" :indeterminate="indeterminate" theme="primary"
+            label="全选" />
           <div class="mt-2 ml-6 space-y-2">
-            <CheckBox
-              v-for="(item, index) in items"
-              :key="index"
-              :id="`child-checkbox-${index}`"
-              v-model="item.checked"
-              :label="item.label"
-              @change="updateParentState"
-            />
+            <CheckBox v-for="(item, index) in items" :key="index" :id="`child-checkbox-${index}`" v-model="item.checked"
+              :label="item.label" @change="updateParentState" />
           </div>
         </div>
       </div>
@@ -213,20 +188,10 @@
         带描述的复选框
       </h2>
       <div class="space-y-4">
-        <CheckBox
-          id="with-description"
-          v-model="checkState.withDescription"
-          theme="primary"
-          label="接收通知"
-          description="我们会在您的账户有重要更新时通过电子邮件通知您。"
-        />
-        <CheckBox
-          id="with-description-2"
-          v-model="checkState.withDescription2"
-          theme="success"
-          label="订阅每周简报"
-          description="每周获取行业资讯和产品更新，保持最新动态。"
-        />
+        <CheckBox id="with-description" v-model="checkState.withDescription" theme="primary" label="接收通知"
+          description="我们会在您的账户有重要更新时通过电子邮件通知您。" />
+        <CheckBox id="with-description-2" v-model="checkState.withDescription2" theme="success" label="订阅每周简报"
+          description="每周获取行业资讯和产品更新，保持最新动态。" />
       </div>
     </section>
 
@@ -240,25 +205,14 @@
           <h3 class="mb-2 text-lg font-medium text-gray-900 dark:text-white">
             水平布局（默认）
           </h3>
-          <CheckBox
-            id="horizontal-layout"
-            v-model="checkState.horizontal"
-            theme="primary"
-            label="水平布局"
-          />
+          <CheckBox id="horizontal-layout" v-model="checkState.horizontal" theme="primary" label="水平布局" />
         </div>
         <div>
           <h3 class="mb-2 text-lg font-medium text-gray-900 dark:text-white">
             垂直布局
           </h3>
-          <CheckBox
-            id="vertical-layout"
-            v-model="checkState.vertical"
-            theme="primary"
-            layout="vertical"
-            label="垂直布局"
-            description="标签在上，复选框在下"
-          />
+          <CheckBox id="vertical-layout" v-model="checkState.vertical" theme="primary" layout="vertical" label="垂直布局"
+            description="标签在上，复选框在下" />
         </div>
       </div>
     </section>
@@ -273,27 +227,9 @@
           使用 <code>inline</code> 属性可以让复选框在一行内显示：
         </p>
         <div class="flex flex-wrap gap-6">
-          <CheckBox
-            id="inline-1"
-            v-model="checkState.inline1"
-            inline
-            theme="primary"
-            label="选项1"
-          />
-          <CheckBox
-            id="inline-2"
-            v-model="checkState.inline2"
-            inline
-            theme="primary"
-            label="选项2"
-          />
-          <CheckBox
-            id="inline-3"
-            v-model="checkState.inline3"
-            inline
-            theme="primary"
-            label="选项3"
-          />
+          <CheckBox id="inline-1" v-model="checkState.inline1" inline theme="primary" label="选项1" />
+          <CheckBox id="inline-2" v-model="checkState.inline2" inline theme="primary" label="选项2" />
+          <CheckBox id="inline-3" v-model="checkState.inline3" inline theme="primary" label="选项3" />
         </div>
       </div>
     </section>
@@ -312,52 +248,19 @@
             复选框组件自动适应亮/暗主题，在不同主题下提供一致的用户体验
           </p>
           <div class="space-y-4">
-            <CheckBox
-              id="dark-theme-1"
-              v-model="checkState.darkTheme1"
-              theme="primary"
-              label="主要主题复选框"
-            />
-            <CheckBox
-              id="dark-theme-2"
-              v-model="checkState.darkTheme2"
-              theme="success"
-              label="成功主题复选框"
-            />
-            <CheckBox
-              id="dark-theme-3"
-              v-model="checkState.darkTheme3"
-              theme="danger"
-              label="危险主题复选框"
-            />
+            <CheckBox id="dark-theme-1" v-model="checkState.darkTheme1" theme="primary" label="主要主题复选框" />
+            <CheckBox id="dark-theme-2" v-model="checkState.darkTheme2" theme="success" label="成功主题复选框" />
+            <CheckBox id="dark-theme-3" v-model="checkState.darkTheme3" theme="danger" label="危险主题复选框" />
           </div>
         </div>
-        
+
         <div class="rounded-lg bg-gray-900 p-6">
           <h3 class="mb-3 text-lg font-medium text-white">深色背景上的复选框</h3>
           <p class="mb-3 text-sm text-gray-300">复选框在深色背景上的表现</p>
           <div class="space-y-4">
-            <CheckBox
-              id="dark-bg-1"
-              v-model="checkState.darkBg1"
-              theme="primary"
-              darkMode
-              label="主要主题复选框"
-            />
-            <CheckBox
-              id="dark-bg-2"
-              v-model="checkState.darkBg2"
-              color="emerald"
-              darkMode
-              label="翠绿色复选框"
-            />
-            <CheckBox
-              id="dark-bg-3"
-              v-model="checkState.darkBg3"
-              color="amber"
-              darkMode
-              label="琥珀色复选框"
-            />
+            <CheckBox id="dark-bg-1" v-model="checkState.darkBg1" theme="primary" darkMode label="主要主题复选框" />
+            <CheckBox id="dark-bg-2" v-model="checkState.darkBg2" color="emerald" darkMode label="翠绿色复选框" />
+            <CheckBox id="dark-bg-3" v-model="checkState.darkBg3" color="amber" darkMode label="琥珀色复选框" />
           </div>
         </div>
       </div>
@@ -370,34 +273,21 @@
       </h2>
 
       <!-- 隐私设置场景 -->
-      <div class="mb-6 max-w-2xl rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+      <div
+        class="mb-6 max-w-2xl rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
         <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">
           隐私设置
         </h3>
         <div class="space-y-6">
-          <CheckBox
-            id="privacy-1"
-            v-model="privacySettings.receiveEmails"
-            theme="primary"
-            label="接收营销邮件"
-            description="我们将向您发送产品更新和特别优惠信息。"
-          />
-          <CheckBox
-            id="privacy-2"
-            v-model="privacySettings.shareData"
-            theme="primary"
-            label="同意数据分享"
-            description="允许我们与合作伙伴共享您的使用数据以改进服务质量。"
-          />
-          <CheckBox
-            id="privacy-3"
-            v-model="privacySettings.cookieTracking"
-            theme="primary"
-            label="允许Cookie跟踪"
-            description="我们使用Cookie来个性化您的体验并收集使用数据。"
-          />
+          <CheckBox id="privacy-1" v-model="privacySettings.receiveEmails" theme="primary" label="接收营销邮件"
+            description="我们将向您发送产品更新和特别优惠信息。" />
+          <CheckBox id="privacy-2" v-model="privacySettings.shareData" theme="primary" label="同意数据分享"
+            description="允许我们与合作伙伴共享您的使用数据以改进服务质量。" />
+          <CheckBox id="privacy-3" v-model="privacySettings.cookieTracking" theme="primary" label="允许Cookie跟踪"
+            description="我们使用Cookie来个性化您的体验并收集使用数据。" />
           <div class="flex justify-end">
-            <button class="rounded-lg bg-blue-500 px-4 py-2 font-medium text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+            <button
+              class="rounded-lg bg-blue-500 px-4 py-2 font-medium text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
               保存设置
             </button>
           </div>
@@ -405,27 +295,23 @@
       </div>
 
       <!-- To-Do列表场景 -->
-      <div class="mb-6 max-w-md rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+      <div
+        class="mb-6 max-w-md rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
         <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">
           待办事项列表
         </h3>
         <div class="space-y-3">
           <div v-for="(task, index) in tasks" :key="index" class="flex items-center gap-3">
-            <CheckBox
-              :id="`todo-${index}`"
-              v-model="task.completed"
-              :theme="task.completed ? 'success' : 'primary'"
-            />
+            <CheckBox :id="`todo-${index}`" v-model="task.completed" :theme="task.completed ? 'success' : 'primary'" />
             <span :class="{ 'line-through text-gray-400': task.completed }">
               {{ task.text }}
             </span>
           </div>
           <div class="flex items-center justify-between pt-2">
             <span class="text-sm text-gray-500 dark:text-gray-400">
-              {{ tasks.filter(t => t.completed).length }}/{{ tasks.length }} 已完成
+              {{tasks.filter(t => t.completed).length}}/{{ tasks.length }} 已完成
             </span>
-            <button 
-              @click="resetTasks" 
+            <button @click="resetTasks"
               class="text-sm text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
               重置
             </button>
@@ -434,7 +320,8 @@
       </div>
 
       <!-- 多选表单场景 -->
-      <div class="max-w-lg rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+      <div
+        class="max-w-lg rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
         <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">
           兴趣爱好调查
         </h3>
@@ -442,17 +329,12 @@
           请选择您感兴趣的所有主题，以便我们为您推荐相关内容。
         </p>
         <div class="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2">
-          <CheckBox
-            v-for="(hobby, index) in hobbies"
-            :key="index"
-            :id="`hobby-${index}`"
-            v-model="hobby.selected"
-            color="indigo"
-            :label="hobby.name"
-          />
+          <CheckBox v-for="(hobby, index) in hobbies" :key="index" :id="`hobby-${index}`" v-model="hobby.selected"
+            color="indigo" :label="hobby.name" />
         </div>
         <div class="flex justify-end">
-          <button class="rounded-lg bg-indigo-500 px-4 py-2 font-medium text-white hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-700">
+          <button
+            class="rounded-lg bg-indigo-500 px-4 py-2 font-medium text-white hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-700">
             提交选择
           </button>
         </div>
@@ -492,7 +374,7 @@ const checkState = reactive({
   warning: false,
   danger: true,
   info: false,
-  
+
   // 颜色系列
   slate: false,
   gray: true,
@@ -516,32 +398,32 @@ const checkState = reactive({
   fuchsia: true,
   pink: false,
   rose: true,
-  
+
   // 尺寸
   size: true,
-  
+
   // 禁用状态
   disabledUnchecked: false,
   disabledChecked: true,
-  
+
   // 描述
   withDescription: true,
   withDescription2: false,
-  
+
   // 布局方向
   horizontal: true,
   vertical: true,
-  
+
   // 内联
   inline1: true,
   inline2: false,
   inline3: true,
-  
+
   // 暗色主题
   darkTheme1: true,
   darkTheme2: false,
   darkTheme3: true,
-  
+
   // 深色背景
   darkBg1: true,
   darkBg2: false,
