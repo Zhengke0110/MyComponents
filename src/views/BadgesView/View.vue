@@ -532,12 +532,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch, onMounted, onBeforeUnmount } from "vue";
 import { Badge } from "../../components/Badges";
 import { useDark, useToggle } from '@vueuse/core';
 
 // 使用 vueuse/core 的暗色模式钩子
-const isDark = useDark();
+const isDark = useDark({
+  selector: 'html',
+  attribute: 'class',
+  valueDark: 'dark',
+  valueLight: ''
+});
 const toggleDark = useToggle(isDark);
 
 // 检查系统颜色偏好
@@ -553,31 +558,100 @@ const lastClicked = ref("");
 const handleBadgeClick = (name: string) => {
     lastClicked.value = name;
 };
+
+// 确保暗色模式正确应用
+onMounted(() => {
+  // 初始应用暗色模式
+  if (isDark.value) {
+    document.documentElement.classList.add('dark');
+    document.body.classList.add('dark-mode');
+  }
+  
+  // 自动检测并添加使用暗色模式的标记类
+  document.documentElement.classList.add('using-dark-mode');
+});
+
+// 监听暗色模式变化
+watch(isDark, (newVal) => {
+  if (newVal) {
+    document.documentElement.classList.add('dark');
+    document.body.classList.add('dark-mode');
+  } else {
+    document.documentElement.classList.remove('dark');
+    document.body.classList.remove('dark-mode');
+  }
+  
+  // 强制触发重新渲染
+  setTimeout(() => {
+    document.body.style.transition = 'background-color 0.3s ease';
+    if (newVal) {
+      document.body.style.backgroundColor = '#1f2937';
+    } else {
+      document.body.style.backgroundColor = '';
+    }
+  }, 0);
+});
+
+// 清理函数
+onBeforeUnmount(() => {
+  document.documentElement.classList.remove('using-dark-mode');
+});
 </script>
 
 <style>
 /* 增强暗黑模式文字显示，确保所有标题都有明确的暗模式颜色 */
+/* 确保暗模式生效的基本样式 */
+:root {
+  color-scheme: light;
+}
+
+:root.dark, html.dark {
+  color-scheme: dark;
+  background-color: #1f2937; /* gray-800 */
+}
+
+body.dark-mode {
+  background-color: #1f2937; /* gray-800 */
+}
+
+/* 确保所有标题和文本在暗色模式下显示为白色 */
 .dark h1,
 .dark h2,
 .dark h3,
 .dark h4,
 .dark h5,
-.dark h6 {
-    color: white;
+.dark h6,
+.dark .text-gray-900 {
+  color: white !important;
 }
 
-/* 确保暗模式生效的基本样式 */
-:root {
-    color-scheme: light;
+/* 暗色模式下其他文本颜色适配 */
+.dark .text-gray-700 {
+  color: #d1d5db !important; /* gray-300 */
 }
 
-.dark {
-    color-scheme: dark;
+.dark .text-gray-600 {
+  color: #9ca3af !important; /* gray-400 */
 }
 
+/* 强制背景色适配暗色模式 */
+.dark .bg-white {
+  background-color: #1f2937 !important; /* gray-800 */
+}
+
+/* 强制边框颜色适配暗色模式 */
+.dark .border-gray-200 {
+  border-color: #374151 !important; /* gray-700 */
+}
+
+/* 系统暗色模式自动适配 */
 @media (prefers-color-scheme: dark) {
-    :root {
-        color-scheme: dark;
-    }
+  :root.using-dark-mode:not(.light) {
+    background-color: #1f2937;
+  }
+  
+  :root:not(.using-dark-mode) {
+    color-scheme: dark;
+  }
 }
 </style>
