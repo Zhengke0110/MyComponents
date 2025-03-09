@@ -1,0 +1,45 @@
+/**
+ * 日历组件主题样式
+ */
+
+:root {
+  --calendar-bg: #ffffff;
+  --calendar-border-color: #e5e7eb;
+  --calendar-text-color: #111827;
+}
+
+/* 暗色模式变量 */
+.dark {
+  --calendar-dark-bg: #1f2937;
+  --calendar-dark-border: #374151;
+  --calendar-dark-text-color: #f3f4f6;
+}
+
+/* 针对嵌套容器的处理 */
+.calendar-container {
+  background-color: var(--calendar-bg);
+  border-color: var(--calendar-border-color);
+  color: var(--calendar-text-color);
+}
+
+.dark .calendar-container {
+  background-color: var(--calendar-dark-bg);
+  border-color: var(--calendar-dark-border);
+  color: var(--calendar-dark-text-color);
+}
+
+/* 确保日历标题在暗色模式下可见 */
+.dark .calendar-title {
+  color: var(--calendar-dark-text-color);
+}
+
+/* 确保暗色模式下按钮样式正确 */
+.dark .calendar-container button:not(:disabled) {
+  color: var(--calendar-dark-text-color);
+}
+
+/* 确保内容显示区域在暗色模式下的背景和文字颜色正确 */
+.dark .calendar-info-area {
+  background-color: #374151;
+  color: #e5e7eb;
+}

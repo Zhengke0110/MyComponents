@@ -11,6 +11,7 @@
 - 📱 响应式设计，支持移动端
 - 🎯 支持禁用非当前月份日期
 - 📅 自定义日期格式输出
+- 🌈 丰富的主题色彩选项
 
 ## 基础用法
 
@@ -60,6 +61,25 @@ const handleRangeSelect = (start: string, end: string) => {
 </script>
 ```
 
+### 自定义主题色
+
+```vue
+<template>
+  <Calendars
+    v-model:selectedDate="date"
+    mode="single"
+    theme="indigo"
+  />
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { Calendars } from '@your-org/component-library';
+
+const date = ref('');
+</script>
+```
+
 ## API
 
 ### Props
@@ -74,6 +94,7 @@ const handleRangeSelect = (start: string, end: string) => {
 | selectedDate | `string` | - | 选中的日期（单选模式） |
 | startDate | `string` | - | 范围开始日期（范围模式） |
 | endDate | `string` | - | 范围结束日期（范围模式） |
+| theme | `ColorType` | `'blue'` | 主题颜色，支持 Tailwind 所有基础颜色 |
 
 ### Events
 
@@ -91,17 +112,15 @@ const handleRangeSelect = (start: string, end: string) => {
 
 ## 自定义主题
 
-组件使用 Tailwind CSS 类名进行样式定义，支持通过覆盖以下类名来自定义主题：
+组件提供多种颜色主题选项，支持所有 Tailwind CSS 的基础色系：
 
-```css
-.calendar-container {
-  /* 日历容器样式 */
-}
+- 灰色系：slate, gray, zinc, neutral, stone
+- 暖色系：red, orange, amber, yellow
+- 绿色系：lime, green, emerald, teal
+- 蓝色系：cyan, sky, blue, indigo
+- 紫粉色系：violet, purple, fuchsia, pink, rose
 
-.calendar-title {
-  /* 月份标题样式 */
-}
-```
+可以通过 `theme` 属性进行设置。
 
 ## 动画效果
 
