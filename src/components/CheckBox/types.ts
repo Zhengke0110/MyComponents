@@ -1,5 +1,5 @@
 import type { PropType, ExtractPropTypes } from 'vue';
-import { ColorType, ThemeColorType } from '../colors';
+import { ColorType, ThemeColorType } from './config';
 
 /**
  * CheckBox 组件接口定义
