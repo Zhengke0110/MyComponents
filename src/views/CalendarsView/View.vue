@@ -51,7 +51,7 @@
                 selectedTheme === color ? `ring-2 ring-offset-1` : 'hover:opacity-80'
               ]" @click="setSelectedTheme(color)">
               <span>{{ color }}</span>
-              <span v-if="selectedTheme === color" class="i-tabler-check text-white w-4 h-4"></span>
+              <span v-if="selectedTheme === color" class="icon-[material-symbols--check-rounded] text-white w-4 h-4"></span>
             </div>
           </div>
         </div>

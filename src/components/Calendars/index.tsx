@@ -212,22 +212,22 @@ export default defineComponent({
       >
         <div class="flex items-center justify-between p-4 md:p-6">
           {/* Title with transition */}
-          <div class="relative">
+          <div class="relative h-7 md:h-8 overflow-hidden">
             <TransitionGroup
               tag="div"
-              enterActiveClass="transition-all duration-300 ease-out-back transform-gpu"
-              enterFromClass="opacity-0 -translate-x-4 blur-sm"
-              enterToClass="opacity-100 translate-x-0 blur-0"
-              leaveActiveClass="transition-all duration-200 ease-in-back transform-gpu"
-              leaveFromClass="opacity-100 translate-x-0 blur-0"
-              leaveToClass="opacity-0 translate-x-4 blur-sm"
-              moveClass="transition-all duration-500 ease-in-out"
+              enterActiveClass="transition-all duration-200 ease-out transform-gpu absolute w-full"
+              enterFromClass="opacity-0 -translate-x-4"
+              enterToClass="opacity-100 translate-x-0"
+              leaveActiveClass="transition-all duration-200 ease-in transform-gpu absolute w-full"
+              leaveFromClass="opacity-100 translate-x-0"
+              leaveToClass="opacity-0 translate-x-4"
+              moveClass="transition-transform duration-200"
             >
               {{
                 default: () => [
                   <h2
                     key={currentMonthLabel.value}
-                    class="calendar-title text-base font-medium md:text-lg text-gray-800 dark:text-gray-100"
+                    class="calendar-title text-base font-medium md:text-lg text-gray-800 dark:text-gray-100 whitespace-nowrap"
                   >
                     {currentMonthLabel.value}
                   </h2>
@@ -243,7 +243,7 @@ export default defineComponent({
               class={`group rounded-full p-2 text-gray-400 transition-all duration-200 hover:bg-gray-50 hover:text-gray-600 ${themeClasses.value.focus} focus:ring-2 focus:ring-offset-2 focus:outline-none dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:ring-offset-gray-800`}
             >
               <span class="sr-only">Previous month</span>
-              <i class="i-tabler-chevron-left size-5 transition-transform duration-200 group-hover:-translate-x-0.5 md:size-6" />
+              <i class="icon-[material-symbols--chevron-left-rounded] size-5 transition-transform duration-200 group-hover:-translate-x-0.5 md:size-6" />
             </button>
             <button
               type="button"
@@ -251,7 +251,7 @@ export default defineComponent({
               class={`group rounded-full p-2 text-gray-400 transition-all duration-200 hover:bg-gray-50 hover:text-gray-600 ${themeClasses.value.focus} focus:ring-2 focus:ring-offset-2 focus:outline-none dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:ring-offset-gray-800`}
             >
               <span class="sr-only">Next month</span>
-              <i class="i-tabler-chevron-right size-5 transition-transform duration-200 group-hover:translate-x-0.5 md:size-6" />
+              <i class="icon-[material-symbols--chevron-right-rounded] size-5 transition-transform duration-200 group-hover:translate-x-0.5 md:size-6" />
             </button>
           </div>
         </div>
