@@ -1,46 +1,67 @@
 import { h, render, ref, computed, onMounted, type PropType, CSSProperties, Teleport, TransitionGroup, defineComponent } from 'vue'
 
+// 所有可用的颜色类型
+export type ColorType = 
+  | 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone'  // 灰色系
+  | 'red' | 'orange' | 'amber' | 'yellow'            // 暖色系
+  | 'lime' | 'green' | 'emerald' | 'teal'            // 绿色系
+  | 'cyan' | 'sky' | 'blue' | 'indigo'               // 蓝色系
+  | 'violet' | 'purple' | 'fuchsia' | 'pink' | 'rose'; // 紫粉色系
+
+// 常用的主题色类型 (用于简化部分组件的类型定义)
+export type ThemeColorType = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info';
+
+// 主题色对应的实际颜色
+export const THEME_COLOR_MAP: Record<ThemeColorType, ColorType> = {
+  primary: 'indigo',
+  secondary: 'gray',
+  success: 'green',
+  warning: 'yellow',
+  danger: 'red',
+  info: 'blue'
+};
+
+
 interface MessageProps {
   id: string
-  type: 'success' | 'warning' | 'error' | 'info'  // 添加 info 类型
+  type: 'success' | 'warning' | 'error' | 'info'
   content: string
   duration?: number
   position?: 'top' | 'bottom'
   closable?: boolean
   onClose?: () => void
   destroy: (el: Element) => void
+  color?: ColorType // 添加自定义颜色属性
 }
 
-const styles: Record<'success' | 'warning' | 'error' | 'info', {  // 添加 info 样式
+// 根据颜色生成样式的函数
+const getStylesForColor = (color: ColorType) => {
+  return {
+    iconWrapperClass: `text-${color}-700`,
+    textClass: `text-${color}-700`,
+    closeButtonClass: `bg-${color}-600/10 text-${color}-700 hover:bg-${color}-600/20`,
+    containerClass: `bg-${color}-100 border border-${color}-200/50 shadow-lg shadow-${color}-500/10`,
+  }
+}
+
+// 定义不同类型的颜色映射
+const typeToColorMap = {
+  success: THEME_COLOR_MAP.success,
+  warning: THEME_COLOR_MAP.warning,
+  error: THEME_COLOR_MAP.danger,
+  info: THEME_COLOR_MAP.info,
+}
+
+const styles: Record<'success' | 'warning' | 'error' | 'info', {
   iconWrapperClass: string,
   textClass: string,
   closeButtonClass: string,
   containerClass: string,
 }> = {
-  success: {
-    iconWrapperClass: 'text-green-700',
-    textClass: 'text-green-700',
-    closeButtonClass: 'bg-green-600/10 text-green-700 hover:bg-green-600/20',
-    containerClass: 'bg-green-100 border border-green-200/50 shadow-lg shadow-green-500/10',
-  },
-  warning: {
-    iconWrapperClass: 'text-amber-700',
-    textClass: 'text-amber-700',
-    closeButtonClass: 'bg-amber-600/10 text-amber-700 hover:bg-amber-600/20',
-    containerClass: 'bg-amber-100 border border-amber-200/50 shadow-lg shadow-amber-500/10',
-  },
-  error: {
-    iconWrapperClass: 'text-red-700',
-    textClass: 'text-red-700',
-    closeButtonClass: 'bg-red-600/10 text-red-700 hover:bg-red-600/20',
-    containerClass: 'bg-red-100 border border-red-200/50 shadow-lg shadow-red-500/10',
-  },
-  info: {
-    iconWrapperClass: 'text-blue-700',
-    textClass: 'text-blue-700',
-    closeButtonClass: 'bg-blue-600/10 text-blue-700 hover:bg-blue-600/20',
-    containerClass: 'bg-blue-100 border border-blue-200/50 shadow-lg shadow-blue-500/10',
-  },
+  success: getStylesForColor(typeToColorMap.success),
+  warning: getStylesForColor(typeToColorMap.warning),
+  error: getStylesForColor(typeToColorMap.error),
+  info: getStylesForColor(typeToColorMap.info),
 }
 
 const messageStyles = {
@@ -69,7 +90,7 @@ const MessageComponent = defineComponent({
       required: true
     },
     type: {
-      type: String as PropType<'success' | 'warning' | 'error' | 'info'>,  // 添加 info 类型
+      type: String as PropType<'success' | 'warning' | 'error' | 'info'>,
       required: true
     },
     content: {
@@ -94,6 +115,10 @@ const MessageComponent = defineComponent({
     destroy: {
       type: Function,
       required: true
+    },
+    color: {
+      type: String as PropType<ColorType>,
+      default: null
     }
   },
   setup(props) {
@@ -104,6 +129,10 @@ const MessageComponent = defineComponent({
       'top-4': props.position === 'top',
       'bottom-4': props.position === 'bottom',
     }))
+
+    // 计算使用的颜色和样式
+    const currentColor = computed(() => props.color || typeToColorMap[props.type])
+    const currentStyle = computed(() => props.color ? getStylesForColor(props.color) : styles[props.type])
 
     const handleClose = () => {
       isVisible.value = false
@@ -122,6 +151,9 @@ const MessageComponent = defineComponent({
     })
 
     const renderIcon = () => {
+      // 使用相应的图标颜色类
+      const iconColorClass = currentStyle.value.iconWrapperClass
+
       if (props.type === 'success') {
         return (
           <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -165,22 +197,22 @@ const MessageComponent = defineComponent({
             class={[
               'fixed left-[50%] z-50 flex items-center px-5 py-3 rounded-lg transform -translate-x-1/2 transition-all duration-300',
               positionClass.value,
-              styles[props.type].containerClass,
+              currentStyle.value.containerClass,
               { 'cursor-pointer': props.closable },
             ]}
             onClick={() => props.closable && handleClose()}
           >
-            <div class={['mr-3 flex-shrink-0', styles[props.type].iconWrapperClass]}>
+            <div class={['mr-3 flex-shrink-0', currentStyle.value.iconWrapperClass]}>
               {renderIcon()}
             </div>
 
-            <span class={['text-sm font-medium', styles[props.type].textClass]}>
+            <span class={['text-sm font-medium', currentStyle.value.textClass]}>
               {props.content}
             </span>
 
             {props.closable && (
               <button
-                class={['ml-4 p-1 rounded-full transition-all duration-200', styles[props.type].closeButtonClass]}
+                class={['ml-4 p-1 rounded-full transition-all duration-200', currentStyle.value.closeButtonClass]}
                 onClick={(e: Event) => {
                   e.stopPropagation()
                   handleClose()
@@ -197,7 +229,7 @@ const MessageComponent = defineComponent({
 })
 
 const createMessage = (
-  type: 'success' | 'warning' | 'error' | 'info',  // 添加 info 类型
+  type: 'success' | 'warning' | 'error' | 'info',
   content: string,
   options: Partial<MessageProps> = {}
 ) => {
@@ -219,6 +251,32 @@ const createMessage = (
   render(vnode, container)
 }
 
+// 创建自定义主题颜色消息的方法
+const createThemedMessage = (
+  color: ColorType,
+  content: string,
+  options: Partial<MessageProps> = {}
+) => {
+  const id = `message_${seed++}`
+  const container = document.createElement('div')
+
+  const destroy = () => {
+    render(null, container)
+  }
+
+  // 默认使用 info 类型的图标
+  const vnode = h(MessageComponent, {
+    id,
+    type: 'info',
+    content,
+    destroy,
+    color,
+    ...options,
+  })
+
+  render(vnode, container)
+}
+
 export const Message = {
   success(content: string, options?: Partial<MessageProps>) {
     return createMessage('success', content, options)
@@ -229,9 +287,13 @@ export const Message = {
   error(content: string, options?: Partial<MessageProps>) {
     return createMessage('error', content, options)
   },
-  info(content: string, options?: Partial<MessageProps>) {  // 添加 info 方法
+  info(content: string, options?: Partial<MessageProps>) {
     return createMessage('info', content, options)
   },
+  // 新增 theme 方法，支持自定义颜色
+  theme(content: string, color: ColorType, options?: Partial<MessageProps>) {
+    return createThemedMessage(color, content, options)
+  }
 }
 
 export default Message

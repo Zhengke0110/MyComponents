@@ -5,6 +5,7 @@
 ## 特性
 
 - 支持多种消息类型：success、warning、error、info
+- 支持自定义主题颜色
 - 可自定义显示位置：顶部或底部
 - 可配置显示时间
 - 支持手动关闭
@@ -27,18 +28,22 @@ Message.error('错误信息')
 
 // 信息提示
 Message.info('普通信息')
+
+// 使用自定义主题颜色
+Message.theme('自定义颜色消息', 'purple')
 ```
 
 ## API
 
 ### 方法
 
-组件提供以下四个静态方法：
+组件提供以下五个静态方法：
 
 - `Message.success(content, options?)`
 - `Message.warning(content, options?)`
 - `Message.error(content, options?)`
 - `Message.info(content, options?)`
+- `Message.theme(content, color, options?)` - 使用自定义颜色主题
 
 ### 配置项
 
@@ -51,6 +56,7 @@ Message.info('普通信息')
 | position | 显示位置 | 'top' \| 'bottom' | 'top' |
 | closable | 是否显示关闭按钮 | boolean | false |
 | onClose | 关闭时的回调函数 | () => void | - |
+| color | 自定义主题颜色（仅用于 theme 方法） | ColorType | - |
 
 ## 示例
 
@@ -76,7 +82,21 @@ Message.success('消息 1')
 setTimeout(() => {
   Message.warning('消息 2')
 }, 300)
+
+// 使用自定义主题颜色
+Message.theme('紫色主题消息', 'purple')
+Message.theme('青色主题消息', 'teal', { closable: true })
+Message.theme('粉色主题消息', 'rose', { position: 'bottom' })
 ```
+
+## 自定义主题颜色
+
+组件支持的颜色类型包括：
+- 灰色系：'slate', 'gray', 'zinc', 'neutral', 'stone'
+- 暖色系：'red', 'orange', 'amber', 'yellow'
+- 绿色系：'lime', 'green', 'emerald', 'teal'
+- 蓝色系：'cyan', 'sky', 'blue', 'indigo'
+- 紫粉色系：'violet', 'purple', 'fuchsia', 'pink', 'rose'
 
 ## 样式定制
 
