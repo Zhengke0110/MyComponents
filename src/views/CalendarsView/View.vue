@@ -374,7 +374,6 @@ onMounted(() => {
 </script>
 
 <style>
-/* 增强暗黑模式文字显示，确保所有标题都有明确的暗模式颜色 */
 /* 确保暗模式生效的基本样式 */
 :root {
   color-scheme: light;
@@ -407,11 +406,6 @@ body.dark-mode {
 
 .dark .text-gray-600 {
   color: #9ca3af !important; /* gray-400 */
-}
-
-/* 过渡效果 */
-body {
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* 系统暗色模式自动适配 */

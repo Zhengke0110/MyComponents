@@ -2,6 +2,41 @@
     <div class="container mx-auto px-4 py-8 text-gray-900 dark:text-white">
         <h1 class="mb-8 text-3xl font-bold">Badge 徽章组件</h1>
 
+        <!-- 暗色模式切换 - 使用 @vueuse/core 的实现 -->
+        <div class="mb-6 flex justify-end">
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm">暗色模式</span>
+                    <div class="relative inline-block h-6 w-11 cursor-pointer rounded-full bg-gray-200 transition-colors duration-200 ease-in-out dark:bg-blue-600"
+                        @click="toggleDark()">
+                        <span :class="[
+                            'absolute left-1 top-1 h-4 w-4 rounded-full bg-white transition-transform duration-200 ease-in-out',
+                            isDark ? 'translate-x-5' : 'translate-x-0'
+                        ]"></span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button
+                        class="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 bg-blue-500 hover:bg-blue-600 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white font-medium"
+                        @click="toggleDark()">
+                        <span :class="[
+                            isDark ? 'icon-[material-symbols--wb-sunny-outline-rounded]' : 'icon-[material-symbols--dark-mode-outline-rounded]',
+                            'size-5'
+                        ]"></span>
+                        <span>{{ isDark ? '切换到亮色模式' : '切换到暗色模式' }}</span>
+                    </button>
+
+                    <button
+                        class="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium"
+                        @click="preferredDark ? toggleDark(false) : toggleDark(true)">
+                        <span class="icon-[material-symbols--settings-outline-rounded] size-5"></span>
+                        <span>系统偏好</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- 基础颜色展示 -->
         <section class="mb-10">
             <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">基础颜色</h2>
@@ -194,10 +229,13 @@
         <section class="mb-10">
             <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">实际应用示例</h2>
 
-            <div class="mb-6 max-w-md rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+            <div
+                class="mb-6 max-w-md rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
                 <div class="mb-3 flex items-center gap-3">
-                    <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
-                        <div class="icon-[material-symbols--supervised-user-circle-outline] h-6 w-6 text-blue-600 dark:text-blue-400" />
+                    <div
+                        class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
+                        <div
+                            class="icon-[material-symbols--supervised-user-circle-outline] h-6 w-6 text-blue-600 dark:text-blue-400" />
                     </div>
                     <div>
                         <div class="font-medium text-gray-900 dark:text-white">用户状态</div>
@@ -211,7 +249,8 @@
                 </div>
             </div>
 
-            <div class="mb-6 max-w-md rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+            <div
+                class="mb-6 max-w-md rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
                 <div class="mb-3 flex items-center justify-between">
                     <div class="font-medium text-gray-900 dark:text-white">系统状态</div>
                     <Badge text="正常运行" theme="success" variant="soft" rounded="full" />
@@ -538,10 +577,10 @@ import { useDark, useToggle } from '@vueuse/core';
 
 // 使用 vueuse/core 的暗色模式钩子
 const isDark = useDark({
-  selector: 'html',
-  attribute: 'class',
-  valueDark: 'dark',
-  valueLight: ''
+    selector: 'html',
+    attribute: 'class',
+    valueDark: 'dark',
+    valueLight: ''
 });
 const toggleDark = useToggle(isDark);
 
@@ -561,57 +600,59 @@ const handleBadgeClick = (name: string) => {
 
 // 确保暗色模式正确应用
 onMounted(() => {
-  // 初始应用暗色模式
-  if (isDark.value) {
-    document.documentElement.classList.add('dark');
-    document.body.classList.add('dark-mode');
-  }
-  
-  // 自动检测并添加使用暗色模式的标记类
-  document.documentElement.classList.add('using-dark-mode');
+    // 初始应用暗色模式
+    if (isDark.value) {
+        document.documentElement.classList.add('dark');
+        document.body.classList.add('dark-mode');
+    }
+
+    // 自动检测并添加使用暗色模式的标记类
+    document.documentElement.classList.add('using-dark-mode');
 });
 
 // 监听暗色模式变化
 watch(isDark, (newVal) => {
-  if (newVal) {
-    document.documentElement.classList.add('dark');
-    document.body.classList.add('dark-mode');
-  } else {
-    document.documentElement.classList.remove('dark');
-    document.body.classList.remove('dark-mode');
-  }
-  
-  // 强制触发重新渲染
-  setTimeout(() => {
-    document.body.style.transition = 'background-color 0.3s ease';
     if (newVal) {
-      document.body.style.backgroundColor = '#1f2937';
+        document.documentElement.classList.add('dark');
+        document.body.classList.add('dark-mode');
     } else {
-      document.body.style.backgroundColor = '';
+        document.documentElement.classList.remove('dark');
+        document.body.classList.remove('dark-mode');
     }
-  }, 0);
+
+    // 强制触发重新渲染
+    setTimeout(() => {
+        document.body.style.transition = 'background-color 0.3s ease';
+        if (newVal) {
+            document.body.style.backgroundColor = '#1f2937';
+        } else {
+            document.body.style.backgroundColor = '';
+        }
+    }, 0);
 });
 
 // 清理函数
 onBeforeUnmount(() => {
-  document.documentElement.classList.remove('using-dark-mode');
+    document.documentElement.classList.remove('using-dark-mode');
 });
 </script>
 
 <style>
-/* 增强暗黑模式文字显示，确保所有标题都有明确的暗模式颜色 */
 /* 确保暗模式生效的基本样式 */
 :root {
-  color-scheme: light;
+    color-scheme: light;
 }
 
-:root.dark, html.dark {
-  color-scheme: dark;
-  background-color: #1f2937; /* gray-800 */
+:root.dark,
+html.dark {
+    color-scheme: dark;
+    background-color: #1f2937;
+    /* gray-800 */
 }
 
 body.dark-mode {
-  background-color: #1f2937; /* gray-800 */
+    background-color: #1f2937;
+    /* gray-800 */
 }
 
 /* 确保所有标题和文本在暗色模式下显示为白色 */
@@ -622,36 +663,40 @@ body.dark-mode {
 .dark h5,
 .dark h6,
 .dark .text-gray-900 {
-  color: white !important;
+    color: white !important;
 }
 
 /* 暗色模式下其他文本颜色适配 */
 .dark .text-gray-700 {
-  color: #d1d5db !important; /* gray-300 */
+    color: #d1d5db !important;
+    /* gray-300 */
 }
 
 .dark .text-gray-600 {
-  color: #9ca3af !important; /* gray-400 */
+    color: #9ca3af !important;
+    /* gray-400 */
 }
 
 /* 强制背景色适配暗色模式 */
 .dark .bg-white {
-  background-color: #1f2937 !important; /* gray-800 */
+    background-color: #1f2937 !important;
+    /* gray-800 */
 }
 
 /* 强制边框颜色适配暗色模式 */
 .dark .border-gray-200 {
-  border-color: #374151 !important; /* gray-700 */
+    border-color: #374151 !important;
+    /* gray-700 */
 }
 
 /* 系统暗色模式自动适配 */
 @media (prefers-color-scheme: dark) {
-  :root.using-dark-mode:not(.light) {
-    background-color: #1f2937;
-  }
-  
-  :root:not(.using-dark-mode) {
-    color-scheme: dark;
-  }
+    :root.using-dark-mode:not(.light) {
+        background-color: #1f2937;
+    }
+
+    :root:not(.using-dark-mode) {
+        color-scheme: dark;
+    }
 }
 </style>
