@@ -1,7 +1,7 @@
 import { defineComponent, ref, watch, onMounted, onUnmounted, nextTick, type PropType } from 'vue'
 import { useThrottleFn } from '@vueuse/core'
 
-interface InfiniteProps {
+export interface InfiniteProps {
   modelValue?: boolean
   isFinished?: boolean
   threshold?: number
@@ -16,35 +16,35 @@ export const Infinite = defineComponent({
   name: 'Infinite',
   props: {
     modelValue: {
-      type: Boolean as PropType<boolean>,
+      type: Boolean as PropType<InfiniteProps['modelValue']>,
       default: false
     },
     isFinished: {
-      type: Boolean as PropType<boolean>,
+      type: Boolean as PropType<InfiniteProps['isFinished']>,
       default: false
     },
     threshold: {
-      type: Number as PropType<number>,
+      type: Number as PropType<InfiniteProps['threshold']>,
       default: 100
     },
     distance: {
-      type: Number as PropType<number>,
+      type: Number as PropType<InfiniteProps['distance']>,
       default: 0
     },
     loadingText: {
-      type: String as PropType<string>,
+      type: String as PropType<InfiniteProps['loadingText']>,
       default: '加载中...'
     },
     finishedText: {
-      type: String as PropType<string>,
+      type: String as PropType<InfiniteProps['finishedText']>,
       default: '没有更多了'
     },
     errorText: {
-      type: String as PropType<string>,
+      type: String as PropType<InfiniteProps['errorText']>,
       default: '加载失败'
     },
     immediateCheck: {
-      type: Boolean as PropType<boolean>,
+      type: Boolean as PropType<InfiniteProps['immediateCheck']>,
       default: true
     }
   },
@@ -60,7 +60,7 @@ export const Infinite = defineComponent({
       const { clientHeight } = document.documentElement
       const containerBottom = container.value.getBoundingClientRect().bottom
 
-      if (containerBottom <= clientHeight + props.threshold) {
+      if (containerBottom <= clientHeight + (props.threshold ?? 100)) {
         loading.value = true
         emit('update:modelValue', true)
         emit('on-load')
