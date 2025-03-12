@@ -1,14 +1,14 @@
-import { defineComponent, ref, computed, watch, onMounted, nextTick, PropType } from 'vue';
+import { defineComponent, ref, computed, onMounted, nextTick, PropType } from 'vue';
 import { useTransition } from '@vueuse/core';
 import hljs from 'highlight.js';
 import * as clipboard from 'clipboard-polyfill';
 import 'highlight.js/styles/atom-one-dark-reasonable.css';
+import { ANIMATION_DURATION, CODE_PREVIEW_STYLES, SYNTAX_HIGHLIGHT_STYLE } from './config';
 
 // Define component props with TypeScript
 interface CodePreviewProps {
     code: string;
     language?: string;
-    theme: 'light' | 'dark';
     initiallyExpanded?: boolean;
     title?: string;
     description?: string;
@@ -26,11 +26,6 @@ export default defineComponent<CodePreviewProps>({
         language: {
             type: String as PropType<CodePreviewProps['language']>,
             default: 'html'
-        },
-        theme: {
-            type: String as PropType<CodePreviewProps['theme']>,
-            default: 'light',
-            validator: (value: string) => ['light', 'dark'].includes(value)
         },
         initiallyExpanded: {
             type: Boolean as PropType<CodePreviewProps['initiallyExpanded']>,
@@ -57,9 +52,6 @@ export default defineComponent<CodePreviewProps>({
         // Track if the component is mounted
         const isMounted = ref(false);
 
-        // Create a reactive computed property for theme class
-        const themeClass = computed(() => props.theme === 'dark' ? 'dark-theme' : 'light-theme');
-
         // Calculate the height of the code container
         const calculateCodeHeight = async () => {
             await nextTick();
@@ -83,7 +75,7 @@ export default defineComponent<CodePreviewProps>({
             // Reset animation state after transition completes
             setTimeout(() => {
                 isAnimating.value = false;
-            }, 300);
+            }, ANIMATION_DURATION);
         };
 
         // Enhanced copy code function with clipboard-polyfill
@@ -171,126 +163,19 @@ export default defineComponent<CodePreviewProps>({
             }
         });
 
-        // Use a more efficient CSS-in-JS approach with CSS variables
+        // Inject theme styles using CSS variables that respect dark mode
         const injectThemeStyles = () => {
-            // Create a single style element with variables
             const styleElement = document.getElementById('code-preview-theme') || document.createElement('style');
             styleElement.id = 'code-preview-theme';
-
-            styleElement.textContent = `
-        /* Base styles that apply to all themes */
-        .code-preview-container pre {
-          margin: 0;
-        }
-        
-        .code-preview-container code {
-          font-family: monospace;
-          white-space: pre;
-          border-radius: 0.25rem;
-          padding: 0 !important;
-        }
-        
-        /* Light theme variables */
-        .code-preview-light {
-          --cp-background: #f5f5f5;
-          --cp-text: #24292e;
-          --cp-keyword: #d73a49;
-          --cp-title: #6f42c1;
-          --cp-attr: #005cc5;
-          --cp-string: #032f62;
-          --cp-builtin: #e36209;
-          --cp-comment: #6a737d;
-        }
-        
-        /* Dark theme variables */
-        .code-preview-dark {
-          --cp-background: #0d1117;
-          --cp-text: #c9d1d9;
-          --cp-keyword: #ff7b72;
-          --cp-title: #d2a8ff;
-          --cp-attr: #79c0ff;
-          --cp-string: #a5d6ff;
-          --cp-builtin: #ffa657;
-          --cp-comment: #8b949e;
-        }
-        
-        /* Apply theme variables to syntax */
-        .code-preview-container .hljs {
-          color: var(--cp-text) !important;
-          background: transparent !important;
-        }
-        
-        .code-preview-container .hljs-doctag, 
-        .code-preview-container .hljs-keyword, 
-        .code-preview-container .hljs-meta .hljs-keyword, 
-        .code-preview-container .hljs-template-tag, 
-        .code-preview-container .hljs-template-variable, 
-        .code-preview-container .hljs-type, 
-        .code-preview-container .hljs-variable.language_ {
-          color: var(--cp-keyword) !important;
-        }
-        
-        .code-preview-container .hljs-title, 
-        .code-preview-container .hljs-title.class_, 
-        .code-preview-container .hljs-title.class_.inherited__, 
-        .code-preview-container .hljs-title.function_ {
-          color: var(--cp-title) !important;
-        }
-        
-        .code-preview-container .hljs-attr, 
-        .code-preview-container .hljs-attribute, 
-        .code-preview-container .hljs-literal, 
-        .code-preview-container .hljs-meta, 
-        .code-preview-container .hljs-number, 
-        .code-preview-container .hljs-operator, 
-        .code-preview-container .hljs-selector-attr, 
-        .code-preview-container .hljs-selector-class, 
-        .code-preview-container .hljs-selector-id, 
-        .code-preview-container .hljs-variable {
-          color: var(--cp-attr) !important;
-        }
-        
-        .code-preview-container .hljs-meta .hljs-string, 
-        .code-preview-container .hljs-regexp, 
-        .code-preview-container .hljs-string {
-          color: var(--cp-string) !important;
-        }
-        
-        .code-preview-container .hljs-built_in, 
-        .code-preview-container .hljs-symbol {
-          color: var(--cp-builtin) !important;
-        }
-        
-        .code-preview-container .hljs-comment, 
-        .code-preview-container .hljs-code, 
-        .code-preview-container .hljs-formula {
-          color: var(--cp-comment) !important;
-        }
-        
-        /* Animation */
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        
-        .code-preview-container pre {
-          animation: fadeIn 0.3s ease-in-out;
-        }
-      `;
-
+            styleElement.textContent = SYNTAX_HIGHLIGHT_STYLE;
             document.head.appendChild(styleElement);
         };
 
         // Use transition from VueUse for smooth animation of code height
         const codeHeightTransition = useTransition(codeHeight, {
-            duration: 300,
+            duration: ANIMATION_DURATION,
             transition: [0.23, 1, 0.32, 1] // cubic-bezier for smooth easing
         });
-
-        watch(() => props.theme, () => {
-            // No need to manipulate DOM elements directly, the CSS variables approach
-            // will automatically apply the correct styles through the class binding
-        }, { immediate: true });
 
         onMounted(() => {
             injectThemeStyles();
@@ -299,29 +184,20 @@ export default defineComponent<CodePreviewProps>({
         });
 
         return () => {
-            const isDarkTheme = props.theme === 'dark';
-            const themeContainerClass = isDarkTheme ? 'code-preview-dark' : 'code-preview-light';
+            const styles = CODE_PREVIEW_STYLES;
             
             return (
-                <div class={`rounded-lg overflow-hidden shadow-sm transition-all duration-300 mb-8 code-preview-container ${themeContainerClass} ${
-                    isDarkTheme 
-                        ? 'border border-gray-700/70 shadow-gray-900/20' 
-                        : 'border border-gray-200 shadow-gray-200/50'
-                }`}>
+                <div class={`${styles.container.base} ${styles.container.border}`}>
                     {/* Optional title and description section */}
                     {(props.title || props.description) && (
-                        <div class={`border-b px-5 py-4 ${
-                            isDarkTheme 
-                                ? 'border-gray-700/60 bg-gray-800/50' 
-                                : 'border-gray-100 bg-gray-50/80'
-                        }`}>
+                        <div class={styles.titleBar.wrapper}>
                             {props.title && (
-                                <h3 class={`text-lg font-medium mb-1 ${isDarkTheme ? 'text-gray-100' : 'text-gray-800'}`}>
+                                <h3 class={styles.titleBar.title}>
                                     {props.title}
                                 </h3>
                             )}
                             {props.description && (
-                                <p class={`text-sm ${isDarkTheme ? 'text-gray-400' : 'text-gray-500'}`}>
+                                <p class={styles.titleBar.description}>
                                     {props.description}
                                 </p>
                             )}
@@ -329,33 +205,21 @@ export default defineComponent<CodePreviewProps>({
                     )}
                     
                     {/* Preview content area with refined styling */}
-                    <div class={`p-6 ${isDarkTheme ? 'bg-gray-800 text-white' : 'bg-white'}`}>
-                        <div class={`${
-                            isDarkTheme 
-                                ? 'bg-gray-750 bg-opacity-50 rounded-lg border border-gray-700/50' 
-                                : 'bg-gray-50/40 rounded-lg border border-gray-100'
-                        } p-5`}>
+                    <div class={styles.preview.wrapper}>
+                        <div class={styles.preview.content}>
                             {slots.default?.()}
                         </div>
                     </div>
                     
                     {/* Code toggle bar with improved styling */}
-                    <div class={`flex items-center justify-between px-5 py-3 border-t ${
-                        isDarkTheme 
-                            ? 'border-gray-700/60 bg-gray-800/80' 
-                            : 'border-gray-100 bg-gray-50'
-                    }`}>
-                        <div class={`text-xs font-mono ${isDarkTheme ? 'text-gray-400' : 'text-gray-500'}`}>
+                    <div class={styles.codeToggle.bar}>
+                        <div class={styles.codeToggle.language}>
                             {getLanguageFromMarkdown(props.code) || props.language}
                         </div>
                         
                         <button 
                             onClick={toggleCodeVisibility}
-                            class={`flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md font-medium transition-all duration-300 ${
-                                isDarkTheme 
-                                    ? 'text-gray-300 hover:bg-gray-700/70 hover:text-gray-200' 
-                                    : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700'
-                            }`}>
+                            class={styles.codeToggle.button}>
                             <span 
                                 class={`transform transition-transform duration-300 inline-flex ${isCodeVisible.value ? 'rotate-180' : 'rotate-0'}`}
                             >
@@ -377,21 +241,13 @@ export default defineComponent<CodePreviewProps>({
                             }}>
                             <div
                                 ref={codeContainerRef}
-                                class={`${
-                                    isDarkTheme 
-                                        ? 'bg-gray-900' 
-                                        : 'bg-gray-50'
-                                } px-5 py-4`}
+                                class={styles.codeArea.wrapper}
                                 style={{ background: 'var(--cp-background)' }}>
                                 <pre class="my-0 relative">
-                                    <div class={`absolute right-0 top-0 h-full w-8 bg-gradient-to-r ${
-                                        isDarkTheme 
-                                            ? 'from-transparent to-gray-900' 
-                                            : 'from-transparent to-gray-50'
-                                    }`}></div>
+                                    <div class={styles.codeArea.fadeOverlay}></div>
                                     <code 
                                         ref={codeRef} 
-                                        class="text-sm font-mono block overflow-x-auto py-2 pr-10"
+                                        class={styles.codeArea.codeBlock}
                                         innerHTML={highlightedCode.value}>
                                     </code>
                                 </pre>
@@ -400,14 +256,10 @@ export default defineComponent<CodePreviewProps>({
                                 <div class="flex justify-end mt-2">
                                     <button 
                                         onClick={copyCode}
-                                        class={`flex items-center gap-1.5 px-3 py-1.5 rounded-md transition-all duration-200 text-sm ${
-                                            isDarkTheme
-                                                ? copied.value
-                                                    ? 'bg-green-800/30 text-green-400'
-                                                    : 'text-gray-400 hover:bg-gray-800/70 hover:text-gray-300'
-                                                : copied.value
-                                                    ? 'bg-green-100 text-green-700'
-                                                    : 'text-gray-500 hover:bg-gray-200/70 hover:text-gray-700'
+                                        class={`${styles.codeArea.copyButton.base} ${
+                                            copied.value 
+                                                ? styles.codeArea.copyButton.copied 
+                                                : styles.codeArea.copyButton.default
                                         }`}>
                                         {copied.value ? (
                                             <span class="inline-flex items-center gap-1">
