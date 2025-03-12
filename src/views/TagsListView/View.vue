@@ -110,7 +110,7 @@
         <TagsList v-model="buttonTags" placeholder="输入标签" />
         <div class="mt-4 flex gap-2 flex-wrap">
           <Button size="sm" @click="addRandomTag">添加随机标签</Button>
-          <Button size="sm" type="error" @click="clearAllTags">清空所有标签</Button>
+          <Button size="sm" type="danger" @click="clearAllTags">清空所有标签</Button>
           <Button size="sm" type="secondary" @click="shuffleTags">随机排序标签</Button>
         </div>
       </div>

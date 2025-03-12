@@ -173,7 +173,7 @@
                 <div class="flex items-center gap-4">
                     <Button 
                         @click="toggleDarkMode" 
-                        type="ghost"
+                        type="info"
                         icon="icon-[mingcute--moon-line]"
                     >
                         切换{{ isDarkMode ? '浅色' : '深色' }}模式
