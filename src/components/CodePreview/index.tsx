@@ -29,7 +29,7 @@ export default defineComponent<CodePreviewProps>({
         },
         initiallyExpanded: {
             type: Boolean as PropType<CodePreviewProps['initiallyExpanded']>,
-            default: true
+            default: false
         },
         title: {
             type: String as PropType<CodePreviewProps['title']>,
