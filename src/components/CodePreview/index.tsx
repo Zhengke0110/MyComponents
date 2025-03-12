@@ -2,16 +2,15 @@ import { defineComponent, ref, computed, onMounted, nextTick, PropType } from 'v
 import { useTransition } from '@vueuse/core';
 import hljs from 'highlight.js';
 import * as clipboard from 'clipboard-polyfill';
-import 'highlight.js/styles/atom-one-dark-reasonable.css';
 import { ANIMATION_DURATION, CODE_PREVIEW_STYLES, SYNTAX_HIGHLIGHT_STYLE } from './config';
 
-// Define component props with TypeScript
 interface CodePreviewProps {
     code: string;
     language?: string;
     initiallyExpanded?: boolean;
     title?: string;
     description?: string;
+    showLineNumbers?: boolean;
 }
 
 // Define the component with proper TypeScript typing
@@ -38,6 +37,10 @@ export default defineComponent<CodePreviewProps>({
         description: {
             type: String as PropType<CodePreviewProps['description']>,
             default: ''
+        },
+        showLineNumbers: {
+            type: Boolean as PropType<CodePreviewProps['showLineNumbers']>,
+            default: false
         }
     },
 
@@ -152,11 +155,28 @@ export default defineComponent<CodePreviewProps>({
             const language = getLanguageFromMarkdown(props.code);
 
             try {
+                let highlightedResult = '';
+                
                 if (hljs.getLanguage(language)) {
-                    return hljs.highlight(code, { language }).value;
+                    highlightedResult = hljs.highlight(code, { language }).value;
                 } else {
-                    return hljs.highlightAuto(code).value;
+                    highlightedResult = hljs.highlightAuto(code).value;
                 }
+                
+                // Split by lines and wrap each line with a line div for better hover effects
+                // with tighter spacing for more compact display
+                if (highlightedResult) {
+                    const lines = highlightedResult.split('\n');
+                    return lines.map((line, i) => {
+                        const lineNumber = props.showLineNumbers 
+                            ? `<span class="line-number">${i + 1}</span>` 
+                            : '';
+                        // Use a more compact line style
+                        return `<div class="hljs-line">${lineNumber}${line || ' '}</div>`;
+                    }).join('');  // Remove \n to tighten spacing
+                }
+                
+                return highlightedResult;
             } catch (e) {
                 console.error('Error highlighting code:', e);
                 return code;
