@@ -2,40 +2,6 @@
   <div class="container mx-auto px-4 py-8 text-gray-900 dark:text-white">
     <h1 class="mb-8 text-3xl font-bold">Badge 徽章组件</h1>
 
-    <!-- 暗色模式切换 -->
-    <div class="mb-6 flex justify-end">
-      <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2">
-          <span class="text-sm">暗色模式</span>
-          <div
-            class="relative inline-block h-6 w-11 cursor-pointer rounded-full bg-gray-200 transition-colors duration-200 ease-in-out dark:bg-blue-600"
-            @click="toggleDark()">
-            <span :class="[
-              'absolute left-1 top-1 h-4 w-4 rounded-full bg-white transition-transform duration-200 ease-in-out',
-              isDark ? 'translate-x-5' : 'translate-x-0'
-            ]"></span>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-3">
-          <button
-            class="flex items-center space-x-2 rounded-lg bg-blue-500 px-4 py-2 font-medium text-white transition-all duration-300 hover:bg-blue-600 dark:bg-indigo-600 dark:hover:bg-indigo-700"
-            @click="toggleDark()">
-            <span class="icon-[material-symbols--wb-sunny-outline-rounded] size-5" v-if="isDark"></span>
-            <span class="icon-[material-symbols--dark-mode-outline-rounded] size-5" v-else></span>
-            <span>{{ isDark ? '切换到亮色模式' : '切换到暗色模式' }}</span>
-          </button>
-
-          <!-- 修改系统偏好按钮样式，确保在暗色模式下有明显变化 -->
-          <button
-            class="flex items-center space-x-2 rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 font-medium text-gray-800 transition-all duration-300 hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
-            @click="useSystemTheme">
-            <span class="icon-[material-symbols--settings-outline-rounded] size-5"></span>
-            <span>使用系统偏好</span>
-          </button>
-        </div>
-      </div>
-    </div>
 
     <!-- 基础颜色展示 -->
     <section class="mb-10">
@@ -677,6 +643,7 @@
 import { ref, computed, onMounted } from "vue";
 import { Badge } from "../../components/Badges";
 import CodePreview from "../../components/CodePreview";
+import GlobalHeader from "../../layout/GlobalHeader";
 import { basicColorCode, grayScaleCode, thematicColorCode, variantSoftCode, variantSolidCode, variantOutlineCode, sizeOptionsCode, roundedOptionsCode, interactiveBadgesCode, productLabelsCode, statusLabelsCode, notificationBadgesCode, userStatusCardCode, systemStatusCardCode, projectTagsCardCode } from './config'
 import {
   isDark,

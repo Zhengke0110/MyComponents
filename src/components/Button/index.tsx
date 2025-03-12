@@ -1,10 +1,9 @@
 import { computed, defineComponent, type PropType } from 'vue'
-import { ColorType, THEME_COLOR_MAP, ThemeColorType, ButtonSize, ButtonVariant, variantColorMap } from './config'
+import { ColorType, BUTTON_TYPE_MAP, ButtonType, ButtonTypeValue, ButtonSize, ButtonVariant, variantColorMap } from './config'
 interface ButtonProps {
   variant?: ButtonVariant
   size?: ButtonSize
-  color?: ColorType
-  theme?: ThemeColorType
+  type?: ButtonType
   icon?: string
   iconColor?: string
   loading?: boolean
@@ -20,6 +19,11 @@ const iconValidator = (value: string): boolean => {
   return classes.some(cls => cls.startsWith('icon-[') && cls.endsWith(']'))
 }
 
+// 判断值是否为ButtonTypeValue类型
+const isButtonTypeValue = (value: string): value is ButtonTypeValue => {
+  return ['primary', 'secondary', 'success', 'warning', 'danger', 'info'].includes(value);
+}
+
 export const Button = defineComponent({
   name: 'Button',
   props: {
@@ -31,8 +35,8 @@ export const Button = defineComponent({
       type: String as PropType<ButtonSize>,
       default: 'md'
     },
-    color: {
-      type: String as PropType<ColorType>,
+    type: {
+      type: String as PropType<ButtonType>,
       default: 'blue',
       validator: (value: string): boolean => {
         const validColors: ColorType[] = [
@@ -42,15 +46,8 @@ export const Button = defineComponent({
           'blue', 'indigo', 'violet', 'purple', 'fuchsia',
           'pink', 'rose'
         ];
-        return validColors.includes(value as ColorType);
-      }
-    },
-    theme: {
-      type: String as PropType<ThemeColorType>,
-      default: undefined,
-      validator: (value: string): boolean => {
-        const validThemes = ['primary', 'secondary', 'success', 'warning', 'danger', 'info'];
-        return validThemes.includes(value);
+        const validTypes = ['primary', 'secondary', 'success', 'warning', 'danger', 'info'];
+        return validColors.includes(value as ColorType) || validTypes.includes(value);
       }
     },
     icon: {
@@ -82,12 +79,17 @@ export const Button = defineComponent({
     // 简化 icon 处理逻辑，因为现在只接受标准格式
     const iconClass = computed(() => props.icon || '')
 
-    // 计算实际使用的颜色：如果提供了theme，则使用theme对应的颜色，否则使用color属性
+    // 计算实际使用的颜色：如果提供的是语义化类型，则使用映射的颜色，否则直接使用颜色值
     const actualColor = computed<ColorType>(() => {
-      if (props.theme) {
-        return THEME_COLOR_MAP[props.theme as ThemeColorType];
+      const value = props.type || 'blue';
+      
+      // 判断是否为语义化类型
+      if (isButtonTypeValue(value)) {
+        return BUTTON_TYPE_MAP[value];
       }
-      return props.color as ColorType;
+      
+      // 直接作为颜色使用
+      return value as ColorType;
     });
 
     // 根据变体和颜色获取样式
@@ -98,8 +100,9 @@ export const Button = defineComponent({
     });
 
     const baseStyles = computed(() => ({
-      'inline-flex items-center justify-center rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed gap-2': true,
-      'hover:scale-105 active:scale-100': props.isActiveAnim,
+      'inline-flex items-center justify-center rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed gap-2': true,
+      'transform transition-transform duration-150': props.isActiveAnim,
+      'hover:scale-[1.03] active:scale-[0.98]': props.isActiveAnim,
       'opacity-75 cursor-wait': props.loading,
       'p-2': isIconOnly.value,
       'w-full': props.block,

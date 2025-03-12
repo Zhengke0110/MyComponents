@@ -50,6 +50,7 @@ export const SYNTAX_HIGHLIGHT_STYLE = `
   font-size: 0.925em;
   line-height: 1.4;
   letter-spacing: 0.01em;
+  font-weight: 700;
 }
 
 /* Use enhanced CSS variables with vibrant light/dark mode colors */
