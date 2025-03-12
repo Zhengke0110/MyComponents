@@ -11,7 +11,7 @@
 - 多样的圆角设置：从方正到圆形的四种圆角选项
 - 可交互能力：支持点击事件
 - 可定制内容：支持前缀和后缀插槽
-- 暗色主题：支持亮色、暗色和自动切换模式
+- 暗色主题：使用 Tailwind CSS 的 dark: 前缀实现自动暗色主题适配
 
 ## 代码示例
 
@@ -49,20 +49,12 @@
 ### 暗色主题
 ```vue
 <template>
-  <!-- 强制使用亮色主题 -->
-  <Badge text="亮色主题" mode="light" />
-  
-  <!-- 强制使用暗色主题 -->
-  <Badge text="暗色主题" mode="dark" />
-  
-  <!-- 自动适应系统主题（默认） -->
-  <Badge text="自动主题" mode="auto" />
-  
-  <!-- 不同变体的暗色主题 -->
+  <!-- 使用 Tailwind 的暗色模式 -->
   <div class="dark">
-    <Badge text="暗色实心" variant="solid" />
-    <Badge text="暗色柔和" variant="soft" />
-    <Badge text="暗色描边" variant="outline" />
+    <Badge text="暗色模式下的徽章" />
+    <Badge text="实心徽章" variant="solid" />
+    <Badge text="柔和徽章" variant="soft" />
+    <Badge text="描边徽章" variant="outline" />
   </div>
 </template>
 ```
@@ -102,7 +94,6 @@
 | text | 徽章显示的文本内容 | string | - |
 | color | 颜色 | ColorType | 'blue' |
 | theme | 语义化主题 | 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'info' | - |
-| mode | 明暗主题模式 | 'light' \| 'dark' \| 'auto' | 'auto' |
 | variant | 样式变体 | 'solid' \| 'soft' \| 'outline' | 'soft' |
 | size | 尺寸 | 'sm' \| 'md' \| 'lg' | 'md' |
 | rounded | 圆角大小 | 'sm' \| 'md' \| 'lg' \| 'full' | 'md' |
@@ -157,6 +148,4 @@
 - full：rounded-full (9999px)
 
 ### 暗色模式
-- 自动(auto)：使用 Tailwind 的 dark: 前缀，根据系统或页面主题自动切换
-- 亮色(light)：强制使用亮色主题样式
-- 暗色(dark)：强制使用暗色主题样式
+使用 Tailwind 的 dark: 前缀，根据系统或页面主题自动切换。页面需要添加 `dark` 类来触发暗色模式。

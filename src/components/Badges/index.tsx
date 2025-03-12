@@ -1,5 +1,5 @@
 import { defineComponent, computed, type PropType } from 'vue';
-import { ColorType, ThemeColorType, THEME_COLOR_MAP, Size, Variant, variantClassMap, darkVariantClassMap, lightVariantClassMap, Mode, sizeMap, Rounded, roundedMap } from './config'
+import { ColorType, ThemeColorType, THEME_COLOR_MAP, Size, Variant, variantClassMap, sizeMap, Rounded, roundedMap } from './config'
 
 export const Badge = defineComponent({
   name: 'Badge',
@@ -30,14 +30,6 @@ export const Badge = defineComponent({
         return validThemes.includes(value);
       }
     },
-    // 添加明暗模式属性
-    mode: {
-      type: String as PropType<Mode>,
-      default: 'auto', // 默认自动适应系统主题
-      validator: (value: string): boolean => {
-        return ['light', 'dark', 'auto'].includes(value);
-      }
-    },
     size: { type: String as PropType<Size>, default: 'md' },
     variant: { type: String as PropType<Variant>, default: 'soft' },
     rounded: { type: String as PropType<Rounded>, default: 'md' },
@@ -55,48 +47,22 @@ export const Badge = defineComponent({
       return props.color as ColorType;
     });
 
-    // 获取变体样式映射
-    const getVariantMap = computed(() => {
-      // 根据mode选择类名映射
-      if (props.mode === 'light') {
-        return lightVariantClassMap;
-      } else if (props.mode === 'dark') {
-        return darkVariantClassMap;
-      } else {
-        // 自动模式（使用CSS暗黑模式支持）
-        return variantClassMap;
-      }
-    });
-
-    // 修改为使用静态类名映射
+    // 使用带有dark:前缀的变体类
     const variantClasses = computed(() => {
       const variant = props.variant;
       const color = actualColor.value;
-      const currentMap = getVariantMap.value;
-
-      // 确保使用有效的映射
-      return `${currentMap[variant][color] || currentMap.soft.blue} ${sizeMap[props.size]}`;
+      
+      // 使用统一的映射，其中已经包含了dark:前缀
+      return `${variantClassMap[variant][color] || variantClassMap.soft.blue} ${sizeMap[props.size]}`;
     });
 
     const roundedClasses = computed(() => roundedMap[props.rounded]);
     const cursorClasses = computed(() => props.clickable ? "cursor-pointer hover:opacity-80" : "");
 
-    // 计算模式类
-    const modeClasses = computed(() => {
-      if (props.mode === 'light') {
-        return "";
-      } else if (props.mode === 'dark') {
-        return "dark";
-      }
-      return "";
-    });
-
     // 为柔和风格添加额外的hover效果
     const extraHoverClasses = computed(() => {
-      if (props.variant === 'soft') {
-        if (props.clickable) {
-          return "hover:bg-opacity-80";
-        }
+      if (props.variant === 'soft' && props.clickable) {
+        return "hover:bg-opacity-80";
       }
       return "";
     });
@@ -113,7 +79,6 @@ export const Badge = defineComponent({
           variantClasses.value,
           roundedClasses.value,
           cursorClasses.value,
-          modeClasses.value,
           extraHoverClasses.value,
           "inline-flex items-center py-0.5 font-medium transition-colors"
         ]}
