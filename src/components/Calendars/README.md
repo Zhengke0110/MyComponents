@@ -61,14 +61,14 @@ const handleRangeSelect = (start: string, end: string) => {
 </script>
 ```
 
-### 自定义主题色
+### 自定义颜色主题
 
 ```vue
 <template>
   <Calendars
     v-model:selectedDate="date"
     mode="single"
-    theme="indigo"
+    color="indigo"
   />
 </template>
 
@@ -94,7 +94,7 @@ const date = ref('');
 | selectedDate | `string` | - | 选中的日期（单选模式） |
 | startDate | `string` | - | 范围开始日期（范围模式） |
 | endDate | `string` | - | 范围结束日期（范围模式） |
-| theme | `ColorType` | `'blue'` | 主题颜色，支持 Tailwind 所有基础颜色 |
+| color | `ColorType` | `'blue'` | 主题颜色，支持 Tailwind 所有基础颜色 |
 
 ### Events
 
@@ -110,7 +110,7 @@ const date = ref('');
 
 组件不提供自定义插槽。
 
-## 自定义主题
+## 自定义颜色主题
 
 组件提供多种颜色主题选项，支持所有 Tailwind CSS 的基础色系：
 
@@ -120,7 +120,7 @@ const date = ref('');
 - 蓝色系：cyan, sky, blue, indigo
 - 紫粉色系：violet, purple, fuchsia, pink, rose
 
-可以通过 `theme` 属性进行设置。
+可以通过 `color` 属性进行设置。
 
 ## 动画效果
 
@@ -130,6 +130,27 @@ const date = ref('');
 - 月份切换过渡动画
 - 日期选择缩放动画
 - 范围选择过渡效果
+
+## 暗色模式支持
+
+组件完全支持 Tailwind CSS 的暗色模式，通过在 HTML 元素上添加 `dark` 类来启用。可以结合 @vueuse/core 的 `useDark` 和 `useToggle` 函数实现方便的暗色模式切换。
+
+```vue
+<script setup>
+import { useDark, useToggle } from '@vueuse/core';
+
+const isDark = useDark();
+const toggleDark = useToggle(isDark);
+</script>
+
+<template>
+  <button @click="toggleDark()">
+    {{ isDark ? '切换到亮色模式' : '切换到暗色模式' }}
+  </button>
+  
+  <Calendars color="blue" v-model:selectedDate="date" />
+</template>
+```
 
 ## 浏览器兼容性
 

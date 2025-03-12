@@ -2,41 +2,6 @@
   <div class="p-4 md:p-8 max-w-7xl mx-auto">
     <h1 class="text-2xl font-bold mb-8">日历组件展示</h1>
 
-    <!-- 暗色模式切换 - 使用 @vueuse/core 的实现 -->
-    <div class="mb-6 flex justify-end">
-      <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2">
-            <span class="text-sm">暗色模式</span>
-            <div class="relative inline-block h-6 w-11 cursor-pointer rounded-full bg-gray-200 transition-colors duration-200 ease-in-out dark:bg-blue-600"
-                @click="toggleDark()">
-                <span :class="[
-                    'absolute left-1 top-1 h-4 w-4 rounded-full bg-white transition-transform duration-200 ease-in-out',
-                    isDark ? 'translate-x-5' : 'translate-x-0'
-                ]"></span>
-            </div>
-        </div>
-
-        <div class="flex items-center gap-3">
-            <button 
-                class="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 bg-blue-500 hover:bg-blue-600 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white font-medium"
-                @click="toggleDark()">
-                <span :class="[
-                    isDark ? 'icon-[material-symbols--wb-sunny-outline-rounded]' : 'icon-[material-symbols--dark-mode-outline-rounded]',
-                    'size-5'
-                ]"></span>
-                <span>{{ isDark ? '切换到亮色模式' : '切换到暗色模式' }}</span>
-            </button>
-
-            <button 
-                class="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium"
-                @click="preferredDark ? toggleDark(false) : toggleDark(true)">
-                <span class="icon-[material-symbols--settings-outline-rounded] size-5"></span>
-                <span>系统偏好</span>
-            </button>
-        </div>
-      </div>
-    </div>
-
     <!-- 所有颜色展示 -->
     <section class="mb-12">
       <h2 class="text-xl font-semibold mb-4">所有可用颜色主题</h2>
@@ -48,10 +13,11 @@
             <div v-for="color in colors" :key="color"
               class="flex items-center justify-between w-24 px-2 py-1 rounded-md transition-all cursor-pointer" :class="[
                 getColorButtonClass(color),
-                selectedTheme === color ? `ring-2 ring-offset-1` : 'hover:opacity-80'
-              ]" @click="setSelectedTheme(color)">
+                selectedColor === color ? `ring-2 ring-offset-1` : 'hover:opacity-80'
+              ]" @click="setSelectedColor(color)">
               <span>{{ color }}</span>
-              <span v-if="selectedTheme === color" class="icon-[material-symbols--check-rounded] text-white w-4 h-4"></span>
+              <span v-if="selectedColor === color"
+                class="icon-[material-symbols--check-rounded] text-white w-4 h-4"></span>
             </div>
           </div>
         </div>
@@ -60,15 +26,15 @@
 
     <!-- 当前选中主题的日历 -->
     <section class="mb-12">
-      <h2 class="text-xl font-semibold mb-4">当前选中主题:
-        <span :style="getColorTextStyle(selectedTheme)">{{ selectedTheme }}</span>
+      <h2 class="text-xl font-semibold mb-4">当前选中颜色:
+        <span :class="`text-${selectedColor}-500 dark:text-${selectedColor}-400`">{{ selectedColor }}</span>
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div
           class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md border border-gray-100 dark:border-gray-700 transition-all duration-200 ease-in-out">
           <h3 class="text-lg font-semibold mb-3">单选模式</h3>
-          <Calendars v-model:selectedDate="dynamicSelectedDate" mode="single" :theme="selectedTheme"
-            :key="`single-dynamic-${selectedTheme}`" @dateSelect="handleDynamicDateSelect" />
+          <Calendars v-model:selectedDate="dynamicSelectedDate" mode="single" :color="selectedColor"
+            :key="`single-dynamic-${selectedColor}`" @dateSelect="handleDynamicDateSelect" />
           <div v-if="dynamicSelectedDate" class="mt-3 p-2 bg-gray-50 dark:bg-gray-700 rounded text-sm">
             <div class="font-medium text-gray-700 dark:text-gray-300">选中日期：{{ dynamicSelectedDate }}</div>
             <div class="text-gray-500 dark:text-gray-400">{{ formatSelectedDate(dynamicSelectedDate) }}</div>
@@ -79,7 +45,7 @@
           class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md border border-gray-100 dark:border-gray-700 transition-all duration-200 ease-in-out">
           <h3 class="text-lg font-semibold mb-3">范围选择模式</h3>
           <Calendars v-model:startDate="dynamicStartDate" v-model:endDate="dynamicEndDate" mode="range"
-            :theme="selectedTheme" :key="`range-dynamic-${selectedTheme}`" @rangeSelect="handleDynamicRangeSelect" />
+            :color="selectedColor" :key="`range-dynamic-${selectedColor}`" @rangeSelect="handleDynamicRangeSelect" />
           <div v-if="dynamicStartDate || dynamicEndDate" class="mt-3 p-2 bg-gray-50 dark:bg-gray-700 rounded text-sm">
             <div class="font-medium text-gray-700 dark:text-gray-300">
               选择范围：{{ dynamicStartDate || '未选择' }} 至 {{ dynamicEndDate || '未选择' }}
@@ -107,17 +73,14 @@
           <div v-for="color in colors" :key="color"
             class="bg-white dark:bg-gray-800 rounded-xl p-3 shadow-md border border-gray-100 dark:border-gray-700">
             <div class="flex justify-between items-center mb-2">
-              <h4 class="text-base font-medium" :style="getColorTextStyle(color)">{{ color }}</h4>
-              <span class="px-2 py-0.5 rounded text-xs" :style="{
-                backgroundColor: colorHexMap[color]?.primary || '#3b82f6',
-                color: 'white'
-              }">
-                {{ colorHexMap[color]?.primary || '#3b82f6' }}
+              <h4 class="text-base font-medium" :class="`text-${color}-600 dark:text-${color}-400`">{{ color }}</h4>
+              <span :class="`px-2 py-0.5 rounded text-xs text-white bg-${color}-500 dark:bg-${color}-600`">
+                {{ color }}
               </span>
             </div>
 
-            <Calendars v-model:selectedDate="colorDateMap[color]" mode="single" :theme="color" :key="`single-${color}`"
-              class="mb-2" @dateSelect="date => handleColorDateSelect(color, date)" />
+            <Calendars v-model:selectedDate="colorDateMap[color]" mode="single" :color="color" :key="`single-${color}`"
+              class="mb-2" @dateSelect="(date: any) => handleColorDateSelect(color, date)" />
             <div v-if="colorDateMap[color]" class="mt-2 p-1.5 bg-gray-50 dark:bg-gray-700 rounded text-xs">
               <div class="font-medium">已选日期：{{ colorDateMap[color] }}</div>
               <div class="text-gray-500 dark:text-gray-400">{{ formatSelectedDate(colorDateMap[color]) }}</div>
@@ -141,12 +104,12 @@
           <div v-for="color in colors" :key="`range-${color}`"
             class="bg-white dark:bg-gray-800 rounded-xl p-3 shadow-md border border-gray-100 dark:border-gray-700">
             <div class="flex justify-between items-center mb-2">
-              <h4 class="text-base font-medium" :style="getColorTextStyle(color)">{{ color }}</h4>
+              <h4 class="text-base font-medium" :class="`text-${color}-600 dark:text-${color}-400`">{{ color }}</h4>
             </div>
 
             <Calendars v-model:startDate="colorRangeMap[color].start" v-model:endDate="colorRangeMap[color].end"
-              mode="range" :theme="color" :key="`range-${color}`"
-              @rangeSelect="(start, end) => handleColorRangeSelect(color, start, end)" />
+              mode="range" :color="color" :key="`range-${color}`"
+              @rangeSelect="(start: any, end: any) => handleColorRangeSelect(color, start, end)" />
             <div v-if="colorRangeMap[color].start || colorRangeMap[color].end"
               class="mt-2 p-1.5 bg-gray-50 dark:bg-gray-700 rounded text-xs">
               <div class="font-medium">
@@ -164,70 +127,221 @@
         </div>
       </div>
     </section>
+
+    <!-- API 文档部分 -->
+    <section class="mb-10">
+      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">组件API</h2>
+      <div class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">属性 (Props)</h3>
+        <div class="mb-6 overflow-x-auto">
+          <table class="min-w-full border-collapse">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">属性名</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">类型</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">默认值</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">描述</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">mode</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'single' | 'range'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'single'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">选择模式：单选或范围选择</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">color</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">ColorType</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'blue'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">日历主题颜色</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">selectedDate</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">undefined</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">单选模式下选中的日期</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">startDate/endDate</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">undefined</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">范围选择的开始和结束日期</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">dateFormat</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'YYYY-MM-DD'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">日期格式</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">locale</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'en' | 'zh-cn'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'en'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">日历语言</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">disableOutsideDays</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">boolean</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">true</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">是否禁用非当前月份的日期</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">initialDate</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">当前日期</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">初始显示的日期</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">事件 (Events)</h3>
+        <div class="mb-6 overflow-x-auto">
+          <table class="min-w-full border-collapse">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">事件名</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">回调参数</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">描述</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">dateSelect</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">(date: string)</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">单选模式下选择日期时触发</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">rangeSelect</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">(start: string, end: string)</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">范围模式下完成选择时触发</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">update:selectedDate</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">(date: string)</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">单选模式下更新选中日期时触发</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">update:startDate/endDate</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">(date: string)</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">范围模式下更新起止日期时触发</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">使用示例</h3>
+        <div class="mb-6 space-y-4">
+          <h4 class="text-base font-medium text-gray-800 dark:text-gray-200">单选模式</h4>
+          <pre class="overflow-x-auto rounded-lg bg-gray-50 p-4 text-sm dark:bg-gray-800/50">
+<code>&lt;template&gt;
+  &lt;Calendars
+    v-model:selectedDate="date"
+    mode="single"
+    color="blue"
+    locale="zh-cn"
+    @dateSelect="handleDateSelect"
+  /&gt;
+&lt;/template&gt;
+
+&lt;script setup lang="ts"&gt;
+import { ref } from 'vue';
+
+const date = ref('');
+const handleDateSelect = (date: string) => {
+  console.log('选择的日期:', date);
+};
+&lt;/script&gt;</code></pre>
+
+          <h4 class="text-base font-medium text-gray-800 dark:text-gray-200">范围选择模式</h4>
+          <pre class="overflow-x-auto rounded-lg bg-gray-50 p-4 text-sm dark:bg-gray-800/50">
+<code>&lt;template&gt;
+  &lt;Calendars
+    v-model:startDate="startDate"
+    v-model:endDate="endDate"
+    mode="range"
+    color="indigo"
+    locale="zh-cn"
+    @rangeSelect="handleRangeSelect"
+  /&gt;
+&lt;/template&gt;
+
+&lt;script setup lang="ts"&gt;
+import { ref } from 'vue';
+
+const startDate = ref('');
+const endDate = ref('');
+const handleRangeSelect = (start: string, end: string) => {
+  console.log('日期范围:', { start, end });
+};
+&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- 总结 -->
+    <section class="mb-10">
+      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">小结与最佳实践</h2>
+      <div class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+        <div class="space-y-4">
+          <p class="text-gray-700 dark:text-gray-300">
+            Calendars 日历组件是界面中常用的日期选择元素，适用于各种需要用户选择日期或日期范围的场景。以下是一些使用建议：
+          </p>
+
+          <ul class="ml-6 list-disc space-y-2 text-gray-700 dark:text-gray-300">
+            <li>根据业务需求选择合适的模式：单日期选择适用于选择具体某一天，范围选择适用于时间段筛选</li>
+            <li>使用符合品牌色调的颜色主题，提供一致的设计体验</li>
+            <li>结合表单验证，确保用户选择的日期符合业务规则</li>
+            <li>在表单中使用时，提供清晰的标签和必要的提示信息</li>
+            <li>根据国际化需求，选择合适的语言设置</li>
+          </ul>
+
+          <div class="rounded-lg border border-blue-100 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-900/20">
+            <h4 class="mb-2 flex items-center text-blue-800 dark:text-blue-300">
+              <span class="icon-[material-symbols--lightbulb-outline] mr-2 h-5 w-5"></span>
+              日期选择建议
+            </h4>
+            <p class="text-sm text-blue-700 dark:text-blue-300">
+              日期选择器最常见的用途是预订系统、筛选数据和表单填写。在这些场景中，日历组件应该提供良好的可访问性和直观的交互体验。
+              考虑添加辅助提示，特别是对于日期范围选择，帮助用户理解选择的含义和限制条件。
+            </p>
+          </div>
+
+          <div
+            class="mt-4 rounded-lg border border-emerald-100 bg-emerald-50 p-4 dark:border-emerald-900 dark:bg-emerald-900/20">
+            <h4 class="mb-2 flex items-center text-emerald-800 dark:text-emerald-300">
+              <span class="icon-[material-symbols--tips-and-updates-outline-rounded] mr-2 h-5 w-5"></span>
+              性能优化提示
+            </h4>
+            <p class="text-sm text-emerald-700 dark:text-emerald-300">
+              使用 <code class="rounded bg-emerald-100 px-1 py-0.5 font-mono text-xs dark:bg-emerald-800/60">:key</code>
+              属性确保在主题或日期变化时组件能正确重新渲染。当在列表或循环中渲染多个日历组件时，确保每个实例
+              有唯一的标识符，避免不必要的重新渲染。
+            </p>
+          </div>
+
+          <p class="text-gray-700 dark:text-gray-300">
+            日历组件已针对暗色模式和不同颜色主题进行了优化，可以无缝融入各种设计系统。使用合适的日历组件配置，
+            可以显著提升用户在日期选择相关任务中的体验和效率。
+          </p>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, watch, onBeforeUnmount } from 'vue';
-import Calendars, {ColorType, colorGroups, getColorButtonClass, colorHexMap } from '../../components/Calendars';
+import { ref, reactive, onMounted } from 'vue';
+import Calendars, { ColorType, colorGroups, getColorButtonClass } from '../../components/Calendars';
 import dayjs from 'dayjs';
-import { useDark, useToggle } from '@vueuse/core';
+// 导入主题相关工具
+import {
 
-// 使用 vueuse/core 的暗色模式钩子
-const isDark = useDark({
-  selector: 'html',
-  attribute: 'class',
-  valueDark: 'dark',
-  valueLight: ''
-});
-const toggleDark = useToggle(isDark);
+  themeMode,
 
-// 检查系统颜色偏好
-const preferredDark = ref(false);
-if (window.matchMedia) {
-    preferredDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches;
-}
-
-// 确保暗色模式正确应用
-onMounted(() => {
-  // 初始应用暗色模式
-  if (isDark.value) {
-    document.documentElement.classList.add('dark');
-    document.body.classList.add('dark-mode');
-  }
-  
-  // 自动检测并添加使用暗色模式的标记类
-  document.documentElement.classList.add('using-dark-mode');
-  
-  // 初始化示例数据
-  initializeExampleDates();
-});
-
-// 监听暗色模式变化
-watch(isDark, (newVal) => {
-  if (newVal) {
-    document.documentElement.classList.add('dark');
-    document.body.classList.add('dark-mode');
-  } else {
-    document.documentElement.classList.remove('dark');
-    document.body.classList.remove('dark-mode');
-  }
-  
-  // 强制触发重新渲染
-  setTimeout(() => {
-    document.body.style.transition = 'background-color 0.3s ease';
-    if (newVal) {
-      document.body.style.backgroundColor = '#1f2937';
-    } else {
-      document.body.style.backgroundColor = '';
-    }
-  }, 0);
-});
-
-// 清理函数
-onBeforeUnmount(() => {
-  document.documentElement.classList.remove('using-dark-mode');
-});
+  initTheme,
+} from "../../utils/theme";
 
 // 颜色组的名称映射
 const colorGroupNames = {
@@ -238,8 +352,19 @@ const colorGroupNames = {
   purple: '紫粉色系'
 };
 
-// 当前选中的主题色
-const selectedTheme = ref<ColorType>('blue');
+// 当前选中的颜色
+const selectedColor = ref<ColorType>('blue');
+
+// 设置选中的颜色
+const setSelectedColor = (color: ColorType) => {
+  selectedColor.value = color;
+};
+
+// 基础用法示例数据
+const singleDate = ref('');
+const startDate = ref('');
+const endDate = ref('');
+
 
 // 动态主题日历的数据
 const dynamicSelectedDate = ref('');
@@ -247,16 +372,6 @@ const dynamicStartDate = ref('');
 const dynamicEndDate = ref('');
 const lastRangeSelectTime = ref<Date | null>(null);
 
-// 设置选中的主题
-const setSelectedTheme = (color: ColorType) => {
-  selectedTheme.value = color;
-};
-
-// 获取颜色对应的文本色样式
-const getColorTextStyle = (color: ColorType) => {
-  const colorData = colorHexMap[color];
-  return { color: colorData?.primary || '#3b82f6' };
-};
 
 // 为每种颜色创建日期状态
 const colorDateMap: Record<ColorType, string> = reactive({
@@ -311,9 +426,16 @@ const colorRangeSelectTimes: Record<ColorType, Date | null> = reactive({
   violet: null, purple: null, fuchsia: null, pink: null, rose: null
 });
 
+
+
 // 初始化一些示例日期以更好地展示效果
 const initializeExampleDates = () => {
   const today = new Date();
+
+  // 设置一些预设值提高展示效果
+  singleDate.value = dayjs(today).format('YYYY-MM-DD');
+  startDate.value = dayjs(today).subtract(3, 'day').format('YYYY-MM-DD');
+  endDate.value = dayjs(today).add(3, 'day').format('YYYY-MM-DD');
 
   // 为紫色和琥珀色预设范围
   colorRangeMap.violet.start = dayjs(today).subtract(3, 'day').format('YYYY-MM-DD');
@@ -348,11 +470,11 @@ const getDaysBetween = (startDate: string, endDate: string): number => {
 
 // 动态主题日历的事件处理
 const handleDynamicDateSelect = (date: string) => {
-  console.log(`[${selectedTheme.value}] 单选模式选择日期:`, date);
+  console.log(`[${selectedColor.value}] 单选模式选择日期:`, date);
 };
 
 const handleDynamicRangeSelect = (start: string, end: string) => {
-  console.log(`[${selectedTheme.value}] 范围模式选择:`, { start, end });
+  console.log(`[${selectedColor.value}] 范围模式选择:`, { start, end });
   lastRangeSelectTime.value = new Date();
 };
 
@@ -367,55 +489,13 @@ const handleColorRangeSelect = (color: ColorType, start: string, end: string) =>
   colorRangeSelectTimes[color] = new Date();
 };
 
-// 在组件挂载时初始化示例数据
+// 页面加载时初始化主题和数据
 onMounted(() => {
+  // 初始化主题设置
+  initTheme();
+
+  // 初始化示例数据
   initializeExampleDates();
 });
+
 </script>
-
-<style>
-/* 确保暗模式生效的基本样式 */
-:root {
-  color-scheme: light;
-}
-
-:root.dark, html.dark {
-  color-scheme: dark;
-  background-color: #1f2937; /* gray-800 */
-}
-
-body.dark-mode {
-  background-color: #1f2937; /* gray-800 */
-}
-
-/* 确保所有标题和文本在暗色模式下显示为白色 */
-.dark h1,
-.dark h2,
-.dark h3,
-.dark h4,
-.dark h5,
-.dark h6,
-.dark .text-gray-900 {
-  color: white !important;
-}
-
-/* 暗色模式下其他文本颜色适配 */
-.dark .text-gray-700 {
-  color: #d1d5db !important; /* gray-300 */
-}
-
-.dark .text-gray-600 {
-  color: #9ca3af !important; /* gray-400 */
-}
-
-/* 系统暗色模式自动适配 */
-@media (prefers-color-scheme: dark) {
-  :root.using-dark-mode:not(.light) {
-    background-color: #1f2937;
-  }
-  
-  :root:not(.using-dark-mode) {
-    color-scheme: dark;
-  }
-}
-</style>

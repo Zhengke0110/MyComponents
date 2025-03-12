@@ -1,45 +1,42 @@
 /**
- * 日历组件主题样式
+ * 日历组件主题样式 - 简化版
  */
 
-:root {
-  --calendar-bg: #ffffff;
-  --calendar-border-color: #e5e7eb;
-  --calendar-text-color: #111827;
-}
-
-/* 暗色模式变量 */
-.dark {
-  --calendar-dark-bg: #1f2937;
-  --calendar-dark-border: #374151;
-  --calendar-dark-text-color: #f3f4f6;
-}
-
-/* 针对嵌套容器的处理 */
+/* 只保留关键变量和过渡效果 */
 .calendar-container {
-  background-color: var(--calendar-bg);
-  border-color: var(--calendar-border-color);
-  color: var(--calendar-text-color);
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
+/* 添加页面切换动画效果增强 */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* 确保焦点状态在暗色模式下可见 */
+.dark .calendar-container button:focus {
+  --tw-ring-opacity: 0.5;
+}
+
+/* 确保动画在暗模式下更平滑 */
 .dark .calendar-container {
-  background-color: var(--calendar-dark-bg);
-  border-color: var(--calendar-dark-border);
-  color: var(--calendar-dark-text-color);
-}
-
-/* 确保日历标题在暗色模式下可见 */
-.dark .calendar-title {
-  color: var(--calendar-dark-text-color);
-}
-
-/* 确保暗色模式下按钮样式正确 */
-.dark .calendar-container button:not(:disabled) {
-  color: var(--calendar-dark-text-color);
-}
-
-/* 确保内容显示区域在暗色模式下的背景和文字颜色正确 */
-.dark .calendar-info-area {
-  background-color: #374151;
-  color: #e5e7eb;
+  --tw-shadow-color: rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
