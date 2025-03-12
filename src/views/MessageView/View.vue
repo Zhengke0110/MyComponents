@@ -131,17 +131,17 @@
       <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">自定义主题颜色</h2>
       <div class="flex flex-wrap gap-4">
         <button 
-          @click="showThemedMessage(ThemeColorType.Primary)" 
+          @click="showThemedMessage(THEME_COLOR_MAP.primary)" 
           class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors">
           主要主题
         </button>
         <button 
-          @click="showThemedMessage(ThemeColorType.Secondary)" 
+          @click="showThemedMessage(THEME_COLOR_MAP.secondary)" 
           class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors">
           次要主题
         </button>
         <button 
-          @click="showThemedMessage(ThemeColorType.Danger)" 
+          @click="showThemedMessage(THEME_COLOR_MAP.warning)" 
           class="px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-md transition-colors">
           强调主题
         </button>
@@ -164,9 +164,8 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
-import { Message, ColorType,ThemeColorType } from '../../components/Message';
+import { Message, ColorType,THEME_COLOR_MAP } from '../../components/Message';
 import { useDark, useToggle } from "@vueuse/core";
-
 
 // 使用 vueuse/core 的暗色模式钩子
 const isDark = useDark({
