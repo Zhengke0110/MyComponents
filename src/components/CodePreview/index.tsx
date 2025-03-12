@@ -7,9 +7,9 @@ import 'highlight.js/styles/atom-one-dark-reasonable.css';
 // Define component props with TypeScript
 interface CodePreviewProps {
     code: string;
-    language: string;
+    language?: string;
     theme: 'light' | 'dark';
-    initiallyExpanded: boolean;
+    initiallyExpanded?: boolean;
     title?: string;
     description?: string;
 }
@@ -150,7 +150,7 @@ export default defineComponent<CodePreviewProps>({
                 return match[1];
             }
 
-            return props.language;
+            return props.language||'';
         };
 
         const highlightedCode = computed(() => {
