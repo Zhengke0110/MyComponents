@@ -159,7 +159,8 @@
               <span class="text-sm font-medium text-gray-700 dark:text-gray-300">当前主题</span>
               <div class="flex items-center gap-2">
                 <div class="h-3 w-3 rounded-full" :class="isDark ? 'bg-indigo-500' : 'bg-yellow-500'"></div>
-                <Button size="sm" :type="isDark ? 'primary' : 'warning'" variant="soft">{{ isDark ? '暗色' : '亮色' }}</Button>
+                <Button size="sm" :type="isDark ? 'primary' : 'warning'" variant="soft">{{ isDark ? '暗色' : '亮色'
+                  }}</Button>
               </div>
             </div>
 
@@ -593,7 +594,8 @@
 
         <div class="rounded-lg bg-gray-50 p-4 dark:bg-gray-700/30">
           <h4 class="mb-2 text-base font-medium text-gray-900 dark:text-white">使用示例</h4>
-          <pre class="overflow-x-auto rounded bg-gray-100 p-3 text-sm text-gray-800 dark:bg-gray-800 dark:text-gray-200">
+          <pre
+            class="overflow-x-auto rounded bg-gray-100 p-3 text-sm text-gray-800 dark:bg-gray-800 dark:text-gray-200">
           import { isDark, toggleDark } from "../utils/theme";
 
           // 在模板中使用
@@ -657,10 +659,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, onBeforeUnmount, computed } from "vue";
+import { onMounted, onBeforeUnmount, computed } from "vue";
 import { Button } from "../../components/Button";
-import GlobalHeader from "../../layout/GlobalHeader";
-
 // 引入主题相关工具
 import {
   isDark,
@@ -696,7 +696,7 @@ const currentThemeModeName = computed(() => {
 onMounted(() => {
   // 初始化主题设置
   initTheme();
-  
+
   // 为文档根元素添加暗色模式支持类
   document.documentElement.classList.add("using-dark-mode");
 });

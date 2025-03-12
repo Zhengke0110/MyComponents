@@ -29,7 +29,7 @@ export default defineComponent({
         const mousePosition = ref({ x: 0, y: 0 });
         const isHovering = ref(false);
         const logoHovered = ref(false);
-        
+
         // 生成装饰粒子
         const particles = ref(Array.from({ length: 8 }, () => ({
             x: Math.random() * 100,
@@ -53,9 +53,9 @@ export default defineComponent({
         const trackMouse = (e: MouseEvent) => {
             if (headerRef.value) {
                 const rect = headerRef.value.getBoundingClientRect();
-                mousePosition.value = { 
-                    x: e.clientX - rect.left, 
-                    y: e.clientY - rect.top 
+                mousePosition.value = {
+                    x: e.clientX - rect.left,
+                    y: e.clientY - rect.top
                 };
             }
         };
@@ -63,14 +63,14 @@ export default defineComponent({
         // 处理滚动事件，控制Header显示/隐藏
         const handleScroll = () => {
             scrollY.value = window.scrollY;
-            
+
             // 确定滚动方向
             if (scrollY.value > lastScrollY.value) {
                 scrollDirection.value = 'down';
             } else if (scrollY.value < lastScrollY.value) {
                 scrollDirection.value = 'up';
             }
-            
+
             // 根据滚动方向和位置决定Header是否显示
             // 顶部始终显示，向上滚动时显示，向下滚动超过100px开始隐藏
             if (scrollY.value <= 10 || scrollDirection.value === 'up') {
@@ -82,7 +82,7 @@ export default defineComponent({
                     isMenuOpen.value = false;
                 }
             }
-            
+
             lastScrollY.value = scrollY.value;
         };
 
@@ -95,16 +95,16 @@ export default defineComponent({
             const baseOpacity = 0.8;
             const scrollOpacity = Math.min(scrollY.value / 200, 0.18);
             const blurValue = 8 + Math.min(scrollY.value / 100, 8);
-            
+
             return {
                 backdropFilter: `blur(${blurValue}px)`,
-                background: isDark.value 
-                    ? `rgba(15, 23, 42, ${baseOpacity + scrollOpacity})` 
+                background: isDark.value
+                    ? `rgba(15, 23, 42, ${baseOpacity + scrollOpacity})`
                     : `rgba(255, 255, 255, ${baseOpacity + scrollOpacity})`,
                 transform: `translateY(${isHeaderVisible.value ? '0' : '-100%'})`,
                 boxShadow: scrollY.value > 20 ? (
-                    isDark.value 
-                        ? '0 10px 25px -5px rgba(0, 0, 0, 0.2)' 
+                    isDark.value
+                        ? '0 10px 25px -5px rgba(0, 0, 0, 0.2)'
                         : '0 10px 25px -5px rgba(0, 0, 0, 0.1)'
                 ) : 'none'
             };
@@ -127,7 +127,7 @@ export default defineComponent({
         });
 
         return () => (
-            <header 
+            <header
                 ref={headerRef}
                 class="fixed top-0 left-0 z-50 w-full transition-all duration-300"
                 style={headerStyle.value}
@@ -139,12 +139,12 @@ export default defineComponent({
                 <div class="absolute top-0 left-0 h-[2px] w-full overflow-hidden">
                     <div class="h-full w-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
                 </div>
-                
+
                 {/* 装饰元素 - 发光粒子 */}
                 <div class="absolute inset-0 overflow-hidden">
                     {/* 随滚动变化的粒子 */}
                     {particles.value.map((particle, idx) => (
-                        <div 
+                        <div
                             key={idx}
                             class="absolute rounded-full bg-white dark:bg-blue-400"
                             style={{
@@ -158,9 +158,9 @@ export default defineComponent({
                             }}
                         ></div>
                     ))}
-                    
+
                     {/* 动态模糊光晕效果 - 跟随鼠标 */}
-                    <div 
+                    <div
                         class="pointer-events-none absolute opacity-50 transition-opacity duration-500"
                         style={{
                             background: `radial-gradient(600px circle at ${mousePosition.value.x}px ${mousePosition.value.y}px, ${isDark.value ? 'rgba(56, 189, 248, 0.05)' : 'rgba(56, 189, 248, 0.1)'}, transparent 40%)`,
@@ -172,13 +172,13 @@ export default defineComponent({
                         }}
                     ></div>
                 </div>
-                
+
                 {/* 主容器 */}
                 <div class="container relative mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex h-16 items-center justify-between">
                         {/* Logo区域 - 创新样式 */}
                         <div class="flex items-center">
-                            <div 
+                            <div
                                 class="group relative px-1"
                                 onMouseenter={() => { logoHovered.value = true }}
                                 onMouseleave={() => { logoHovered.value = false }}
@@ -187,14 +187,14 @@ export default defineComponent({
                                     'absolute -inset-3 rounded-xl transition-all duration-300',
                                     logoHovered.value ? 'bg-blue-50/50 dark:bg-blue-900/20' : 'bg-transparent'
                                 ]}></div>
-                                
+
                                 <RouterLink to="/" class="relative flex items-center">
                                     <span class={[
                                         'mr-1 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 transition-all duration-300',
                                         logoHovered.value ? 'transform scale-110' : ''
                                     ]}>UI</span>
                                     <span class="text-xl font-semibold text-gray-900 dark:text-white">组件库</span>
-                                    
+
                                     {/* 动态装饰点 */}
                                     <span class={[
                                         'absolute -right-2.5 -top-1 h-2 w-2 rounded-full bg-blue-500 transition-all duration-300',
@@ -202,11 +202,11 @@ export default defineComponent({
                                     ]}></span>
                                 </RouterLink>
                             </div>
-                            
+
                             {/* 导航链接 - 优雅下划线效果 */}
                             <nav class="hidden md:ml-8 md:flex md:space-x-6">
-                                <RouterLink 
-                                    to="/" 
+                                <RouterLink
+                                    to="/"
                                     class={({ isActive }: { isActive: boolean }) => [
                                         'relative px-3 py-2 text-sm font-medium transition-all duration-200',
                                         'hover:text-blue-600 dark:hover:text-blue-400',
@@ -220,9 +220,9 @@ export default defineComponent({
                                     ].join(' ')}></span>
                                     首页
                                 </RouterLink>
-                                
-                                <RouterLink 
-                                    to="/components" 
+
+                                <RouterLink
+                                    to="/components"
                                     class={({ isActive }: { isActive: boolean }) => [
                                         'relative px-3 py-2 text-sm font-medium transition-all duration-200',
                                         'hover:text-blue-600 dark:hover:text-blue-400',
@@ -235,9 +235,9 @@ export default defineComponent({
                                     ].join(' ')}></span>
                                     组件
                                 </RouterLink>
-                                
-                                <RouterLink 
-                                    to="/guide" 
+
+                                <RouterLink
+                                    to="/guide"
                                     class={({ isActive }: { isActive: boolean }) => [
                                         'relative px-3 py-2 text-sm font-medium transition-all duration-200',
                                         'hover:text-blue-600 dark:hover:text-blue-400',
@@ -252,21 +252,21 @@ export default defineComponent({
                                 </RouterLink>
                             </nav>
                         </div>
-                        
+
                         {/* 右侧工具栏 */}
                         <div class="flex items-center gap-2">
                             {/* 主题切换按钮 - 创新动画效果 */}
                             <div class="hidden md:flex md:items-center md:space-x-3">
-                                <button 
+                                <button
                                     onClick={toggleDark}
                                     class="group relative flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-gray-100/70 dark:hover:bg-gray-800/70"
                                 >
                                     <span class="absolute -inset-0.5 rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{
-                                        background: isDark.value 
-                                            ? "linear-gradient(rgba(30, 41, 59, 0), rgba(30, 41, 59, 0) 5px, rgba(30, 41, 59, 0.03))" 
+                                        background: isDark.value
+                                            ? "linear-gradient(rgba(30, 41, 59, 0), rgba(30, 41, 59, 0) 5px, rgba(30, 41, 59, 0.03))"
                                             : "linear-gradient(rgba(219, 234, 254, 0), rgba(219, 234, 254, 0) 5px, rgba(219, 234, 254, 0.4))"
                                     }}></span>
-                                    
+
                                     <Transition
                                         enterActiveClass="transition-all duration-300 transform"
                                         enterFromClass="opacity-0 rotate-90 scale-50"
@@ -283,21 +283,21 @@ export default defineComponent({
                                         )}
                                     </Transition>
                                 </button>
-                                
+
                                 {/* 主题模式文本 */}
                                 <span class="hidden text-sm font-medium text-gray-600 dark:text-gray-300 lg:block">
                                     {currentThemeModeName.value}模式
                                 </span>
-                                
+
                                 {/* GitHub链接 */}
-                                <a 
-                                    href="https://github.com" 
-                                    target="_blank" 
+                                <a
+                                    href="https://github.com"
+                                    target="_blank"
                                     class="group relative flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-gray-100/70 dark:hover:bg-gray-800/70"
                                 >
                                     <span class="icon-[mdi--github] h-5 w-5 text-gray-600 transition-transform duration-300 group-hover:scale-110 dark:text-gray-400"></span>
                                 </a>
-                                
+
                                 {/* 全功能主题控制 */}
                                 {props.showFullToggle && (
                                     <div class="ml-2 hidden lg:flex lg:space-x-2">
@@ -313,7 +313,7 @@ export default defineComponent({
                                             <span class="icon-[material-symbols--light-mode-outline-rounded] h-4 w-4"></span>
                                             亮色
                                         </button>
-                                        
+
                                         <button
                                             onClick={useSystemTheme}
                                             class={[
@@ -326,7 +326,7 @@ export default defineComponent({
                                             <span class="icon-[material-symbols--computer-outline-rounded] h-4 w-4"></span>
                                             系统
                                         </button>
-                                        
+
                                         <button
                                             onClick={setDarkTheme}
                                             class={[
@@ -342,9 +342,9 @@ export default defineComponent({
                                     </div>
                                 )}
                             </div>
-                            
+
                             {/* 移动版主题切换按钮 */}
-                            <button 
+                            <button
                                 onClick={toggleDark}
                                 class="md:hidden flex h-9 w-9 items-center justify-center rounded-full"
                             >
@@ -354,7 +354,7 @@ export default defineComponent({
                                     <span class="icon-[material-symbols--dark-mode-outline-rounded] h-5 w-5 text-blue-600"></span>
                                 )}
                             </button>
-                            
+
                             {/* 移动版菜单按钮 - 动画汉堡图标 */}
                             <button
                                 onClick={toggleMenu}
@@ -378,7 +378,7 @@ export default defineComponent({
                         </div>
                     </div>
                 </div>
-                
+
                 {/* 移动版下拉菜单 */}
                 <Transition
                     enterActiveClass="transition-all ease-out duration-300"
@@ -391,47 +391,47 @@ export default defineComponent({
                     {isMenuOpen.value && (
                         <div class="md:hidden overflow-hidden border-t border-gray-200 bg-white/90 backdrop-blur-md dark:border-gray-700 dark:bg-gray-800/90">
                             <nav class="space-y-1 px-4 py-3">
-                                <RouterLink 
+                                <RouterLink
                                     to="/"
                                     class={({ isActive }: { isActive: boolean }) => [
                                         'block rounded-lg px-3 py-2 font-medium transition-colors',
-                                        isActive 
-                                            ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400' 
+                                        isActive
+                                            ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400'
                                             : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/30'
                                     ].join(' ')}
                                 >
                                     首页
                                 </RouterLink>
-                                
-                                <RouterLink 
+
+                                <RouterLink
                                     to="/components"
                                     class={({ isActive }: { isActive: boolean }) => [
                                         'block rounded-lg px-3 py-2 font-medium transition-colors',
-                                        isActive 
-                                            ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400' 
+                                        isActive
+                                            ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400'
                                             : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/30'
                                     ].join(' ')}
                                 >
                                     组件
                                 </RouterLink>
-                                
-                                <RouterLink 
+
+                                <RouterLink
                                     to="/guide"
                                     class={({ isActive }: { isActive: boolean }) => [
                                         'block rounded-lg px-3 py-2 font-medium transition-colors',
-                                        isActive 
-                                            ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400' 
+                                        isActive
+                                            ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400'
                                             : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/30'
                                     ].join(' ')}
                                 >
                                     指南
                                 </RouterLink>
                             </nav>
-                            
+
                             {/* 主题设置 */}
                             <div class="border-t border-gray-200 px-4 py-4 dark:border-gray-700">
                                 <h3 class="mb-3 px-3 text-sm font-medium text-gray-500 dark:text-gray-400">主题设置</h3>
-                                
+
                                 <div class="grid grid-cols-3 gap-2">
                                     <button
                                         class={[
@@ -445,7 +445,7 @@ export default defineComponent({
                                         <span class="icon-[material-symbols--light-mode-rounded] h-5 w-5 mb-1"></span>
                                         <span class="text-xs font-medium">亮色</span>
                                     </button>
-                                    
+
                                     <button
                                         class={[
                                             "flex flex-col items-center justify-center rounded-lg p-3 transition-all",
@@ -458,7 +458,7 @@ export default defineComponent({
                                         <span class="icon-[material-symbols--computer-rounded] h-5 w-5 mb-1"></span>
                                         <span class="text-xs font-medium">系统</span>
                                     </button>
-                                    
+
                                     <button
                                         class={[
                                             "flex flex-col items-center justify-center rounded-lg p-3 transition-all",
@@ -472,7 +472,7 @@ export default defineComponent({
                                         <span class="text-xs font-medium">暗色</span>
                                     </button>
                                 </div>
-                                
+
                                 <div class="mt-3 flex items-center justify-between px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-800/60">
                                     <span class="text-sm text-gray-600 dark:text-gray-400">系统偏好:</span>
                                     <span class="text-xs font-medium rounded-full bg-gray-100 px-2 py-0.5 dark:bg-gray-700 dark:text-white">
@@ -480,11 +480,11 @@ export default defineComponent({
                                     </span>
                                 </div>
                             </div>
-                            
+
                             {/* 底部链接 */}
                             <div class="border-t border-gray-200 px-4 py-3 dark:border-gray-700">
-                                <a 
-                                    href="https://github.com" 
+                                <a
+                                    href="https://github.com"
                                     target="_blank"
                                     class="flex items-center rounded-lg px-3 py-2 font-medium text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/30"
                                 >

@@ -203,14 +203,17 @@
               <div
                 class="icon-[material-symbols--mark-email-unread-outline-rounded] h-6 w-6 text-gray-800 dark:text-white" />
             </button>
-            <Badge text="12" theme="primary" variant="solid" rounded="full" size="sm" class="absolute -right-1 -top-1" />
+            <Badge text="12" theme="primary" variant="solid" rounded="full" size="sm"
+              class="absolute -right-1 -top-1" />
           </div>
 
           <div class="relative">
             <button class="rounded-full p-2 hover:bg-gray-100 dark:hover:bg-gray-800">
-              <div class="icon-[material-symbols--shopping-cart-outline-rounded] h-6 w-6 text-gray-800 dark:text-white" />
+              <div
+                class="icon-[material-symbols--shopping-cart-outline-rounded] h-6 w-6 text-gray-800 dark:text-white" />
             </button>
-            <Badge text="购物车" color="emerald" variant="soft" rounded="full" size="sm" class="absolute -right-12 -top-2" />
+            <Badge text="购物车" color="emerald" variant="soft" rounded="full" size="sm"
+              class="absolute -right-12 -top-2" />
           </div>
         </div>
       </CodePreview>
@@ -643,7 +646,6 @@
 import { ref, computed, onMounted } from "vue";
 import { Badge } from "../../components/Badges";
 import CodePreview from "../../components/CodePreview";
-import GlobalHeader from "../../layout/GlobalHeader";
 import { basicColorCode, grayScaleCode, thematicColorCode, variantSoftCode, variantSolidCode, variantOutlineCode, sizeOptionsCode, roundedOptionsCode, interactiveBadgesCode, productLabelsCode, statusLabelsCode, notificationBadgesCode, userStatusCardCode, systemStatusCardCode, projectTagsCardCode } from './config'
 import {
   isDark,
