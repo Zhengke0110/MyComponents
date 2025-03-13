@@ -2,87 +2,25 @@
   <div class="container mx-auto px-4 py-8 text-gray-900 dark:text-white">
     <h1 class="mb-8 text-3xl font-bold">Message 消息组件</h1>
 
-    <!-- 暗色模式切换 -->
-    <section class="mb-10">
-      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
-        暗色模式切换
-      </h2>
-      <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2">
-          <span class="text-sm">暗色模式</span>
-          <div
-            class="relative inline-block h-6 w-11 cursor-pointer rounded-full bg-gray-200 transition-colors duration-200 ease-in-out dark:bg-blue-600"
-            @click="toggleDark()">
-            <span :class="[
-              'absolute top-1 left-1 h-4 w-4 rounded-full bg-white transition-transform duration-200 ease-in-out',
-              isDark ? 'translate-x-5' : 'translate-x-0',
-            ]"></span>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-3">
-          <button
-            class="flex items-center space-x-2 rounded-lg bg-blue-500 px-4 py-2 font-medium text-white transition-all duration-300 hover:bg-blue-600 dark:bg-indigo-600 dark:hover:bg-indigo-700"
-            @click="toggleDark()">
-            <span :class="[
-              isDark
-                ? 'icon-[material-symbols--wb-sunny-outline-rounded]'
-                : 'icon-[material-symbols--dark-mode-outline-rounded]',
-              'size-5',
-            ]"></span>
-            <span>{{ isDark ? "切换到亮色模式" : "切换到暗色模式" }}</span>
-          </button>
-
-          <button
-            class="flex items-center space-x-2 rounded-lg bg-gray-200 px-4 py-2 font-medium text-gray-800 transition-all duration-300 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
-            @click="preferredDark ? toggleDark(false) : toggleDark(true)">
-            <span class="icon-[material-symbols--settings-outline-rounded] size-5"></span>
-            <span>系统偏好</span>
-          </button>
-        </div>
-      </div>
-    </section>
-
     <!-- Basic message types -->
     <section class="mb-12">
       <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">基础消息类型</h2>
       <div class="flex flex-wrap gap-4">
-        <button 
-          @click="showMessage('success')" 
-          class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors">
+        <button @click="showMessage('success')"
+          class="rounded-md bg-green-600 px-4 py-2 text-white transition-colors hover:bg-green-700">
           成功消息
         </button>
-        <button 
-          @click="showMessage('warning')" 
-          class="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-md transition-colors">
+        <button @click="showMessage('warning')"
+          class="rounded-md bg-yellow-600 px-4 py-2 text-white transition-colors hover:bg-yellow-700">
           警告消息
         </button>
-        <button 
-          @click="showMessage('error')" 
-          class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors">
+        <button @click="showMessage('error')"
+          class="rounded-md bg-red-600 px-4 py-2 text-white transition-colors hover:bg-red-700">
           错误消息
         </button>
-        <button 
-          @click="showMessage('info')" 
-          class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors">
+        <button @click="showMessage('info')"
+          class="rounded-md bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700">
           提示消息
-        </button>
-      </div>
-    </section>
-
-    <!-- Position options -->
-    <section class="mb-12">
-      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">位置选项</h2>
-      <div class="flex flex-wrap gap-4">
-        <button 
-          @click="showPositionedMessage('top')" 
-          class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md transition-colors">
-          顶部位置
-        </button>
-        <button 
-          @click="showPositionedMessage('bottom')" 
-          class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md transition-colors">
-          底部位置
         </button>
       </div>
     </section>
@@ -91,18 +29,15 @@
     <section class="mb-12">
       <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">持续时间选项</h2>
       <div class="flex flex-wrap gap-4">
-        <button 
-          @click="showDurationMessage(1000)" 
+        <button @click="showDurationMessage(1000)"
           class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors">
           1 秒
         </button>
-        <button 
-          @click="showDurationMessage(3000)" 
+        <button @click="showDurationMessage(3000)"
           class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors">
           3 秒（默认）
         </button>
-        <button 
-          @click="showDurationMessage(5000)" 
+        <button @click="showDurationMessage(5000)"
           class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors">
           5 秒
         </button>
@@ -113,76 +48,184 @@
     <section class="mb-12">
       <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">可关闭的消息</h2>
       <div class="flex flex-wrap gap-4">
-        <button 
-          @click="showClosableMessage(true)" 
+        <button @click="showClosableMessage(true)"
           class="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-md transition-colors">
           可关闭消息
         </button>
-        <button 
-          @click="showClosableMessage(false)" 
+        <button @click="showClosableMessage(false)"
           class="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-md transition-colors">
           不可关闭消息
         </button>
       </div>
     </section>
 
-    <!-- Custom theme colors -->
+    <!-- Multiple messages demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">自定义主题颜色</h2>
+      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">多消息堆叠展示</h2>
       <div class="flex flex-wrap gap-4">
-        <button 
-          @click="showThemedMessage(THEME_COLOR_MAP.primary)" 
-          class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors">
-          主要主题
-        </button>
-        <button 
-          @click="showThemedMessage(THEME_COLOR_MAP.secondary)" 
-          class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors">
-          次要主题
-        </button>
-        <button 
-          @click="showThemedMessage(THEME_COLOR_MAP.warning)" 
-          class="px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-md transition-colors">
-          强调主题
+        <button @click="showMultipleMessages"
+          class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md transition-colors">
+          显示多条消息
         </button>
       </div>
     </section>
 
-    <!-- Advanced usage with callbacks -->
+    <!-- Callback demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">回调函数高级用法</h2>
+      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">回调函数示例</h2>
       <div class="flex flex-wrap gap-4">
-        <button 
-          @click="showCallbackMessage" 
+        <button @click="showCallbackMessage"
           class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md transition-colors">
           显示带回调的消息
         </button>
+      </div>
+    </section>
+
+    <!-- API 文档部分 -->
+    <section class="mb-10">
+      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">组件API</h2>
+      <div class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">静态方法</h3>
+        <div class="mb-6 overflow-x-auto">
+          <table class="min-w-full border-collapse">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">方法名</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">参数</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">返回值</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">描述</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">Message.success</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">(content: string, options?: MessageOptions)</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">MessageInstance</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">显示成功消息</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">Message.warning</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">(content: string, options?: MessageOptions)</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">MessageInstance</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">显示警告消息</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">Message.error</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">(content: string, options?: MessageOptions)</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">MessageInstance</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">显示错误消息</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">Message.info</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">(content: string, options?: MessageOptions)</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">MessageInstance</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">显示普通消息</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">配置项 (Options)</h3>
+        <div class="mb-6 overflow-x-auto">
+          <table class="min-w-full border-collapse">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">参数名</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">类型</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">默认值</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">说明</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">duration</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">number</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">3000</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">显示时间(毫秒)</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">closable</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">boolean</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">false</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">是否显示关闭按钮</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">onClose</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">() => void</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">关闭时的回调函数</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小结与最佳实践 -->
+    <section class="mb-10">
+      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">小结与最佳实践</h2>
+      <div class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+        <div class="space-y-4">
+          <p class="text-gray-700 dark:text-gray-300">
+            Message 组件是一个轻量级的全局消息提示组件，用于在页面顶部显示重要的提示信息。
+            以下是一些使用建议：
+          </p>
+
+          <ul class="ml-6 list-disc space-y-2 text-gray-700 dark:text-gray-300">
+            <li>根据消息的重要程度选择不同的类型：
+              <div class="mt-2 flex gap-2">
+                <span
+                  class="inline-flex items-center gap-1 rounded-md bg-green-50 px-2 py-1 text-sm text-green-700 dark:bg-green-500/10 dark:text-green-400">
+                  <i class="i-heroicons-check-circle-20-solid w-4 h-4" />
+                  success 用于成功操作
+                </span>
+                <span
+                  class="inline-flex items-center gap-1 rounded-md bg-red-50 px-2 py-1 text-sm text-red-700 dark:bg-red-500/10 dark:text-red-400">
+                  <i class="i-heroicons-x-circle-20-solid w-4 h-4" />
+                  error 用于错误提示
+                </span>
+              </div>
+            </li>
+            <li>合理设置显示时间:
+              <ul class="mt-2 ml-4 space-y-1 text-sm">
+                <li>- 重要信息：设置较长时间或需要手动关闭</li>
+                <li>- 普通提示：使用默认 3 秒即可</li>
+              </ul>
+            </li>
+            <li>避免同时显示过多消息，建议最多同时显示 3-4 条</li>
+            <li>消息内容应简明扼要，通常不超过 20 个字</li>
+          </ul>
+
+          <div class="rounded-lg border border-blue-100 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-900/20">
+            <h4 class="mb-2 flex items-center text-blue-800 dark:text-blue-300">
+              <span class="icon-[material-symbols--info-outline-rounded] mr-2 h-5 w-5"></span>
+              暗色模式提示
+            </h4>
+            <p class="text-sm text-blue-700 dark:text-blue-300">
+              Message 组件自动适配暗色模式，通过 Tailwind CSS 的 dark 变体实现。确保在你的项目中正确配置了暗色模式支持。
+            </p>
+          </div>
+
+          <div class="rounded-lg bg-gray-50 p-4 dark:bg-gray-700/30">
+            <h4 class="mb-2 text-base font-medium text-gray-900 dark:text-white">动画效果</h4>
+            <ul class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+              <li>• 入场：顶部滑入 + 淡入</li>
+              <li>• 退出：向上滑出 + 淡出</li>
+              <li>• 堆叠：自动计算位置，平滑过渡</li>
+            </ul>
+          </div>
+
+          <p class="text-gray-700 dark:text-gray-300">
+            合理使用消息提示可以提升用户体验，但过度使用反而会造成干扰。请根据实际场景需要选择合适的提示方式。
+          </p>
+        </div>
       </div>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
-import { Message, ColorType,THEME_COLOR_MAP } from '../../components/Message';
-import { useDark, useToggle } from "@vueuse/core";
-
-// 使用 vueuse/core 的暗色模式钩子
-const isDark = useDark({
-  selector: "html",
-  attribute: "class",
-  valueDark: "dark",
-  valueLight: "",
-});
-const toggleDark = useToggle(isDark);
-
-// 检查系统颜色偏好
-const preferredDark = ref(false);
-if (window.matchMedia) {
-  preferredDark.value = window.matchMedia(
-    "(prefers-color-scheme: dark)",
-  ).matches;
-}
+import Message from '../../components/Message'
 
 // Basic message demos
 const showMessage = (type: 'success' | 'warning' | 'error' | 'info') => {
@@ -191,34 +234,29 @@ const showMessage = (type: 'success' | 'warning' | 'error' | 'info') => {
     warning: '请谨慎操作。',
     error: '处理请求时出错。',
     info: '这是一条信息提示。'
-  };
-  
-  Message[type](messages[type]);
-};
-
-// Position demo
-const showPositionedMessage = (position: 'top' | 'bottom') => {
-  Message.info(`此消息显示在屏幕${position === 'top' ? '顶部' : '底部'}。`, { position });
-};
+  }
+  Message[type](messages[type])
+}
 
 // Duration demo
 const showDurationMessage = (duration: number) => {
-  Message.info(`此消息将在 ${duration/1000} 秒后消失。`, { duration });
-};
+  Message.info(`此消息将在 ${duration / 1000} 秒后消失。`, { duration })
+}
 
 // Closable demo
 const showClosableMessage = (closable: boolean) => {
-  const message = closable 
-    ? '此消息可以手动关闭（点击我或X按钮）' 
-    : '此消息不能手动关闭';
-  
-  Message.info(message, { closable });
-};
+  Message.info(
+    closable ? '此消息可以手动关闭' : '此消息不能手动关闭',
+    { closable }
+  )
+}
 
-// Custom theme demo
-const showThemedMessage = (color: ColorType) => {
-  Message.theme(`这是一个自定义的 ${color} 主题消息。`, color);
-};
+// Multiple messages demo
+const showMultipleMessages = () => {
+  Message.info('第一条消息')
+  setTimeout(() => Message.success('第二条消息'), 300)
+  setTimeout(() => Message.warning('第三条消息'), 600)
+}
 
 // Callback demo
 const showCallbackMessage = () => {
@@ -226,111 +264,13 @@ const showCallbackMessage = () => {
     closable: true,
     onClose: () => {
       setTimeout(() => {
-        Message.info('前一条消息已关闭！');
-      }, 500);
+        Message.info('前一条消息已关闭！')
+      }, 500)
     }
-  });
-};
-
-// 确保暗色模式正确应用
-onMounted(() => {
-  // 初始应用暗色模式
-  if (isDark.value) {
-    document.documentElement.classList.add("dark");
-    document.body.classList.add("dark-mode");
-  }
-
-  // 自动检测并添加使用暗色模式的标记类
-  document.documentElement.classList.add("using-dark-mode");
-});
-
-// 监听暗色模式变化
-watch(isDark, (newVal) => {
-  if (newVal) {
-    document.documentElement.classList.add("dark");
-    document.body.classList.add("dark-mode");
-  } else {
-    document.documentElement.classList.remove("dark");
-    document.body.classList.remove("dark-mode");
-  }
-
-  // 强制触发重新渲染
-  setTimeout(() => {
-    document.body.style.transition = "background-color 0.3s ease";
-    if (newVal) {
-      document.body.style.backgroundColor = "#1f2937";
-    } else {
-      document.body.style.backgroundColor = "";
-    }
-  }, 0);
-});
-
-// 清理函数
-onBeforeUnmount(() => {
-  document.documentElement.classList.remove("using-dark-mode");
-});
+  })
+}
 </script>
 
 <style>
-/* 确保暗模式生效的基本样式 */
-:root {
-  color-scheme: light;
-}
-
-:root.dark,
-html.dark {
-  color-scheme: dark;
-  background-color: #1f2937;
-  /* gray-800 */
-}
-
-body.dark-mode {
-  background-color: #1f2937;
-  /* gray-800 */
-}
-
-/* 确保所有标题和文本在暗色模式下显示为白色 */
-.dark h1,
-.dark h2,
-.dark h3,
-.dark h4,
-.dark h5,
-.dark h6,
-.dark .text-gray-900 {
-  color: white !important;
-}
-
-/* 暗色模式下其他文本颜色适配 */
-.dark .text-gray-700 {
-  color: #d1d5db !important;
-  /* gray-300 */
-}
-
-.dark .text-gray-600 {
-  color: #9ca3af !important;
-  /* gray-400 */
-}
-
-/* 强制背景色适配暗色模式 */
-.dark .bg-white {
-  background-color: #1f2937 !important;
-  /* gray-800 */
-}
-
-/* 强制边框颜色适配暗色模式 */
-.dark .border-gray-200 {
-  border-color: #374151 !important;
-  /* gray-700 */
-}
-
-/* 系统暗色模式自动适配 */
-@media (prefers-color-scheme: dark) {
-  :root.using-dark-mode:not(.light) {
-    background-color: #1f2937;
-  }
-
-  :root:not(.using-dark-mode) {
-    color-scheme: dark;
-  }
-}
+/* Remove dark mode related styles as they will be handled by Tailwind */
 </style>
