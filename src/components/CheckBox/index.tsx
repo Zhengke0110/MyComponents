@@ -1,92 +1,29 @@
-import { computed, defineComponent, ref, onMounted, onUnmounted } from "vue";
-import { ThemeColorType, THEME_COLOR_MAP } from "./config";
-import {
-  checkBoxProps,
-  type CheckBoxEmits,
-  type CheckBoxPropsType
-} from "./types";
-import {
-  sizeClassesMap,
-  colorMap,
-  darkModeColorMap,
-  baseCheckboxClasses,
-  darkModeCheckboxClasses,
-  baseIconClasses,
-  darkModeIconClasses,
-  svgPaths
-} from "./config";
+import { computed, defineComponent } from "vue";
+import { THEME_COLOR_MAP, colorClassMap, sizeClassesMap, svgPaths } from "./config";
+import { checkBoxProps, type CheckBoxPropsType } from "./types";
 
 export const CheckBox = defineComponent({
   name: "CheckBox",
   props: checkBoxProps,
   emits: ["update:modelValue", "change", "focus", "blur", "click"],
   setup(props: CheckBoxPropsType, { emit }) {
-    // 检测系统暗色模式
-    const systemDarkMode = ref(false);
-    
-    // 兼容性处理系统暗色模式监听
-    let mediaQuery: MediaQueryList | null = null;
-    
-    onMounted(() => {
-      // 确保在浏览器环境中运行
-      if (typeof window !== 'undefined') {
-        mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        systemDarkMode.value = mediaQuery.matches;
-        
-        // 使用兼容性更好的方式添加监听器
-        const handleChange = (e: MediaQueryListEvent) => {
-          systemDarkMode.value = e.matches;
-        };
-        
-        // 使用 addEventListener 或 addListener (兼容旧浏览器)
-        if (mediaQuery.addEventListener) {
-          mediaQuery.addEventListener('change', handleChange);
-        } else if (mediaQuery.addListener) {
-          // @ts-ignore - 兼容旧版浏览器 API
-          mediaQuery.addListener(handleChange);
-        }
-        
-        // 清理函数
-        onUnmounted(() => {
-          if (!mediaQuery) return;
-          
-          if (mediaQuery.removeEventListener) {
-            mediaQuery.removeEventListener('change', handleChange);
-          } else if (mediaQuery.removeListener) {
-            // @ts-ignore - 兼容旧版浏览器 API
-            mediaQuery.removeListener(handleChange);
-          }
-        });
+    // 获取实际使用的颜色类型
+    const actualColorType = computed(() => {
+      // 检查传入的type是否为主题枚举
+      if (props.type && props.type in THEME_COLOR_MAP) {
+        return THEME_COLOR_MAP[props.type as keyof typeof THEME_COLOR_MAP];
       }
+      return props.type as keyof typeof colorClassMap;
     });
-    
-    // 计算当前是否为暗色模式
-    const isDarkMode = computed(() => {
-      if (!props.followSystem) return props.darkMode;
-      return props.darkMode || systemDarkMode.value;
+
+    // 获取颜色样式类
+    const colorClasses = computed(() => {
+      const colorType = actualColorType.value || 'indigo';
+      return colorClassMap[colorType] || colorClassMap.indigo;
     });
 
     // 获取尺寸样式
     const sizeClasses = computed(() => sizeClassesMap[props.size]);
-
-    // 获取实际使用的颜色类型（优先使用 theme，回退到 color）
-    const actualColorType = computed(() => {
-      if (props.theme && props.theme in THEME_COLOR_MAP) {
-        return THEME_COLOR_MAP[props.theme as ThemeColorType];
-      }
-      return props.color;
-    });
-
-    // 计算颜色样式，根据暗色模式选择不同的颜色映射
-    const colorStyle = computed(() => {
-      const colorMapToUse = isDarkMode.value ? darkModeColorMap : colorMap;
-      const colors = colorMapToUse[actualColorType.value] || colorMapToUse.indigo;
-      return {
-        "--tw-checkbox-border": colors.light,
-        "--tw-checkbox-hover": colors.medium,
-        "--tw-checkbox-checked": colors.dark,
-      };
-    });
 
     // 处理变更事件
     const handleChange = (event: Event) => {
@@ -95,33 +32,42 @@ export const CheckBox = defineComponent({
       emit("change", event);
     };
 
-    // 计算复选框类名，合并暗色模式的类名
-    const checkboxClasses = computed(() => {
-      // 创建一个新对象，避免修改原始对象
-      const classes = { ...baseCheckboxClasses };
-      
-      if (isDarkMode.value) {
-        
-        // 添加暗色模式特定的类
-        return {
-          ...classes,
-          ...darkModeCheckboxClasses,
-          "hover:border-[var(--tw-checkbox-hover)]": !props.disabled,
-        };
-      }
-      
-      return {
-        ...classes,
-        "hover:border-[var(--tw-checkbox-hover)]": !props.disabled,
-      };
-    });
+    // 计算复选框类名
+    const checkboxClasses = computed(() => [
+      // 基本样式
+      "relative appearance-none rounded border",
+      "transition-all duration-200 ease-in-out",
+      "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+      "disabled:cursor-not-allowed disabled:bg-gray-100 dark:disabled:bg-gray-800",
+      "disabled:border-gray-300 dark:disabled:border-gray-700",
+      "focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900",
+      // 颜色样式
+      colorClasses.value.border,
+      !props.disabled && colorClasses.value.hoverBorder,
+      colorClasses.value.checkedBg,
+      colorClasses.value.focusRing,
+      // 背景色
+      "bg-white dark:bg-gray-800",
+      // 选中状态动画增强
+      "checked:animate-pulse checked:animate-once checked:animate-duration-300",
+      // 暗色模式下增强选中状态的视觉效果
+      "dark:checked:border-opacity-0 dark:checked:shadow-[0_0_0_1px_rgba(255,255,255,0.2)]",
+    ]);
 
-    // 计算图标类名，合并暗色模式的类名
+    // 计算图标类名
     const iconClasses = computed(() => [
-      ...baseIconClasses,
-      ...(isDarkMode.value ? darkModeIconClasses : []),
-      props.modelValue || props.indeterminate ? "scale-100" : "scale-0",
+      // 基本样式
+      "pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+      "transition-transform duration-200 ease-in-out",
+      // 增强暗色模式下图标的亮度
+      "stroke-white dark:stroke-white dark:stroke-opacity-100 dark:stroke-[2.5px]",
+      "group-has-[:disabled]:stroke-gray-950/25 dark:group-has-[:disabled]:stroke-gray-300/50",
+      // 大小样式
       sizeClasses.value.icon,
+      // 动画效果增强
+      props.modelValue || props.indeterminate
+        ? "scale-100 transform-gpu"
+        : "scale-0 transform-gpu",
     ]);
 
     // 计算包装器类名
@@ -132,21 +78,21 @@ export const CheckBox = defineComponent({
         ? "flex flex-col gap-3"
         : "flex items-center gap-2",
       props.inline ? "inline-flex" : "flex",
-      // 暗色模式下的文本颜色
-      isDarkMode.value ? "text-gray-100" : "text-gray-900",
+      // 文本颜色，增强对比度
+      "text-gray-900 dark:text-gray-50",
       props.wrapperClass,
     ]);
 
     // 计算标签类名
     const labelTextClasses = computed(() => [
       "font-medium",
-      isDarkMode.value ? "text-gray-100" : "text-gray-900",
+      "text-gray-900 dark:text-gray-50", // 增强文字亮度
       props.labelClass,
     ]);
 
     // 计算描述文本类名
     const descriptionClasses = computed(() => [
-      isDarkMode.value ? "text-gray-400" : "text-gray-500",
+      "text-gray-500 dark:text-gray-300", // 提高描述文字的亮度
     ]);
 
     // 获取当前应使用的 SVG 路径
@@ -171,7 +117,6 @@ export const CheckBox = defineComponent({
           onFocus={(e) => emit("focus", e)}
           onBlur={(e) => emit("blur", e)}
           onClick={(e) => emit("click", e)}
-          style={colorStyle.value}
           class={[checkboxClasses.value, sizeClasses.value.input]}
         />
         <svg
@@ -218,7 +163,7 @@ export const CheckBox = defineComponent({
         <label
           for={props.id}
           class={[
-            "cursor-pointer font-medium select-none",
+            "cursor-pointer select-none font-medium",
             labelTextClasses.value,
             sizeClasses.value.label,
           ]}

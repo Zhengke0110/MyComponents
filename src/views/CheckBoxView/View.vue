@@ -2,47 +2,6 @@
   <div class="container mx-auto px-4 py-8 text-gray-900 dark:text-white">
     <h1 class="mb-8 text-3xl font-bold">CheckBox 复选框组件</h1>
 
-    <!-- 暗色模式切换 -->
-    <section class="mb-10">
-      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
-        暗色模式切换
-      </h2>
-      <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2">
-          <span class="text-sm">暗色模式</span>
-          <div
-            class="relative inline-block h-6 w-11 cursor-pointer rounded-full bg-gray-200 transition-colors duration-200 ease-in-out dark:bg-blue-600"
-            @click="toggleDark()">
-            <span :class="[
-              'absolute top-1 left-1 h-4 w-4 rounded-full bg-white transition-transform duration-200 ease-in-out',
-              isDark ? 'translate-x-5' : 'translate-x-0',
-            ]"></span>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-3">
-          <button
-            class="flex items-center space-x-2 rounded-lg bg-blue-500 px-4 py-2 font-medium text-white transition-all duration-300 hover:bg-blue-600 dark:bg-indigo-600 dark:hover:bg-indigo-700"
-            @click="toggleDark()">
-            <span :class="[
-              isDark
-                ? 'icon-[material-symbols--wb-sunny-outline-rounded]'
-                : 'icon-[material-symbols--dark-mode-outline-rounded]',
-              'size-5',
-            ]"></span>
-            <span>{{ isDark ? "切换到亮色模式" : "切换到暗色模式" }}</span>
-          </button>
-
-          <button
-            class="flex items-center space-x-2 rounded-lg bg-gray-200 px-4 py-2 font-medium text-gray-800 transition-all duration-300 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
-            @click="preferredDark ? toggleDark(false) : toggleDark(true)">
-            <span class="icon-[material-symbols--settings-outline-rounded] size-5"></span>
-            <span>系统偏好</span>
-          </button>
-        </div>
-      </div>
-    </section>
-
     <!-- 基础用法 -->
     <section class="mb-10">
       <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
@@ -62,12 +21,12 @@
         语义化主题
       </h2>
       <div class="flex flex-wrap gap-8">
-        <CheckBox id="theme-primary" v-model="checkState.primary" theme="primary" label="主要" />
-        <CheckBox id="theme-secondary" v-model="checkState.secondary" theme="secondary" label="次要" />
-        <CheckBox id="theme-success" v-model="checkState.success" theme="success" label="成功" />
-        <CheckBox id="theme-warning" v-model="checkState.warning" theme="warning" label="警告" />
-        <CheckBox id="theme-danger" v-model="checkState.danger" theme="danger" label="危险" />
-        <CheckBox id="theme-info" v-model="checkState.info" theme="info" label="信息" />
+        <CheckBox id="theme-primary" v-model="checkState.primary" type="primary" label="主要" />
+        <CheckBox id="theme-secondary" v-model="checkState.secondary" type="secondary" label="次要" />
+        <CheckBox id="theme-success" v-model="checkState.success" type="success" label="成功" />
+        <CheckBox id="theme-warning" v-model="checkState.warning" type="warning" label="警告" />
+        <CheckBox id="theme-danger" v-model="checkState.danger" type="danger" label="危险" />
+        <CheckBox id="theme-info" v-model="checkState.info" type="info" label="信息" />
       </div>
     </section>
 
@@ -83,11 +42,11 @@
             灰色系
           </h3>
           <div class="space-y-3">
-            <CheckBox id="color-slate" v-model="checkState.slate" color="slate" label="石板灰" />
-            <CheckBox id="color-gray" v-model="checkState.gray" color="gray" label="灰色" />
-            <CheckBox id="color-zinc" v-model="checkState.zinc" color="zinc" label="锌灰" />
-            <CheckBox id="color-neutral" v-model="checkState.neutral" color="neutral" label="中性灰" />
-            <CheckBox id="color-stone" v-model="checkState.stone" color="stone" label="石灰" />
+            <CheckBox id="color-slate" v-model="checkState.slate" type="slate" label="石板灰" />
+            <CheckBox id="color-gray" v-model="checkState.gray" type="gray" label="灰色" />
+            <CheckBox id="color-zinc" v-model="checkState.zinc" type="zinc" label="锌灰" />
+            <CheckBox id="color-neutral" v-model="checkState.neutral" type="neutral" label="中性灰" />
+            <CheckBox id="color-stone" v-model="checkState.stone" type="stone" label="石灰" />
           </div>
         </div>
 
@@ -96,10 +55,10 @@
             暖色系
           </h3>
           <div class="space-y-3">
-            <CheckBox id="color-red" v-model="checkState.red" color="red" label="红色" />
-            <CheckBox id="color-orange" v-model="checkState.orange" color="orange" label="橙色" />
-            <CheckBox id="color-amber" v-model="checkState.amber" color="amber" label="琥珀色" />
-            <CheckBox id="color-yellow" v-model="checkState.yellow" color="yellow" label="黄色" />
+            <CheckBox id="color-red" v-model="checkState.red" type="red" label="红色" />
+            <CheckBox id="color-orange" v-model="checkState.orange" type="orange" label="橙色" />
+            <CheckBox id="color-amber" v-model="checkState.amber" type="amber" label="琥珀色" />
+            <CheckBox id="color-yellow" v-model="checkState.yellow" type="yellow" label="黄色" />
           </div>
         </div>
 
@@ -108,10 +67,10 @@
             绿色系
           </h3>
           <div class="space-y-3">
-            <CheckBox id="color-lime" v-model="checkState.lime" color="lime" label="青柠色" />
-            <CheckBox id="color-green" v-model="checkState.green" color="green" label="绿色" />
-            <CheckBox id="color-emerald" v-model="checkState.emerald" color="emerald" label="翠绿色" />
-            <CheckBox id="color-teal" v-model="checkState.teal" color="teal" label="蓝绿色" />
+            <CheckBox id="color-lime" v-model="checkState.lime" type="lime" label="青柠色" />
+            <CheckBox id="color-green" v-model="checkState.green" type="green" label="绿色" />
+            <CheckBox id="color-emerald" v-model="checkState.emerald" type="emerald" label="翠绿色" />
+            <CheckBox id="color-teal" v-model="checkState.teal" type="teal" label="蓝绿色" />
           </div>
         </div>
 
@@ -120,10 +79,10 @@
             蓝色系
           </h3>
           <div class="space-y-3">
-            <CheckBox id="color-cyan" v-model="checkState.cyan" color="cyan" label="青色" />
-            <CheckBox id="color-sky" v-model="checkState.sky" color="sky" label="天蓝色" />
-            <CheckBox id="color-blue" v-model="checkState.blue" color="blue" label="蓝色" />
-            <CheckBox id="color-indigo" v-model="checkState.indigo" color="indigo" label="靛青色" />
+            <CheckBox id="color-cyan" v-model="checkState.cyan" type="cyan" label="青色" />
+            <CheckBox id="color-sky" v-model="checkState.sky" type="sky" label="天蓝色" />
+            <CheckBox id="color-blue" v-model="checkState.blue" type="blue" label="蓝色" />
+            <CheckBox id="color-indigo" v-model="checkState.indigo" type="indigo" label="靛青色" />
           </div>
         </div>
 
@@ -132,11 +91,11 @@
             紫粉色系
           </h3>
           <div class="space-y-3">
-            <CheckBox id="color-violet" v-model="checkState.violet" color="violet" label="紫罗兰" />
-            <CheckBox id="color-purple" v-model="checkState.purple" color="purple" label="紫色" />
-            <CheckBox id="color-fuchsia" v-model="checkState.fuchsia" color="fuchsia" label="品红色" />
-            <CheckBox id="color-pink" v-model="checkState.pink" color="pink" label="粉色" />
-            <CheckBox id="color-rose" v-model="checkState.rose" color="rose" label="玫瑰色" />
+            <CheckBox id="color-violet" v-model="checkState.violet" type="violet" label="紫罗兰" />
+            <CheckBox id="color-purple" v-model="checkState.purple" type="purple" label="紫色" />
+            <CheckBox id="color-fuchsia" v-model="checkState.fuchsia" type="fuchsia" label="品红色" />
+            <CheckBox id="color-pink" v-model="checkState.pink" type="pink" label="粉色" />
+            <CheckBox id="color-rose" v-model="checkState.rose" type="rose" label="玫瑰色" />
           </div>
         </div>
       </div>
@@ -148,9 +107,9 @@
         不同尺寸
       </h2>
       <div class="space-y-4">
-        <CheckBox id="size-sm" v-model="checkState.size" size="sm" theme="primary" label="小尺寸 (SM)" />
-        <CheckBox id="size-md" v-model="checkState.size" size="md" theme="primary" label="中等尺寸 (MD)" />
-        <CheckBox id="size-lg" v-model="checkState.size" size="lg" theme="primary" label="大尺寸 (LG)" />
+        <CheckBox id="size-sm" v-model="checkState.size" size="sm" type="primary" label="小尺寸 (SM)" />
+        <CheckBox id="size-md" v-model="checkState.size" size="md" type="primary" label="中等尺寸 (MD)" />
+        <CheckBox id="size-lg" v-model="checkState.size" size="lg" type="primary" label="大尺寸 (LG)" />
       </div>
     </section>
 
@@ -172,7 +131,7 @@
       </h2>
       <div class="space-y-4">
         <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
-          <CheckBox id="parent-checkbox" v-model="parentSelected" :indeterminate="indeterminate" theme="primary"
+          <CheckBox id="parent-checkbox" v-model="parentSelected" :indeterminate="indeterminate" type="primary"
             label="全选" />
           <div class="mt-2 ml-6 space-y-2">
             <CheckBox v-for="(item, index) in items" :key="index" :id="`child-checkbox-${index}`" v-model="item.checked"
@@ -188,9 +147,9 @@
         带描述的复选框
       </h2>
       <div class="space-y-4">
-        <CheckBox id="with-description" v-model="checkState.withDescription" theme="primary" label="接收通知"
+        <CheckBox id="with-description" v-model="checkState.withDescription" type="primary" label="接收通知"
           description="我们会在您的账户有重要更新时通过电子邮件通知您。" />
-        <CheckBox id="with-description-2" v-model="checkState.withDescription2" theme="success" label="订阅每周简报"
+        <CheckBox id="with-description-2" v-model="checkState.withDescription2" type="success" label="订阅每周简报"
           description="每周获取行业资讯和产品更新，保持最新动态。" />
       </div>
     </section>
@@ -205,13 +164,13 @@
           <h3 class="mb-2 text-lg font-medium text-gray-900 dark:text-white">
             水平布局（默认）
           </h3>
-          <CheckBox id="horizontal-layout" v-model="checkState.horizontal" theme="primary" label="水平布局" />
+          <CheckBox id="horizontal-layout" v-model="checkState.horizontal" type="primary" label="水平布局" />
         </div>
         <div>
           <h3 class="mb-2 text-lg font-medium text-gray-900 dark:text-white">
             垂直布局
           </h3>
-          <CheckBox id="vertical-layout" v-model="checkState.vertical" theme="primary" layout="vertical" label="垂直布局"
+          <CheckBox id="vertical-layout" v-model="checkState.vertical" type="primary" layout="vertical" label="垂直布局"
             description="标签在上，复选框在下" />
         </div>
       </div>
@@ -227,9 +186,9 @@
           使用 <code>inline</code> 属性可以让复选框在一行内显示：
         </p>
         <div class="flex flex-wrap gap-6">
-          <CheckBox id="inline-1" v-model="checkState.inline1" inline theme="primary" label="选项1" />
-          <CheckBox id="inline-2" v-model="checkState.inline2" inline theme="primary" label="选项2" />
-          <CheckBox id="inline-3" v-model="checkState.inline3" inline theme="primary" label="选项3" />
+          <CheckBox id="inline-1" v-model="checkState.inline1" inline type="primary" label="选项1" />
+          <CheckBox id="inline-2" v-model="checkState.inline2" inline type="primary" label="选项2" />
+          <CheckBox id="inline-3" v-model="checkState.inline3" inline type="primary" label="选项3" />
         </div>
       </div>
     </section>
@@ -248,9 +207,9 @@
             复选框组件自动适应亮/暗主题，在不同主题下提供一致的用户体验
           </p>
           <div class="space-y-4">
-            <CheckBox id="dark-theme-1" v-model="checkState.darkTheme1" theme="primary" label="主要主题复选框" />
-            <CheckBox id="dark-theme-2" v-model="checkState.darkTheme2" theme="success" label="成功主题复选框" />
-            <CheckBox id="dark-theme-3" v-model="checkState.darkTheme3" theme="danger" label="危险主题复选框" />
+            <CheckBox id="dark-theme-1" v-model="checkState.darkTheme1" type="primary" label="主要主题复选框" />
+            <CheckBox id="dark-theme-2" v-model="checkState.darkTheme2" type="success" label="成功主题复选框" />
+            <CheckBox id="dark-theme-3" v-model="checkState.darkTheme3" type="danger" label="危险主题复选框" />
           </div>
         </div>
 
@@ -258,9 +217,9 @@
           <h3 class="mb-3 text-lg font-medium text-white">深色背景上的复选框</h3>
           <p class="mb-3 text-sm text-gray-300">复选框在深色背景上的表现</p>
           <div class="space-y-4">
-            <CheckBox id="dark-bg-1" v-model="checkState.darkBg1" theme="primary" darkMode label="主要主题复选框" />
-            <CheckBox id="dark-bg-2" v-model="checkState.darkBg2" color="emerald" darkMode label="翠绿色复选框" />
-            <CheckBox id="dark-bg-3" v-model="checkState.darkBg3" color="amber" darkMode label="琥珀色复选框" />
+            <CheckBox id="dark-bg-1" v-model="checkState.darkBg1" type="primary" label="主要主题复选框" />
+            <CheckBox id="dark-bg-2" v-model="checkState.darkBg2" type="emerald" label="翠绿色复选框" />
+            <CheckBox id="dark-bg-3" v-model="checkState.darkBg3" type="amber" label="琥珀色复选框" />
           </div>
         </div>
       </div>
@@ -279,11 +238,11 @@
           隐私设置
         </h3>
         <div class="space-y-6">
-          <CheckBox id="privacy-1" v-model="privacySettings.receiveEmails" theme="primary" label="接收营销邮件"
+          <CheckBox id="privacy-1" v-model="privacySettings.receiveEmails" type="primary" label="接收营销邮件"
             description="我们将向您发送产品更新和特别优惠信息。" />
-          <CheckBox id="privacy-2" v-model="privacySettings.shareData" theme="primary" label="同意数据分享"
+          <CheckBox id="privacy-2" v-model="privacySettings.shareData" type="primary" label="同意数据分享"
             description="允许我们与合作伙伴共享您的使用数据以改进服务质量。" />
-          <CheckBox id="privacy-3" v-model="privacySettings.cookieTracking" theme="primary" label="允许Cookie跟踪"
+          <CheckBox id="privacy-3" v-model="privacySettings.cookieTracking" type="primary" label="允许Cookie跟踪"
             description="我们使用Cookie来个性化您的体验并收集使用数据。" />
           <div class="flex justify-end">
             <button
@@ -302,7 +261,7 @@
         </h3>
         <div class="space-y-3">
           <div v-for="(task, index) in tasks" :key="index" class="flex items-center gap-3">
-            <CheckBox :id="`todo-${index}`" v-model="task.completed" :theme="task.completed ? 'success' : 'primary'" />
+            <CheckBox :id="`todo-${index}`" v-model="task.completed" :type="task.completed ? 'success' : 'primary'" />
             <span :class="{ 'line-through text-gray-400': task.completed }">
               {{ task.text }}
             </span>
@@ -330,13 +289,256 @@
         </p>
         <div class="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2">
           <CheckBox v-for="(hobby, index) in hobbies" :key="index" :id="`hobby-${index}`" v-model="hobby.selected"
-            color="indigo" :label="hobby.name" />
+            type="indigo" :label="hobby.name" />
         </div>
         <div class="flex justify-end">
           <button
             class="rounded-lg bg-indigo-500 px-4 py-2 font-medium text-white hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-700">
             提交选择
           </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- API 文档部分 -->
+    <section class="mb-10">
+      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">组件API</h2>
+      <div class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">属性 (Props)</h3>
+        <div class="mb-6 overflow-x-auto">
+          <table class="min-w-full border-collapse">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">属性名</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">类型</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">默认值</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">描述</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">modelValue</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">boolean</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">复选框的值（必填）</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">id</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">复选框的唯一标识（必填）</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">name</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">''</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">复选框的 name 属性</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">label</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">复选框的标签文本（必填）</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">description</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">''</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">复选框的描述文本</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">disabled</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">boolean</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">false</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">是否禁用</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">type</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">CheckBoxType</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'primary'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">复选框的类型，支持颜色名或主题名</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">layout</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'horizontal' | 'vertical'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'horizontal'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">布局方式</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">size</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'sm' | 'md' | 'lg'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'md'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">复选框的尺寸</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">inline</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">boolean</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">false</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">是否内联显示</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">indeterminate</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">boolean</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">false</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">是否为不确定状态</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">wrapperClass</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">''</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">包装器额外的 class</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">labelClass</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">''</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">标签额外的 class</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">事件 (Events)</h3>
+        <div class="mb-6 overflow-x-auto">
+          <table class="min-w-full border-collapse">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">事件名</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">回调参数</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">描述</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">update:modelValue</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">(value: boolean)</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">复选框值变更时触发</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">change</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">(event: Event)</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">复选框状态变化时触发</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">focus</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">(event: FocusEvent)</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">复选框获得焦点时触发</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">blur</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">(event: FocusEvent)</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">复选框失去焦点时触发</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">click</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">(event: MouseEvent)</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">复选框被点击时触发</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="mt-6 mb-4 text-lg font-medium text-gray-900 dark:text-white">类型定义</h3>
+        <div class="mb-4 rounded-lg bg-gray-50 p-4 dark:bg-gray-700/30">
+          <p class="mb-2 text-sm text-gray-700 dark:text-gray-300">CheckBox 组件使用 TypeScript 定义了完整的类型：</p>
+          <pre class="overflow-x-auto rounded bg-gray-100 p-3 text-xs text-gray-800 dark:bg-gray-800 dark:text-gray-200">
+import { CheckBoxProps, CheckBoxEmits, CheckBoxType } from '@/components/CheckBox';
+
+// 使用类型
+const myProps: CheckBoxProps = {
+  id: 'my-checkbox',
+  modelValue: false,
+  label: '同意条款',
+  type: 'primary',
+  size: 'md'
+};</pre>
+        </div>
+
+        <h3 class="mt-6 mb-4 text-lg font-medium text-gray-900 dark:text-white">组件设计原则</h3>
+        <div class="space-y-3">
+          <p class="text-sm text-gray-700 dark:text-gray-300">CheckBox 组件基于以下设计原则构建：</p>
+          <ol class="ml-6 list-decimal space-y-2 text-sm text-gray-700 dark:text-gray-300">
+            <li><span class="font-medium">可组合性</span> - 组件接受多种属性配置，可以灵活组合</li>
+            <li><span class="font-medium">一致性</span> - 颜色、尺寸等遵循整个组件库的统一规范</li>
+            <li><span class="font-medium">可访问性</span> - 支持键盘操作和屏幕阅读器</li>
+            <li><span class="font-medium">类型安全</span> - 使用 TypeScript 接口确保类型安全</li>
+            <li><span class="font-medium">代码分层</span> - 将样式、逻辑和类型分开管理</li>
+            <li><span class="font-medium">暗色适配</span> - 原生支持 Tailwind CSS 暗色模式</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小结与最佳实践 -->
+    <section class="mb-10">
+      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">小结与最佳实践</h2>
+      <div class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+        <div class="space-y-4">
+          <p class="text-gray-700 dark:text-gray-300">
+            CheckBox 组件是一个灵活且功能丰富的复选框解决方案，适用于各种表单控制、数据选择和状态切换场景。
+            以下是一些使用建议：
+          </p>
+
+          <ul class="ml-6 list-disc space-y-2 text-gray-700 dark:text-gray-300">
+            <li>为每个复选框提供唯一的
+              <code class="rounded bg-gray-100 px-1 py-0.5 font-mono dark:bg-gray-800/60">id</code>
+              属性，这对于 label 关联和可访问性至关重要
+            </li>
+            <li>根据语义选择适当的主题类型，如使用
+              <CheckBox id="example-success" v-model="exampleStates.success" type="success" size="sm" label="成功类型" />
+              表示成功或完成的操作
+            </li>
+            <li>当需要展示附加信息时，使用
+              <code class="rounded bg-gray-100 px-1 py-0.5 font-mono dark:bg-gray-800/60">description</code>
+              属性添加描述文本
+            </li>
+            <li>对于相关选项分组，考虑使用
+              <code class="rounded bg-gray-100 px-1 py-0.5 font-mono dark:bg-gray-800/60">inline</code>
+              属性进行水平排列
+            </li>
+            <li>使用
+              <code class="rounded bg-gray-100 px-1 py-0.5 font-mono dark:bg-gray-800/60">indeterminate</code>
+              状态表示部分选中，适用于多层级选择场景
+            </li>
+            <li>通过
+              <code class="rounded bg-gray-100 px-1 py-0.5 font-mono dark:bg-gray-800/60">wrapperClass</code>
+              和
+              <code class="rounded bg-gray-100 px-1 py-0.5 font-mono dark:bg-gray-800/60">labelClass</code>
+              自定义样式，适应不同设计需求
+            </li>
+          </ul>
+
+          <div class="rounded-lg border border-blue-100 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-900/20">
+            <h4 class="mb-2 flex items-center text-blue-800 dark:text-blue-300">
+              <span class="icon-[material-symbols--info-outline-rounded] mr-2 h-5 w-5"></span>
+              关于表单验证
+            </h4>
+            <p class="text-sm text-blue-700 dark:text-blue-300">
+              CheckBox 组件可以与表单验证系统集成。通过监听
+              <code class="rounded bg-blue-100 px-1 py-0.5 font-mono dark:bg-blue-800/60">update:modelValue</code>
+              事件来触发验证，并使用
+              <code class="rounded bg-blue-100 px-1 py-0.5 font-mono dark:bg-blue-800/60">wrapperClass</code>
+              和
+              <code class="rounded bg-blue-100 px-1 py-0.5 font-mono dark:bg-blue-800/60">labelClass</code>
+              显示验证状态。
+            </p>
+          </div>
+
+          <div class="rounded-lg border border-amber-100 bg-amber-50 p-4 dark:border-amber-900/50 dark:bg-amber-900/20">
+            <h4 class="mb-2 flex items-center text-amber-800 dark:text-amber-300">
+              <span class="icon-[material-symbols--tips-and-updates-outline-rounded] mr-2 h-5 w-5"></span>
+              可访问性提示
+            </h4>
+            <p class="text-sm text-amber-700 dark:text-amber-300">
+              确保复选框的标签文本清晰描述选项的用途。对于隐含含义或重要选项，使用描述文本提供额外信息。
+              这不仅有助于所有用户理解，还为使用屏幕阅读器的用户提供了必要的语境。
+            </p>
+          </div>
+
+          <p class="text-gray-700 dark:text-gray-300">
+            在设计系统中，复选框是用户输入和偏好设置的基础构建块。合理地使用 CheckBox 组件可以创建直观、一致且用户友好的界面，
+            使用户能够轻松地进行多选操作和状态控制。
+          </p>
         </div>
       </div>
     </section>
@@ -487,6 +689,12 @@ const hobbies = reactive([
   { name: '阅读', selected: true },
   { name: '烹饪', selected: false },
 ]);
+
+// 示例状态 - 用于文档示例
+const exampleStates = reactive({
+  success: true,
+  primary: false
+});
 
 // 确保暗色模式正确应用
 onMounted(() => {

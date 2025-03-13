@@ -1,5 +1,5 @@
 import type { PropType, ExtractPropTypes } from 'vue';
-import { ColorType, ThemeColorType } from './config';
+import type { CheckBoxType } from './config';
 
 /**
  * CheckBox 组件接口定义
@@ -11,16 +11,13 @@ export interface CheckBoxProps {
   label: string;
   description?: string;
   disabled?: boolean;
-  color?: ColorType;
-  theme?: ThemeColorType;
+  type?: CheckBoxType;
   layout?: 'horizontal' | 'vertical';
   size?: 'sm' | 'md' | 'lg';
   inline?: boolean;
   indeterminate?: boolean;
   wrapperClass?: string;
   labelClass?: string;
-  darkMode?: boolean; // 是否强制使用暗色模式
-  followSystem?: boolean; // 是否跟随系统设置
 }
 
 /**
@@ -51,13 +48,9 @@ export const checkBoxProps = {
     type: Boolean,
     default: false,
   },
-  color: {
-    type: String as PropType<ColorType>,
-    default: 'indigo',
-  },
-  theme: {
-    type: String as PropType<ThemeColorType>,
-    default: undefined,
+  type: {
+    type: String as PropType<CheckBoxType>,
+    default: 'primary',
   },
   layout: {
     type: String as PropType<'horizontal' | 'vertical'>,
@@ -83,22 +76,7 @@ export const checkBoxProps = {
     type: String,
     default: '',
   },
-  darkMode: {
-    type: Boolean,
-    default: false,
-  },
-  followSystem: {
-    type: Boolean,
-    default: true,
-  },
 };
 
-export type CheckBoxEmits = {
-  'update:modelValue': [value: boolean];
-  'change': [event: Event];
-  'focus': [event: FocusEvent];
-  'blur': [event: FocusEvent];
-  'click': [event: MouseEvent];
-};
 
 export type CheckBoxPropsType = ExtractPropTypes<typeof checkBoxProps>;
