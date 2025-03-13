@@ -26,10 +26,33 @@ import Dialog from '@/components/Dialog';
 | confirmText | `string` | '确定' | 确认按钮文本 |
 | cancelHandler | `() => void` | - | 取消按钮点击处理函数 |
 | confirmHandler | `() => void` | - | 确认按钮点击处理函数 |
-| close | `() => void` | - | 关闭回调函数 |
 | showClose | `boolean` | true | 是否显示标题栏关闭按钮 |
 | cancelButtonColor | `ColorType` | 'gray' | 取消按钮颜色主题 |
 | confirmButtonColor | `ColorType` | 'red' | 确认按钮颜色主题 |
+
+## 样式特性
+
+- 使用 Tailwind CSS 类名系统
+- 原生支持暗色模式 (使用 dark: 变体)
+- 平滑的过渡动画效果
+- 响应式设计
+
+## 暗色模式
+
+组件自动适配系统暗色模式，无需额外配置。样式通过 Tailwind CSS 的 dark 变体控制：
+
+```vue
+<Dialog
+  v-model="isVisible"
+  title="暗色模式示例"
+  confirmButtonColor="blue"
+>
+  <!-- 内容会自动适配暗色模式 -->
+  <div class="text-gray-600 dark:text-gray-300">
+    这是一段示例文本
+  </div>
+</Dialog>
+```
 
 ## 颜色类型
 

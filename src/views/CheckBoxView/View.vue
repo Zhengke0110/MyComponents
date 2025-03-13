@@ -195,16 +195,12 @@
 
     <!-- 暗色模式适配 -->
     <section class="mb-10">
-      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
-        暗色模式适配
-      </h2>
+      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">暗色模式适配</h2>
       <div class="space-y-6">
         <div class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
-          <h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-white">
-            暗色模式下的复选框适配
-          </h3>
+          <h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-white">暗色模式下的复选框适配</h3>
           <p class="mb-4 text-sm text-gray-600 dark:text-gray-300">
-            复选框组件自动适应亮/暗主题，在不同主题下提供一致的用户体验
+            复选框组件自动适应暗色主题，在不同主题下提供一致的用户体验
           </p>
           <div class="space-y-4">
             <CheckBox id="dark-theme-1" v-model="checkState.darkTheme1" type="primary" label="主要主题复选框" />
@@ -511,16 +507,12 @@ const myProps: CheckBoxProps = {
           <div class="rounded-lg border border-blue-100 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-900/20">
             <h4 class="mb-2 flex items-center text-blue-800 dark:text-blue-300">
               <span class="icon-[material-symbols--info-outline-rounded] mr-2 h-5 w-5"></span>
-              关于表单验证
+              暗色模式提示
             </h4>
             <p class="text-sm text-blue-700 dark:text-blue-300">
-              CheckBox 组件可以与表单验证系统集成。通过监听
-              <code class="rounded bg-blue-100 px-1 py-0.5 font-mono dark:bg-blue-800/60">update:modelValue</code>
-              事件来触发验证，并使用
-              <code class="rounded bg-blue-100 px-1 py-0.5 font-mono dark:bg-blue-800/60">wrapperClass</code>
-              和
-              <code class="rounded bg-blue-100 px-1 py-0.5 font-mono dark:bg-blue-800/60">labelClass</code>
-              显示验证状态。
+              CheckBox 组件已内置支持暗色模式，无需额外配置。只要在应用的根元素上添加 
+              <code class="rounded bg-blue-100 px-1 py-0.5 font-mono dark:bg-blue-800/60">.dark</code> 
+              类，组件就会自动切换为暗色样式。组件使用 Tailwind CSS 的 dark 变体实现主题切换。
             </p>
           </div>
 
@@ -546,26 +538,8 @@ const myProps: CheckBoxProps = {
 </template>
 
 <script setup lang="ts">
-import { ref, computed, reactive, watch, onMounted, onBeforeUnmount } from "vue";
-import { useDark, useToggle } from "@vueuse/core";
+import { ref, reactive, watch } from "vue";
 import { CheckBox } from "../../components/CheckBox";
-
-// 使用 vueuse/core 的暗色模式钩子
-const isDark = useDark({
-  selector: "html",
-  attribute: "class",
-  valueDark: "dark",
-  valueLight: "",
-});
-const toggleDark = useToggle(isDark);
-
-// 检查系统颜色偏好
-const preferredDark = ref(false);
-if (window.matchMedia) {
-  preferredDark.value = window.matchMedia(
-    "(prefers-color-scheme: dark)",
-  ).matches;
-}
 
 // 复选框状态管理
 const checkState = reactive({
@@ -695,119 +669,4 @@ const exampleStates = reactive({
   success: true,
   primary: false
 });
-
-// 确保暗色模式正确应用
-onMounted(() => {
-  // 初始应用暗色模式
-  if (isDark.value) {
-    document.documentElement.classList.add("dark");
-    document.body.classList.add("dark-mode");
-  }
-
-  // 自动检测并添加使用暗色模式的标记类
-  document.documentElement.classList.add("using-dark-mode");
-});
-
-// 监听暗色模式变化
-watch(isDark, (newVal) => {
-  if (newVal) {
-    document.documentElement.classList.add("dark");
-    document.body.classList.add("dark-mode");
-  } else {
-    document.documentElement.classList.remove("dark");
-    document.body.classList.remove("dark-mode");
-  }
-
-  // 强制触发重新渲染
-  setTimeout(() => {
-    document.body.style.transition = "background-color 0.3s ease";
-    if (newVal) {
-      document.body.style.backgroundColor = "#1f2937";
-    } else {
-      document.body.style.backgroundColor = "";
-    }
-  }, 0);
-});
-
-// 清理函数
-onBeforeUnmount(() => {
-  document.documentElement.classList.remove("using-dark-mode");
-});
 </script>
-
-<style>
-/* 确保暗模式生效的基本样式 */
-:root {
-  color-scheme: light;
-}
-
-:root.dark,
-html.dark {
-  color-scheme: dark;
-  background-color: #1f2937;
-  /* gray-800 */
-}
-
-body.dark-mode {
-  background-color: #1f2937;
-  /* gray-800 */
-}
-
-/* 确保所有标题和文本在暗色模式下显示为白色 */
-.dark h1,
-.dark h2,
-.dark h3,
-.dark h4,
-.dark h5,
-.dark h6,
-.dark .text-gray-900 {
-  color: white !important;
-}
-
-/* 暗色模式下其他文本颜色适配 */
-.dark .text-gray-700 {
-  color: #d1d5db !important;
-  /* gray-300 */
-}
-
-.dark .text-gray-600 {
-  color: #9ca3af !important;
-  /* gray-400 */
-}
-
-/* 强制背景色适配暗色模式 */
-.dark .bg-white {
-  background-color: #1f2937 !important;
-  /* gray-800 */
-}
-
-/* 强制边框颜色适配暗色模式 */
-.dark .border-gray-200 {
-  border-color: #374151 !important;
-  /* gray-700 */
-}
-
-/* 系统暗色模式自动适配 */
-@media (prefers-color-scheme: dark) {
-  :root.using-dark-mode:not(.light) {
-    background-color: #1f2937;
-  }
-
-  :root:not(.using-dark-mode) {
-    color-scheme: dark;
-  }
-}
-
-/* 代码样式 */
-code {
-  padding: 0.1rem 0.3rem;
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 0.25rem;
-  font-family: monospace;
-  font-size: 0.875em;
-}
-
-.dark code {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-</style>
