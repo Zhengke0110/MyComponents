@@ -19,30 +19,29 @@ const preferredDark = ref(false);
 if (window.matchMedia) {
   preferredDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
-
-const baseItems: DropdownItem[] = [
-  {
-    id: '1',
-    type: 'button',
-    label: 'Edit',
-    icon: 'icon-[solar--clapperboard-edit-broken]',
-    onClick: () => console.log('Edit clicked')
-  },
-  {
-    id: '2',
-    type: 'button',
-    label: 'Duplicate',
-    icon: 'icon-[solar--copy-broken]'
-  },
-  { id: 'div1', type: 'divider' },
-  {
-    id: '3',
-    type: 'link',
-    label: 'Learn more',
-    href: 'https://example.com',
-    icon: 'icon-[solar--link-bold-duotone]'
-  }
-]
+    const baseItems: DropdownItem[] = [
+      {
+        id: '1',
+        type: 'button',
+        label: 'Edit',
+        icon: 'icon-[solar--clapperboard-edit-broken]',
+        onClick: () => console.log('Edit clicked')
+      },
+      {
+        id: '2',
+        type: 'button',
+        label: 'Duplicate',
+        icon: 'icon-[solar--copy-broken]'
+      },
+      { id: 'div1', type: 'divider' },
+      {
+        id: '3',
+        type: 'link', 
+        label: 'Learn more',
+        href: 'https://example.com', // 确保提供 href 属性
+        icon: 'icon-[solar--link-bold-duotone]'
+      }
+    ];
 
 const sizeItems: DropdownItem[] = [
   {
@@ -72,7 +71,6 @@ const dangerItems: DropdownItem[] = [
     type: 'button',
     label: 'Delete project',
     icon: 'icon-[solar--trash-bin-trash-broken]',
-    danger: true
   }
 ]
 
@@ -331,6 +329,180 @@ onBeforeUnmount(() => {
             :class="isDark ? 'bg-green-900 text-green-300' : 'bg-green-100 text-green-800'">
             自动调整开启
           </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- API 文档部分 -->
+    <section class="mb-10">
+      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">组件API</h2>
+      <div class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">属性 (Props)</h3>
+        <div class="mb-6 overflow-x-auto">
+          <table class="min-w-full border-collapse">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">属性名</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">类型</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">默认值</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">描述</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">label</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">按钮上显示的文本</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">items</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">DropdownItem[]</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">下拉菜单选项数组</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">size</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'sm' | 'md' | 'lg'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'md'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">组件大小</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">theme</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'gray'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">主题颜色</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">variant</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'solid' | 'outline'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'solid'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">按钮变体样式</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">事件 (Events)</h3>
+        <div class="mb-6 overflow-x-auto">
+          <table class="min-w-full border-collapse">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">事件名</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">参数</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">说明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">select</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">(item: DropdownItem)</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">选择菜单项时触发</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">open</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">菜单打开时触发</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">close</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">菜单关闭时触发</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">菜单项类型</h3>
+        <div class="overflow-x-auto">
+          <table class="min-w-full border-collapse">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">属性名</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">类型</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">说明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">id</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string | number</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">菜单项唯一标识</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">type</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'button' | 'divider'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">菜单项类型</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">label</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">显示文本</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">icon</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">图标类名</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">disabled</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">boolean</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">是否禁用</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">onClick</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">() => void</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">点击回调函数</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小结与最佳实践 -->
+    <section class="mb-10">
+      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">小结与最佳实践</h2>
+      <div class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+        <div class="space-y-4">
+          <p class="text-gray-700 dark:text-gray-300">
+            Dropdowns 组件是一个功能完整的下拉菜单组件，支持多种自定义选项和交互方式。
+            以下是一些使用建议：
+          </p>
+
+          <ul class="ml-6 list-disc space-y-2 text-gray-700 dark:text-gray-300">
+            <li>合理使用分割线（divider）对菜单项进行分组，提高可读性</li>
+            <li>为重要操作选择合适的图标，增强视觉提示</li>
+            <li>使用禁用状态（disabled）来控制菜单项的可用性</li>
+            <li>选择合适的尺寸，确保与周围元素搭配协调</li>
+            <li>根据上下文选择合适的主题色和变体样式</li>
+          </ul>
+
+          <div class="rounded-lg border border-blue-100 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-900/20">
+            <h4 class="mb-2 flex items-center text-blue-800 dark:text-blue-300">
+              <span class="icon-[material-symbols--info-outline-rounded] mr-2 h-5 w-5"></span>
+              暗色模式提示
+            </h4>
+            <p class="text-sm text-blue-700 dark:text-blue-300">
+              Dropdowns 组件已内置支持暗色模式，通过 Tailwind CSS 的
+              <code class="rounded bg-blue-100 px-1 py-0.5 font-mono dark:bg-blue-800/60">dark:</code> 
+              变体实现自动切换。
+            </p>
+          </div>
+
+          <div class="rounded-lg bg-gray-50 p-4 dark:bg-gray-700/30">
+            <h4 class="mb-2 text-base font-medium text-gray-900 dark:text-white">键盘导航支持</h4>
+            <ul class="space-y-1 text-sm text-gray-600 dark:text-gray-300">
+              <li>↑/↓ 方向键：在菜单项之间移动</li>
+              <li>Enter：选择当前高亮的菜单项</li>
+              <li>Esc：关闭下拉菜单</li>
+            </ul>
+          </div>
+
+          <p class="text-gray-700 dark:text-gray-300">
+            在实际应用中，建议保持菜单项数量适中，优先考虑用户体验和交互效率。同时注意处理好键盘导航和焦点管理，
+            以提供完整的可访问性支持。
+          </p>
         </div>
       </div>
     </section>
