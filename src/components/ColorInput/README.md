@@ -1,6 +1,6 @@
 # ColorInput 颜色选择器
 
-一个简洁、易用的颜色选择器组件，支持预设颜色和自定义颜色输入。
+一个简洁、易用的颜色选择器组件，支持预设颜色和自定义颜色输入，适配暗黑模式。
 
 ## 特性
 
@@ -10,7 +10,7 @@
 - 支持多种颜色格式（hex、0x）
 - 支持弹出层位置自定义
 - 支持主题色选择和各种强度
-- 支持暗色模式
+- 自动适配明亮/暗黑模式
 - 响应式设计和优雅的动画效果
 
 ## 基础用法
@@ -84,50 +84,38 @@ const color = ref('0x000000')
 </template>
 ```
 
-### 使用主题色系统
-
-启用主题色系统，可以选择标准化的颜色和强度。
+### 指定初始颜色类型
 
 ```vue
 <template>
   <ColorInput
     v-model="color"
-    :theme="true"
-  />
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-const color = ref('#3B82F6') // blue-500
-</script>
-```
-
-### 自定义主题色选项
-
-可以指定可用的主题色列表和默认强度。
-
-```vue
-<template>
-  <ColorInput
-    v-model="color"
-    :theme="true"
-    :theme-colors="['blue', 'red', 'green', 'purple']"
-    :selected-intensity="600"
+    color="emerald"
   />
 </template>
 ```
 
-### 暗色模式
-
-支持暗色模式下的样式调整。
+### 设置默认颜色强度
 
 ```vue
 <template>
   <ColorInput
     v-model="color"
-    :dark="true"
+    color="blue"
+    :selectedIntensity="600"
   />
 </template>
+```
+
+### 暗黑模式适配
+
+组件会自动适配暗黑模式，无需额外配置。只需确保您的项目已正确设置 Tailwind CSS 的暗黑模式。
+
+```html
+<!-- 在HTML中添加dark类以启用暗黑模式 -->
+<html class="dark">
+  <!-- ... -->
+</html>
 ```
 
 ## Props
@@ -139,9 +127,7 @@ const color = ref('#3B82F6') // blue-500
 | colors | string[] | [...] | 预设颜色列表 |
 | allowCustom | boolean | true | 是否允许自定义颜色输入 |
 | colorOptions | { outputFormat: 'hex' \| '0x' } | { outputFormat: 'hex' } | 颜色输出格式配置 |
-| theme | boolean | false | 是否启用主题色系统 |
-| themeColors | ColorType[] | ['blue', 'indigo', ...] | 可选的主题色列表 |
-| dark | boolean | false | 是否启用暗色模式 |
+| color | ColorType | 'blue' | 默认的颜色类型 |
 | selectedIntensity | number | 500 | 默认的颜色强度（50-900） |
 
 ## Events
