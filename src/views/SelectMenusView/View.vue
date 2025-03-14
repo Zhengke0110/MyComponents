@@ -47,9 +47,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- With Descriptions -->
         <div
-          class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300"
-          v-motion :initial="{ opacity: 0, y: 20 }"
-          :enter="{ opacity: 1, y: 0, transition: { delay: 200, duration: 300 } }">
+          class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
           <h3 class="font-medium text-gray-700 mb-4">With Descriptions</h3>
           <SelectMenus v-model="descriptionSelection" :options="descriptionOptions" label="Select environment"
             placeholder="Choose environment" />
@@ -63,9 +61,7 @@
 
         <!-- Animated Example -->
         <div
-          class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300"
-          v-motion :initial="{ opacity: 0, y: 20 }"
-          :enter="{ opacity: 1, y: 0, transition: { delay: 300, duration: 300 } }">
+          class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
           <h3 class="font-medium text-gray-700 mb-4">Animated Selection</h3>
           <div class="flex items-center gap-4">
             <SelectMenus v-model="animatedSelection" :options="colorOptions" label="Pick a theme color"
@@ -234,8 +230,7 @@
 
     <!-- Interactive Demo -->
     <section class="mb-8">
-      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-xl border border-indigo-100" v-motion
-        :initial="{ opacity: 0 }" :enter="{ opacity: 1, transition: { delay: 400, duration: 500 } }">
+      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-xl border border-indigo-100">
         <h2 class="text-2xl font-semibold text-indigo-800 mb-4">Form Example</h2>
         <div class="max-w-md">
           <form @submit.prevent="handleSubmit" class="space-y-6">

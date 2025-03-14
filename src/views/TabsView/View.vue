@@ -83,44 +83,6 @@
       </div>
     </section>
 
-    <!-- 自定义主题颜色 -->
-    <section>
-      <h2 class="mb-4 text-lg font-bold">自定义主题颜色</h2>
-      <p class="mb-4 text-gray-600 dark:text-gray-400">
-        通过 <code>active-color</code> 和
-        <code>hover-color</code> 属性可以自定义标签的颜色。这些属性支持所有
-        Tailwind CSS 的颜色名称。
-      </p>
-      <div class="mb-4 space-y-6 rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
-        <!-- 红色主题 -->
-        <div>
-          <h3 class="mb-2 text-base font-medium">红色主题</h3>
-          <Tabs v-model="themeTab1" :tabs="themeTabs" active-color="red" hover-color="red">
-            <template #tab1>红色主题内容1</template>
-            <template #tab2>红色主题内容2</template>
-          </Tabs>
-        </div>
-
-        <!-- 绿色主题 -->
-        <div>
-          <h3 class="mb-2 text-base font-medium">绿色主题</h3>
-          <Tabs v-model="themeTab2" :tabs="themeTabs" active-color="emerald" hover-color="emerald">
-            <template #tab1>绿色主题内容1</template>
-            <template #tab2>绿色主题内容2</template>
-          </Tabs>
-        </div>
-
-        <!-- 紫色主题 -->
-        <div>
-          <h3 class="mb-2 text-base font-medium">紫色主题</h3>
-          <Tabs v-model="themeTab3" :tabs="themeTabs" active-color="purple" hover-color="purple">
-            <template #tab1>紫色主题内容1</template>
-            <template #tab2>紫色主题内容2</template>
-          </Tabs>
-        </div>
-      </div>
-    </section>
-
     <!-- 主题样式 -->
     <section>
       <h2 class="mb-4 text-lg font-bold">主题样式</h2>
