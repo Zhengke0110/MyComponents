@@ -273,6 +273,262 @@
           <pre class="text-xs overflow-x-auto p-2 rounded bg-white dark:bg-gray-800">{{ JSON.stringify(advancedSearch, null, 2) }}</pre>
         </div>
       </section>
+
+      <!-- API文档 -->
+      <section class="mb-8 rounded-lg shadow bg-white dark:bg-gray-800 overflow-hidden">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+          <h2 class="text-xl font-semibold">API 文档</h2>
+        </div>
+        
+        <!-- Props -->
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+          <h3 class="text-lg font-medium mb-4">Props</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead class="bg-gray-50 dark:bg-gray-900">
+                <tr>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">属性名</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">类型</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">默认值</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">说明</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">modelValue</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">string</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">''</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框的值，支持 v-model 双向绑定</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">placeholder</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">string</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">'搜索'</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框的占位符文本</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">size</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">'sm' | 'md' | 'lg'</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">'md'</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框大小</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">theme</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">ColorType</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">'gray'</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">主题颜色</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">debounce</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">number</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">300</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">搜索延迟时间（毫秒）</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">disabled</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">boolean</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">false</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">是否禁用输入框</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">autofocus</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">boolean</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">false</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">是否自动聚焦</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">showClear</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">boolean</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">true</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">是否显示清除按钮</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">showSearchHistory</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">boolean</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">false</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">是否显示搜索历史</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">maxHistoryItems</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">number</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">5</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">最大历史记录数量</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">historyStorageKey</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">string</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">'search_history'</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">历史记录本地存储键名</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Events -->
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+          <h3 class="text-lg font-medium mb-4">事件</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead class="bg-gray-50 dark:bg-gray-900">
+                <tr>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">事件名</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">参数</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">说明</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">update:modelValue</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">(value: string)</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入值变化时触发</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">search</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">(value: string)</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">触发搜索时触发</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">clear</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">-</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">清除搜索内容时触发</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">focus</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">(event: FocusEvent)</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框获得焦点时触发</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">blur</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">(event: FocusEvent)</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框失去焦点时触发</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">history-select</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">(value: string)</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">从历史记录中选择项目时触发</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">history-clear</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">-</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">清空历史记录时触发</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Slots -->
+        <div class="p-6">
+          <h3 class="text-lg font-medium mb-4">插槽</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead class="bg-gray-50 dark:bg-gray-900">
+                <tr>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">插槽名</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">说明</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">prefix</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框前置内容，默认为搜索图标</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">suffix</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框后置内容</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      
+      <!-- 小结与最佳实践 -->
+      <section class="mb-8 rounded-lg shadow p-6 transition-all hover:shadow-lg bg-white dark:bg-gray-800">
+        <h2 class="text-xl font-semibold mb-4 border-b pb-2 border-gray-200 dark:border-gray-700">小结与最佳实践</h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- 何时使用 -->
+          <div>
+            <h3 class="text-lg font-medium mb-3 text-indigo-600 dark:text-indigo-400">何时使用</h3>
+            <ul class="space-y-2 list-disc pl-5">
+              <li>当需要在页面上提供搜索功能时</li>
+              <li>用户需要在大量数据中快速查找内容</li>
+              <li>需要记录用户搜索历史时</li>
+            </ul>
+          </div>
+          
+          <!-- 何时不使用 -->
+          <div>
+            <h3 class="text-lg font-medium mb-3 text-rose-600 dark:text-rose-400">何时不使用</h3>
+            <ul class="space-y-2 list-disc pl-5">
+              <li>当功能需要非常复杂的筛选条件时，考虑使用专门的筛选组件</li>
+              <li>当输入表单只需简单文本输入时，使用标准的TextInput组件更合适</li>
+            </ul>
+          </div>
+          
+          <!-- 可访问性建议 -->
+          <div>
+            <h3 class="text-lg font-medium mb-3 text-emerald-600 dark:text-emerald-400">可访问性建议</h3>
+            <ul class="space-y-2 list-disc pl-5">
+              <li>确保搜索框有清晰的标签或占位符，说明其用途</li>
+              <li>键盘导航应完整支持搜索历史交互</li>
+              <li>对于必要的搜索功能，添加适当的ARIA属性</li>
+            </ul>
+          </div>
+          
+          <!-- 性能优化 -->
+          <div>
+            <h3 class="text-lg font-medium mb-3 text-blue-600 dark:text-blue-400">性能优化</h3>
+            <ul class="space-y-2 list-disc pl-5">
+              <li>合理设置debounce值，避免频繁触发搜索</li>
+              <li>历史记录存储考虑限制数量，避免本地存储过大</li>
+              <li>当需要搜索大量远程数据时，考虑结合服务端分页</li>
+            </ul>
+          </div>
+          
+          <!-- 与其他组件的组合 -->
+          <div>
+            <h3 class="text-lg font-medium mb-3 text-purple-600 dark:text-purple-400">与其他组件的组合</h3>
+            <ul class="space-y-2 list-disc pl-5">
+              <li>与Dropdown组件结合可以实现自动完成功能</li>
+              <li>与Message组件结合可以显示搜索结果状态</li>
+              <li>与Table或List组件结合展示搜索结果</li>
+            </ul>
+          </div>
+          
+          <!-- 响应式设计注意事项 -->
+          <div>
+            <h3 class="text-lg font-medium mb-3 text-amber-600 dark:text-amber-400">响应式设计注意事项</h3>
+            <ul class="space-y-2 list-disc pl-5">
+              <li>在移动设备上考虑自动聚焦并展开键盘</li>
+              <li>小屏幕上可能需要调整尺寸或设计为全宽展示</li>
+              <li>历史记录下拉菜单应适应不同屏幕宽度</li>
+            </ul>
+          </div>
+          
+          <!-- 国际化与本地化 -->
+          <div>
+            <h3 class="text-lg font-medium mb-3 text-teal-600 dark:text-teal-400">国际化与本地化</h3>
+            <ul class="space-y-2 list-disc pl-5">
+              <li>占位符和按钮文本应支持多语言</li>
+              <li>搜索历史记录存储应考虑不同语言的字符编码</li>
+              <li>对于RTL(从右到左)语言，布局方向需要适当调整</li>
+            </ul>
+          </div>
+          
+          <!-- 安全性考虑 -->
+          <div>
+            <h3 class="text-lg font-medium mb-3 text-red-600 dark:text-red-400">安全性考虑</h3>
+            <ul class="space-y-2 list-disc pl-5">
+              <li>搜索历史存储在本地时，避免包含敏感信息</li>
+              <li>对输入内容进行适当的过滤和验证，防止XSS攻击</li>
+              <li>如果搜索结果包含用户输入内容的回显，确保进行适当的转义</li>
+            </ul>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </template>
@@ -280,7 +536,6 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 import SearchInput from '../../components/SearchInput';
-import type { ColorType } from '../../components/colors';
 
 // 基础用法
 const searchText = ref('');
