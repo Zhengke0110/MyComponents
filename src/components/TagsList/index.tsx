@@ -1,12 +1,9 @@
 import { computed, defineComponent, ref, type PropType, Transition, TransitionGroup, h } from 'vue'
 import Tag from './components/Tag'
 import type { TagSize } from './components/Tag'
-export type ThemeColor = 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone' | 
-                         'red' | 'orange' | 'amber' | 'yellow' | 'lime' |
-                         'green' | 'emerald' | 'teal' | 'cyan' | 'sky' |
-                         'blue' | 'indigo' | 'violet' | 'purple' | 'fuchsia' |
-                         'pink' | 'rose'
+import { ColorType } from './config'
 
+export type ThemeColor = ColorType;
 export { TagSize }
 
 export interface TagsListProps {
@@ -85,22 +82,20 @@ export const TagsList = defineComponent({
       lg: 'text-lg',
     }[props.size]))
 
-    // 获取主题颜色相关的样式
-    const themeStyles = computed(() => {
-      const color = props.color || 'blue'
+    // 简化并优化颜色处理
+    const inputColorVars = computed(() => {
+      const color = props.color || 'blue';
       return {
-        '--theme-color': color,
-        '--theme-ring': `${color}-500`,
-        '--theme-border-focus': `${color}-500`,
-        '--theme-border': `${color}-200`
-      }
-    })
+        [`--input-color`]: color,
+        [`--input-focus-ring`]: `var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), 0 0 0 2px rgba(${color === 'blue' ? '59, 130, 246' : '107, 114, 128'}, 0.25)`,
+      };
+    });
 
     const setError = (message: string) => {
       hasError.value = true
       errorMessage.value = message
       emit('error', message)
-      
+
       setTimeout(() => {
         hasError.value = false
         errorMessage.value = ''
@@ -158,9 +153,9 @@ export const TagsList = defineComponent({
     }
 
     return () => (
-      <div 
-        class={['flex flex-col', containerClass.value]} 
-        style={themeStyles.value}
+      <div
+        class={['flex flex-col', containerClass.value]}
+        style={inputColorVars.value}
       >
         <div class="flex items-center mb-2 relative">
           <input
@@ -179,11 +174,13 @@ export const TagsList = defineComponent({
             placeholder={props.placeholder}
             class={[
               'border rounded w-full transition-all duration-300 ease-in-out',
-              'focus:outline-none focus:ring-2',
-              'theme-input input-animation',
+              'focus:outline-none focus:ring-2 focus:ring-opacity-50',
               inputSize.value,
-              { 'border-red-400': hasError.value },
-              { 'input-focused': isFocused.value }
+              // 使用内联变量而非动态类名
+              'border-gray-200 focus:border-[var(--input-color)]-500 focus:ring-[var(--input-color)]-500',
+              'dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100',
+              'dark:placeholder-gray-400',
+              { 'border-red-400 dark:border-red-600': hasError.value }
             ]}
           />
 
@@ -196,7 +193,7 @@ export const TagsList = defineComponent({
             leaveToClass="transform scale-95 opacity-0"
           >
             {hasError.value && (
-              <div class="absolute left-0 -bottom-7 flex items-center space-x-1 text-sm text-red-500 bg-red-50 px-2 py-1 rounded-md shadow-sm">
+              <div class="absolute left-0 -bottom-7 flex items-center space-x-1 text-sm text-red-600 bg-red-50 dark:text-red-300 dark:bg-red-900/30 px-2 py-1 rounded-md shadow-sm">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -207,21 +204,21 @@ export const TagsList = defineComponent({
         </div>
 
         <div class="flex flex-wrap gap-2">
-          {h(TransitionGroup, 
-            { 
+          {h(TransitionGroup,
+            {
               name: 'tag',
               tag: 'div',
               class: 'flex flex-wrap gap-2'
-            }, 
+            },
             () => props.modelValue.map((tag, index) => (
               h(Tag, {
-                key: `${tag}-${index}`, // Explicit key for each child
+                key: `${tag}-${index}`,
                 text: tag,
                 index: index,
                 color: props.color,
                 size: props.size,
                 randomColor: props.randomColors,
-                class: 'transition-all duration-200 ease-in-out',
+                class: 'tag-transition',
                 onRemove: removeTag
               })
             ))
@@ -230,27 +227,29 @@ export const TagsList = defineComponent({
         <style scoped>{`
           .tag-enter-active,
           .tag-leave-active {
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           }
           
           .tag-enter-from,
           .tag-leave-to {
             opacity: 0;
-            transform: translateX(-10px);
+            transform: translateY(-5px) scale(0.95);
           }
           
           .tag-move {
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
           }
           
-          .theme-input {
-            border-color: var(--theme-border);
+          .tag-transition {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 200ms;
           }
           
-          .input-focused,
-          .input-animation:focus {
-            border-color: var(--theme-border-focus);
-            box-shadow: 0 0 0 2px rgba(var(--theme-ring), 0.25);
+          @media (prefers-color-scheme: dark) {
+            input::placeholder {
+              color: rgba(255, 255, 255, 0.5);
+            }
           }
         `}</style>
       </div>
