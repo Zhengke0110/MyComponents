@@ -9,6 +9,7 @@
 - 支持显示箭头
 - 可配置显示/隐藏延迟
 - 支持暗色模式
+- 内置多种颜色主题和变体风格
 
 ## 基础用法
 
@@ -89,6 +90,14 @@
     </template>
     使用背景色属性设置背景色
   </Popover>
+  
+  <!-- 使用主题和变体 -->
+  <Popover theme="blue" variant="glass" arrow>
+    <template #reference>
+      <Button>主题样式</Button>
+    </template>
+    使用预设主题的 Popover
+  </Popover>
 </template>
 ```
 
@@ -110,6 +119,8 @@
 | persistent | boolean | false | 是否保持显示状态 |
 | backgroundColor | string | 'rgba(255, 255, 255, 0.9)' | 自定义背景色（亮色模式） |
 | darkBackgroundColor | string | 'rgba(39, 39, 42, 0.9)' | 自定义背景色（暗色模式） |
+| theme | string | undefined | 使用预设主题，可选值: 'slate', 'gray', 'zinc', 'neutral', 'stone', 'red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose' |
+| variant | string | 'solid' | 主题变体，可选值: 'solid', 'light', 'glass' |
 
 ### 事件
 
