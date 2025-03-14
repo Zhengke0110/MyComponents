@@ -1,6 +1,6 @@
 # Tabs 选项卡组件
 
-选项卡组件允许用户在不同内容区域之间进行切换，提供了响应式设计，在移动设备上会自动转换为下拉菜单形式。
+选项卡组件允许用户在不同内容区域之间进行切换，提供了响应式设计，在移动设备上会自动转换为下拉菜单形式。支持亮色和暗色模式。
 
 ## 功能特点
 
@@ -9,6 +9,8 @@
 - 禁用状态：支持禁用特定选项卡
 - 动画过渡：内容切换时具有平滑的过渡效果
 - 事件处理：提供选项卡变更时的事件回调
+- 明暗模式：完全支持 Tailwind CSS 的 dark 模式
+- 自动适配：无需额外逻辑即可在明暗模式之间切换
 
 ## 属性
 
@@ -18,8 +20,8 @@
 | tabs | (TabItem \| string)[] | [] | 标签项数组，可以是字符串数组或TabItem对象数组 |
 | showContent | boolean | true | 是否显示标签内容区域 |
 | defaultTab | string | '' | 默认选中的标签名（当没有modelValue时生效） |
-| activeColor | string | 'indigo' | 激活状态的主题颜色，支持 tailwindcss 的颜色名称 |
-| hoverColor | string | 'gray' | 悬停状态的主题颜色，支持 tailwindcss 的颜色名称 |
+| activeColor | ColorType | undefined | 激活状态的主题颜色，支持 tailwindcss 的颜色名称 |
+| hoverColor | ColorType | activeColor值 | 悬停状态的主题颜色 |
 | theme | TabTheme | 'info' | 主题样式，支持预设的多种主题 |
 
 ## TabItem接口
@@ -45,6 +47,19 @@ enum TabTheme {
   Warning = "warning",   // 黄色
   Info = "info",         // 靛蓝色（默认）
 }
+```
+
+## 颜色支持
+
+Tabs 组件支持所有 Tailwind CSS 的颜色：
+
+```typescript
+type ColorType = 
+  | 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone'  // 灰色系
+  | 'red' | 'orange' | 'amber' | 'yellow'            // 暖色系
+  | 'lime' | 'green' | 'emerald' | 'teal'            // 绿色系
+  | 'cyan' | 'sky' | 'blue' | 'indigo'               // 蓝色系
+  | 'violet' | 'purple' | 'fuchsia' | 'pink' | 'rose'; // 紫粉色系
 ```
 
 ## 事件
@@ -79,7 +94,7 @@ enum TabTheme {
 
 <script setup>
 import { ref } from 'vue';
-import Tabs from '@/components/Tabs';
+import { Tabs } from '@/components/Tabs';
 
 const activeTab = ref('first');
 const tabs = ['first', 'second', 'third'];
@@ -107,62 +122,18 @@ const tabs = ['first', 'second', 'third'];
 
 <script setup>
 import { ref } from 'vue';
-import Tabs from '@/components/Tabs';
+import { Tabs } from '@/components/Tabs';
 
 const activeTab = ref('dashboard');
 const tabs = [
-  { name: 'dashboard', label: '仪表盘', icon: 'i-carbon-dashboard' },
-  { name: 'profile', label: '个人资料', icon: 'i-carbon-user-profile' },
-  { name: 'settings', label: '设置', icon: 'i-carbon-settings' },
+  { name: 'dashboard', label: '仪表盘', icon: 'icon-[tabler--dashboard]' },
+  { name: 'profile', label: '个人资料', icon: 'icon-[tabler--user-cog]' },
+  { name: 'settings', label: '设置', icon: 'icon-[tabler--settings]' },
 ];
 </script>
 ```
 
-### 禁用特定标签
-
-设置标签的禁用状态：
-
-```vue
-<template>
-  <Tabs v-model="activeTab" :tabs="tabs">
-    <template #tab1>可用标签内容</template>
-    <template #tab2>禁用标签内容不可见</template>
-  </Tabs>
-</template>
-
-<script setup>
-import { ref } from 'vue';
-import Tabs from '@/components/Tabs';
-
-const activeTab = ref('tab1');
-const tabs = [
-  { name: 'tab1', content: '标签1' },
-  { name: 'tab2', content: '标签2', disabled: true },
-];
-</script>
-```
-
-### 设置默认标签
-
-使用 defaultTab 属性设置默认选中的标签：
-
-```vue
-<template>
-  <Tabs :tabs="tabs" default-tab="tab2">
-    <template #tab1>标签1内容</template>
-    <template #tab2>默认显示的标签2内容</template>
-    <template #tab3>标签3内容</template>
-  </Tabs>
-</template>
-
-<script setup>
-import Tabs from '@/components/Tabs';
-
-const tabs = ['tab1', 'tab2', 'tab3'];
-</script>
-```
-
-### 自定义主题颜色
+### 自定义颜色
 
 可以通过 `activeColor` 和 `hoverColor` 属性设置不同的主题色：
 
@@ -178,38 +149,16 @@ const tabs = ['tab1', 'tab2', 'tab3'];
     <template #tab1>红色主题内容</template>
     <template #tab2>红色主题内容</template>
   </Tabs>
-
-  <!-- 绿色主题 -->
-  <Tabs 
-    v-model="activeTab" 
-    :tabs="tabs"
-    active-color="emerald"
-    hover-color="emerald"
-  >
-    <template #tab1>绿色主题内容</template>
-    <template #tab2>绿色主题内容</template>
-  </Tabs>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import Tabs from '@/components/Tabs';
+import { Tabs } from '@/components/Tabs';
 
 const activeTab = ref('tab1');
 const tabs = ['tab1', 'tab2'];
 </script>
 ```
-
-支持的颜色值包括 Tailwind CSS 提供的所有颜色：
-- red
-- blue
-- green
-- yellow
-- purple
-- pink
-- indigo
-- emerald
-等...
 
 ### 使用预设主题
 
@@ -221,20 +170,10 @@ Tabs组件提供了多种预设主题，可以通过`theme`属性设置：
   <Tabs 
     v-model="activeTab" 
     :tabs="tabs"
-    theme="success"
+    :theme="TabTheme.Success"
   >
     <template #tab1>绿色主题内容</template>
     <template #tab2>绿色主题内容</template>
-  </Tabs>
-
-  <!-- 危险主题 - 红色 -->
-  <Tabs 
-    v-model="activeTab" 
-    :tabs="tabs"
-    theme="danger"
-  >
-    <template #tab1>红色主题内容</template>
-    <template #tab2>红色主题内容</template>
   </Tabs>
 </template>
 
@@ -247,13 +186,65 @@ const tabs = ['tab1', 'tab2'];
 </script>
 ```
 
-支持的主题选项包括：
-- `primary`: 蓝色主题
-- `secondary`: 灰色主题
-- `success`: 绿色主题
-- `danger`: 红色主题
-- `warning`: 黄色主题
-- `info`: 靛蓝色主题（默认）
+### 暗色模式支持
+
+组件自动适配 tailwindcss 的暗色模式：
+
+```html
+<!-- 在父元素上添加 dark 类或使用 tailwindcss 的暗色模式配置 -->
+<div class="dark">
+  <Tabs v-model="activeTab" :tabs="tabs" theme="primary">
+    <template #tab1>自动适应暗色模式的内容</template>
+    <template #tab2>自动适应暗色模式的内容</template>
+  </Tabs>
+</div>
+```
+
+### 移动端适配
+
+在小屏幕设备上，选项卡会自动转换成下拉菜单形式：
+
+```vue
+<template>
+  <Tabs v-model="activeTab" :tabs="tabs">
+    <template #tab1>内容会在小屏幕上自动适配</template>
+    <template #tab2>无需额外编写响应式代码</template>
+  </Tabs>
+</template>
+```
+
+### 禁用特定标签
+
+通过传入对象数组设置禁用状态：
+
+```vue
+<template>
+  <Tabs v-model="activeTab" :tabs="disabledTabs">
+    <template #tab1>可用标签内容</template>
+    <template #tab2>可用标签内容</template>
+    <template #tab3>禁用标签内容</template>
+  </Tabs>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { Tabs } from '@/components/Tabs';
+
+const activeTab = ref('tab1');
+const disabledTabs = [
+  { name: 'tab1', content: '标签1' },
+  { name: 'tab2', content: '标签2' },
+  { name: 'tab3', content: '标签3', disabled: true },
+];
+</script>
+```
+
+## 过渡动画
+
+Tabs 组件支持内容切换时的平滑过渡动画：
+- 透明度渐变
+- 轻微位移效果
+- 确保内容区域最小高度，防止切换时页面跳动
 
 ## 最佳实践
 
@@ -261,6 +252,7 @@ const tabs = ['tab1', 'tab2'];
 2. 标签名称应简洁明了，建议不超过4个汉字
 3. 在移动端会自动转换为下拉选择形式，无需额外适配
 4. 可以通过自定义插槽实现更丰富的标签内容展示
+5. 暗色模式自动适应，无需额外配置
 
 ## 注意事项
 
@@ -268,3 +260,4 @@ const tabs = ['tab1', 'tab2'];
 2. 禁用的标签不会触发任何事件
 3. 标签页切换时会保持内容区域的最小高度，避免页面跳动
 4. 确保每个标签名称的唯一性，这将用作插槽名和标识符
+5. 使用暗色模式时，确保页面或父元素上有正确的 `dark` 类或按照 tailwindcss 配置启用暗色模式
