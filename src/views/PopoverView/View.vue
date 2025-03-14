@@ -163,6 +163,199 @@
         </Popover>
       </div>
     </section>
+
+    <!-- API 文档部分 -->
+    <section class="mb-10">
+      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">组件API</h2>
+      <div class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">属性 (Props)</h3>
+        <div class="mb-6 overflow-x-auto">
+          <table class="min-w-full border-collapse">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">属性名</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">类型</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">默认值</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">描述</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">placement</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">PlacementType</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'bottom'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">弹出位置，可选值：top/top-start/top-end/bottom/bottom-start/bottom-end/left/left-start/left-end/right/right-start/right-end</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">trigger</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'hover' | 'click'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'hover'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">触发方式</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">offset</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">number</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">8</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">弹出框偏移距离</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">arrow</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">boolean</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">false</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">是否显示箭头</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">customClass</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">''</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">自定义弹出框 class</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">contentClass</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">''</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">自定义内容区域 class</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">closeOnContentClick</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">boolean</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">false</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">点击内容区域是否关闭</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">showDelay</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">number</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">0</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">显示延迟时间(ms)</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">hideDelay</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">number</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">300</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">隐藏延迟时间(ms)</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">persistent</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">boolean</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">false</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">是否保持显示状态</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">backgroundColor</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'rgba(255, 255, 255, 0.9)'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">自定义背景色（亮色模式）</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">darkBackgroundColor</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">string</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'rgba(39, 39, 42, 0.9)'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">自定义背景色（暗色模式）</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">theme</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">ColorType</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">undefined</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">主题颜色</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">variant</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'solid' | 'light' | 'glass'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'solid'</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">主题变体样式</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">事件 (Events)</h3>
+        <div class="mb-6 overflow-x-auto">
+          <table class="min-w-full border-collapse">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">事件名</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">参数</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">描述</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">show</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">弹出框显示时触发</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">hide</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">弹出框隐藏时触发</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">插槽 (Slots)</h3>
+        <div class="overflow-x-auto">
+          <table class="min-w-full border-collapse">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">插槽名</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">描述</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">reference</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">触发元素</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">default</td>
+                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">弹出框内容</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 总结与最佳实践 -->
+    <section class="mb-10">
+      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">小结与最佳实践</h2>
+      <div class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+        <div class="space-y-4">
+          <p class="text-gray-700 dark:text-gray-300">
+            Popover 组件是一个灵活、轻量的弹出框组件，适用于展示提示信息、下拉菜单、额外内容等场景。
+            它提供了丰富的配置选项，支持多种触发方式和位置，能满足各种交互需求。
+          </p>
+
+          <ul class="ml-6 list-disc space-y-2 text-gray-700 dark:text-gray-300">
+            <li>根据交互需求选择合适的触发方式，如信息提示使用<code>hover</code>，菜单或操作面板使用<code>click</code></li>
+            <li>根据UI布局和内容设置合适的弹出位置，使用<code>placement</code>属性</li>
+            <li>对于重要提示内容，建议添加箭头(<code>arrow: true</code>)增强视觉引导</li>
+            <li>根据内容重要性设置适当的显示和隐藏延迟，避免频繁闪烁</li>
+            <li>对于需要用户交互的内容，使用<code>persistent: true</code>保持弹出框显示</li>
+            <li>利用主题和变体属性与整体UI风格保持一致</li>
+            <li>根据内容类型选择合适的变体，信息提示使用<code>solid</code>，辅助内容使用<code>light</code>或<code>glass</code></li>
+          </ul>
+
+          <div class="rounded-lg border border-blue-100 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-900/20">
+            <h4 class="mb-2 flex items-center text-blue-800 dark:text-blue-300">
+              <span class="icon-[material-symbols--info-outline-rounded] mr-2 h-5 w-5"></span>
+              暗色模式提示
+            </h4>
+            <p class="text-sm text-blue-700 dark:text-blue-300">
+              Popover 组件已内置支持暗色模式，会根据<code class="rounded bg-blue-100 px-1 py-0.5 font-mono dark:bg-blue-800/60">.dark</code>类自动切换样式。
+              您可以通过<code>darkBackgroundColor</code>属性自定义暗色模式下的背景色，或通过<code>customClass</code>添加Tailwind的暗色模式类。
+              使用<code>theme</code>属性时，组件会自动处理亮色和暗色模式的颜色差异。
+            </p>
+          </div>
+
+          <p class="text-gray-700 dark:text-gray-300">
+            在设计系统中，Popover 组件是构建二级交互和信息补充的重要元素。合理使用可以减少页面复杂度，
+            提供更清晰的信息层次，让用户可以按需获取详细内容，从而提升整体用户体验。
+          </p>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
