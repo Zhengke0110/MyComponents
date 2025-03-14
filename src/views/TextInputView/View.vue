@@ -1,627 +1,746 @@
 <template>
-  <div class="p-6 space-y-10">
-    <h1 class="text-2xl font-bold mb-6">TextInput 文本输入框组件</h1>
-    
-    <!-- 基础用法 -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold mb-4">基础用法</h2>
+  <div class="text-input-view space-y-12 p-6">
+    <!-- Basic Usage Section -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Basic Usage</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <TextInput
-          v-model="basic"
-          id="basic"
-          label="用户名"
-          placeholder="请输入用户名"
-        />
-        <TextInput
-          v-model="password"
-          id="password"
-          type="password"
-          label="密码"
-          placeholder="请输入密码"
-        />
-        <TextInput
-          v-model="number"
-          id="number"
-          type="number"
-          label="数字"
-          placeholder="请输入数字"
-        />
-        <div class="flex items-end">
-          <p class="text-sm text-gray-500">当前输入值: {{ basic || '(空)' }}</p>
+        <TextInput id="basic-input" v-model="basicValue" label="Basic Text Input" placeholder="Enter some text"
+          description="This is a basic text input example" />
+        <div class="p-4 border rounded-lg bg-gray-50 dark:bg-gray-800">
+          <p class="text-sm font-mono">Value: {{ basicValue || '""' }}</p>
         </div>
-      </div>
-    </section>
-    
-    <!-- 不同尺寸 -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold mb-4">不同尺寸</h2>
-      <div class="space-y-6">
-        <TextInput
-          v-model="sizes.sm"
-          id="size-sm"
-          size="sm"
-          label="小尺寸 (sm)"
-          placeholder="小尺寸输入框"
-        />
-        <TextInput
-          v-model="sizes.md"
-          id="size-md"
-          size="md"
-          label="中尺寸 (md)"
-          placeholder="中尺寸输入框"
-        />
-        <TextInput
-          v-model="sizes.lg"
-          id="size-lg"
-          size="lg"
-          label="大尺寸 (lg)"
-          placeholder="大尺寸输入框"
-        />
-      </div>
-    </section>
-    
-    <!-- 主题颜色 -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold mb-4">主题颜色</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <TextInput
-          v-model="colors.blue"
-          id="color-blue"
-          color="blue"
-          label="蓝色主题"
-          placeholder="蓝色输入框"
-        />
-        <TextInput
-          v-model="colors.emerald"
-          id="color-emerald"
-          color="emerald"
-          label="翠绿主题"
-          placeholder="翠绿输入框"
-        />
-        <TextInput
-          v-model="colors.purple"
-          id="color-purple"
-          color="purple"
-          label="紫色主题"
-          placeholder="紫色输入框"
-        />
-        <TextInput
-          v-model="colors.rose"
-          id="color-rose"
-          color="rose"
-          label="玫瑰主题"
-          placeholder="玫瑰输入框"
-        />
-        <TextInput
-          v-model="colors.amber"
-          id="color-amber"
-          color="amber"
-          label="琥珀主题"
-          placeholder="琥珀输入框"
-        />
-        <TextInput
-          v-model="colors.teal"
-          id="color-teal"
-          color="teal"
-          label="青色主题"
-          placeholder="青色输入框"
-        />
-      </div>
-    </section>
-    
-    <!-- 带图标 -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold mb-4">带图标</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <TextInput
-          v-model="icons.search"
-          id="icon-search"
-          label="搜索"
-          placeholder="搜索关键词"
-        >
-          <template #prefix>
-            <svg
-              class="size-5 animate-pulse"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-              />
-            </svg>
-          </template>
-        </TextInput>
-        
-        <TextInput
-          v-model="icons.link"
-          id="icon-link"
-          color="sky"
-          label="链接"
-          placeholder="输入链接地址"
-        >
-          <template #suffix>
-            <svg
-              class="size-5 transition-transform duration-300 hover:rotate-45"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path
-                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-              />
-            </svg>
-          </template>
-        </TextInput>
-        
-        <TextInput
-          v-model="icons.both"
-          id="icon-both"
-          color="violet"
-          label="双图标"
-          placeholder="前后都有图标"
-        >
-          <template #prefix>
-            <svg
-              class="size-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path
-                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-              />
-            </svg>
-          </template>
-          <template #suffix>
-            <div class="animate-bounce">
-              <svg
-                class="size-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path
-                  d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </div>
-          </template>
-        </TextInput>
-      </div>
-    </section>
-    
-    <!-- 状态展示 -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold mb-4">状态展示</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <TextInput
-          v-model="states.disabled"
-          id="state-disabled"
-          disabled
-          label="禁用状态"
-          placeholder="禁用的输入框"
-        />
-        <TextInput
-          v-model="states.error"
-          id="state-error"
-          error="此字段不能为空，请输入有效信息"
-          label="错误状态"
-          placeholder="错误状态的输入框"
-        />
-        <TextInput
-          v-model="states.description"
-          id="state-description"
-          description="这是一段帮助说明文本，可以提供额外的指导"
-          label="带描述信息"
-          placeholder="带描述的输入框"
-        />
-        <TextInput
-          v-model="states.required"
-          id="state-required"
-          required
-          label="必填字段"
-          placeholder="这是一个必填字段"
-          :error="showRequiredError ? '此字段为必填项' : undefined"
-        />
-      </div>
-      <div class="flex justify-end mt-2">
-        <button 
-          @click="toggleRequiredError"
-          class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
-        >
-          {{ showRequiredError ? '隐藏' : '显示' }}错误信息
-        </button>
-      </div>
-    </section>
-    
-    <!-- 输入过渡动画演示 -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold mb-4">动画效果演示</h2>
-      <div class="grid grid-cols-1 gap-6">
-        <TextInput
-          v-model="animatedInput"
-          id="animated-input"
-          color="fuchsia"
-          label="输入文字查看动画效果"
-          placeholder="开始输入..."
-        >
-          <template #suffix>
-            <div v-if="animatedInput" class="transition-all duration-500 ease-in-out transform">
-              <svg
-                class="size-5 text-fuchsia-500 animate-spin"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <circle 
-                  class="opacity-25" 
-                  cx="12" 
-                  cy="12" 
-                  r="10" 
-                  stroke="currentColor" 
-                  stroke-width="4"
-                ></circle>
-                <path 
-                  class="opacity-75" 
-                  fill="currentColor" 
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
-              </svg>
-            </div>
-          </template>
-        </TextInput>
-        <div class="h-8 overflow-hidden">
-          <p 
-            v-if="animatedInput" 
-            class="text-sm text-fuchsia-500 animate__animated animate__fadeInUp"
-          >
-            当前输入: {{ animatedInput }}
-          </p>
-        </div>
-      </div>
-    </section>
-    
-    <!-- 多行文本 -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold mb-4">多行文本</h2>
-      <div class="grid grid-cols-1 gap-6">
-        <TextInput
-          v-model="multiline"
-          id="multiline"
-          multiline
-          label="备注"
-          placeholder="请输入备注信息"
-          :rows="4"
-        />
       </div>
     </section>
 
-    <!-- 表单验证 -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold mb-4">表单验证</h2>
-      <div class="grid grid-cols-1 gap-6 max-w-md">
-        <TextInput
-          v-model="form.email"
-          id="form-email"
-          type="email"
-          label="邮箱"
-          placeholder="请输入邮箱地址"
-          :error="formErrors.email"
-        >
-          <template #suffix>
-            <svg
-              v-if="isValidEmail"
-              class="size-5 text-green-500 animate__animated animate__bounceIn"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path
-                d="M5 13l4 4L19 7"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-              />
+    <!-- Sizes Section -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Sizes</h2>
+      <div class="space-y-4">
+        <TextInput id="small-input" v-model="sizeValues.sm" label="Small Input" size="sm" placeholder="Small input" />
+        <TextInput id="medium-input" v-model="sizeValues.md" label="Medium Input (Default)" size="md"
+          placeholder="Medium input" />
+        <TextInput id="large-input" v-model="sizeValues.lg" label="Large Input" size="lg" placeholder="Large input" />
+      </div>
+    </section>
+
+    <!-- Colors Section -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Colors</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <TextInput v-for="color in colorOptions" :key="color" :id="`color-${color}`" v-model="colorValues[color]"
+          :label="`${capitalize(color)} Color`" :color="color" :placeholder="`${capitalize(color)} themed input`" />
+      </div>
+    </section>
+
+    <!-- Icons and Prefixes/Suffixes -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Icons & Prefixes/Suffixes</h2>
+      <div class="space-y-4">
+        <TextInput id="prefix-input" v-model="iconValues.prefix" label="Input with Prefix"
+          placeholder="Search something...">
+          <template #prefix>
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="M21 21l-4.35-4.35"></path>
             </svg>
           </template>
         </TextInput>
-        
-        <TextInput
-          v-model="form.password"
-          id="form-password"
-          type="password"
-          label="密码"
-          placeholder="请输入密码（至少8位）"
-          :error="formErrors.password"
-        />
-        
-        <TextInput
-          v-model="form.confirmPassword"
-          id="form-confirm-password"
-          type="password"
-          label="确认密码"
-          placeholder="请再次输入密码"
-          :error="formErrors.confirmPassword"
-        />
-        
-        <div class="flex justify-end">
-          <button 
-            @click="validateForm"
-            class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors active:scale-95 transform duration-200"
-          >
-            提交表单
+
+        <TextInput id="suffix-input" v-model="iconValues.suffix" label="Input with Suffix" placeholder="Enter email...">
+          <template #suffix>
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </template>
+        </TextInput>
+
+        <TextInput id="both-input" v-model="iconValues.both" label="Input with Both" placeholder="Enter amount...">
+          <template #prefix>
+            <span class="text-lg font-medium">$</span>
+          </template>
+          <template #suffix>
+            <span class="text-sm font-medium">USD</span>
+          </template>
+        </TextInput>
+      </div>
+    </section>
+
+    <!-- States Section -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">States</h2>
+      <div class="space-y-4">
+        <TextInput id="disabled-input" v-model="stateValues.disabled" label="Disabled Input"
+          placeholder="You can't edit this" disabled description="This input is disabled" />
+
+        <TextInput id="required-input" v-model="stateValues.required" label="Required Input"
+          placeholder="This field is required" required description="This input is required" />
+
+        <TextInput id="error-input" v-model="stateValues.error" label="Input with Error" placeholder="Enter a value"
+          error="This field has an error message" />
+      </div>
+    </section>
+
+    <!-- Multiline (Textarea) Section -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Multiline Input (Textarea)</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <TextInput id="textarea-input" v-model="multilineValue" label="Multiline Input"
+          placeholder="Enter multiple lines of text..." multiline :rows="4"
+          description="This is a textarea for longer content" />
+        <div class="p-4 border rounded-lg bg-gray-50 dark:bg-gray-800">
+          <p class="text-sm font-mono whitespace-pre-wrap">Value: {{ multilineValue || '""' }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Input Types Section -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Input Types</h2>
+      <div class="space-y-4">
+        <TextInput id="password-input" v-model="typeValues.password" label="Password Input" type="password"
+          placeholder="Enter your password" />
+
+        <TextInput id="number-input" v-model="typeValues.number" label="Number Input" type="number"
+          placeholder="Enter a number" />
+
+        <TextInput id="email-input" v-model="typeValues.email" label="Email Input" type="email"
+          placeholder="Enter your email" />
+      </div>
+    </section>
+
+    <!-- Form Example Section -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Form Example</h2>
+      <form @submit.prevent="submitForm" class="space-y-4 border p-6 rounded-lg bg-gray-50 dark:bg-gray-800">
+        <TextInput id="form-name" v-model="formValues.name" label="Full Name" placeholder="Enter your full name"
+          required :error="formErrors.name" />
+
+        <TextInput id="form-email" v-model="formValues.email" label="Email Address" type="email"
+          placeholder="Enter your email address" required :error="formErrors.email">
+          <template #suffix>
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </template>
+        </TextInput>
+
+        <TextInput id="form-message" v-model="formValues.message" label="Message" placeholder="Enter your message"
+          multiline :rows="3" :error="formErrors.message" />
+
+        <div class="pt-2">
+          <button type="submit"
+            class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">
+            Submit Form
           </button>
         </div>
+      </form>
+
+      <div v-if="formSubmitted"
+        class="mt-4 p-4 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100 rounded-md">
+        Form submitted successfully!
       </div>
     </section>
 
-    <!-- 实时输入反馈 -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold mb-4">实时输入反馈</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <TextInput
-            v-model="liveInput"
-            id="live-input"
-            label="实时输入"
-            placeholder="输入内容查看实时反馈"
-            color="emerald"
-          />
-          <div class="mt-3 bg-gray-50 rounded-lg p-4 h-36 overflow-auto transition-all duration-300">
-            <div v-if="liveInput.length > 0" class="animate__animated animate__fadeIn">
-              <div class="text-sm text-gray-500 mb-2">实时输入内容：</div>
-              <div class="text-emerald-600 font-medium">{{ liveInput }}</div>
-              <div class="text-xs text-gray-400 mt-3">
-                字符数：<span class="text-emerald-500 font-medium">{{ liveInput.length }}</span>
-              </div>
-              <div class="text-xs text-gray-400">
-                单词数：<span class="text-emerald-500 font-medium">{{ countWords(liveInput) }}</span>
-              </div>
-            </div>
-            <div v-else class="h-full flex items-center justify-center text-gray-400 text-sm italic">
-              等待输入...
-            </div>
-          </div>
-        </div>
+    <!-- Summary and Best Practices Section -->
+    <section class="border-t pt-10 mt-12">
+      <h2 class="text-2xl font-semibold mb-6">小结与最佳实践</h2>
 
-        <div>
-          <TextInput
-            v-model="colorPickerInput"
-            id="color-picker-input"
-            label="颜色代码"
-            placeholder="输入HEX颜色代码 (例如: #3366ff)"
-          />
-          <div 
-            class="mt-3 h-36 rounded-lg border border-gray-200 transition-all duration-500" 
-            :style="{ backgroundColor: isValidColor(colorPickerInput) ? colorPickerInput : '#ffffff' }"
-          >
-            <div class="h-full flex items-center justify-center">
-              <span class="px-3 py-1 bg-white bg-opacity-70 rounded text-sm shadow-sm">
-                {{ isValidColor(colorPickerInput) ? colorPickerInput : '无效的颜色代码' }}
-              </span>
-            </div>
+      <div class="prose prose-slate dark:prose-invert max-w-none">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+            <h3 class="text-xl font-medium mb-3 text-indigo-600 dark:text-indigo-400 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-5 mr-2" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+              </svg>
+              何时使用 TextInput 组件
+            </h3>
+            <ul class="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300">
+              <li>需要用户输入单行文本（如用户名、邮箱、密码等）</li>
+              <li>需要用户输入多行文本（如评论、描述、详情等）</li>
+              <li>表单中需要用户填写各种类型信息</li>
+              <li>需要提供详细的输入反馈（如错误信息、描述信息等）</li>
+            </ul>
+          </div>
+
+          <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+            <h3 class="text-xl font-medium mb-3 text-indigo-600 dark:text-indigo-400 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-5 mr-2" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              可访问性最佳实践
+            </h3>
+            <ul class="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300">
+              <li><strong class="text-gray-800 dark:text-gray-100">始终提供标签</strong> - 确保每个输入框都有一个关联的标签 (label)，通过 <code
+                  class="bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded text-sm">id</code> 属性与输入框关联。</li>
+              <li><strong class="text-gray-800 dark:text-gray-100">添加描述信息</strong> - 使用 <code
+                  class="bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded text-sm">description</code> 属性为复杂输入框提供额外指导。
+              </li>
+              <li><strong class="text-gray-800 dark:text-gray-100">错误反馈</strong> - 使用 <code
+                  class="bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded text-sm">error</code> 属性提供具体、清晰的错误信息，而非模糊提示。
+              </li>
+              <li><strong class="text-gray-800 dark:text-gray-100">必填项标记</strong> - 为必填字段设置 <code
+                  class="bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded text-sm">required</code> 属性，组件会自动添加视觉指示器。</li>
+              <li><strong class="text-gray-800 dark:text-gray-100">合适的输入类型</strong> - 根据输入内容选择正确的 <code
+                  class="bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded text-sm">type</code> 属性（如 email、password 等）。
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+            <h3 class="text-xl font-medium mb-3 text-indigo-600 dark:text-indigo-400 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-5 mr-2" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+              </svg>
+              性能优化
+            </h3>
+            <ul class="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300">
+              <li>避免在单个表单中使用过多的 TextInput 组件，特别是在移动设备上</li>
+              <li>对于长表单，考虑使用分步骤表单或延迟加载策略</li>
+              <li>当需要大量文本编辑功能时，考虑使用专门的富文本编辑器组件</li>
+            </ul>
+          </div>
+
+          <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+            <h3 class="text-xl font-medium mb-3 text-indigo-600 dark:text-indigo-400 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-5 mr-2" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              最佳实践
+            </h3>
+            <ol class="list-decimal pl-5 space-y-2 text-gray-600 dark:text-gray-300">
+              <li>为每个输入框提供清晰简洁的标签</li>
+              <li>默认提供有意义的占位符文本，但不要仅依赖占位符来传达重要信息</li>
+              <li>在合适的地方使用图标增强用户体验，如搜索框使用放大镜图标</li>
+              <li>谨慎选择输入框的大小和颜色，以便与整个设计系统保持一致</li>
+              <li>在移动设备上，确保输入框有足够大的点击区域（至少使用 md 尺寸）</li>
+            </ol>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- API Documentation Section -->
+    <section class="border-t pt-10 mt-12">
+      <h2 class="text-2xl font-semibold mb-6">API 文档</h2>
+
+      <div class="space-y-8">
+        <!-- Props Documentation -->
+        <div>
+          <h3 class="text-xl font-medium mb-4">属性 Props</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead class="bg-gray-50 dark:bg-gray-800">
+                <tr>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    属性名</th>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    类型</th>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    默认值</th>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    说明</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">modelValue
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">string</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">-</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框的值，支持 v-model 双向绑定</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">id <span
+                      class="text-red-600 dark:text-red-400">*</span></td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">string</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">-</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框的唯一标识，必填</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">name</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">string</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">-</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框的名称</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">label</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">string</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">-</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框的标签文本</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">type</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">string</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">'text'</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框类型，如 'text', 'password', 'number' 等
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">placeholder
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">string</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">''</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框的占位符文本</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">disabled
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">boolean</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">false</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">是否禁用输入框</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">required
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">boolean</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">false</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">是否为必填项</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">description
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">string</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">-</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框下方的描述文本</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">error</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">string</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">-</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">错误信息，设置后会显示错误状态</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">color</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">ColorType</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">'indigo'</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">主题颜色</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">size</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">'sm' | 'md' | 'lg'
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">'md'</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框大小</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">wrapperClass
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">string</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">''</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">容器元素的自定义类名</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">labelClass
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">string</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">''</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">标签元素的自定义类名</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">multiline
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">boolean</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">false</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">是否为多行文本区域</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">rows</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">number</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">3</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">多行文本区域的行数</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Events Documentation -->
+        <div>
+          <h3 class="text-xl font-medium mb-4">事件 Events</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead class="bg-gray-50 dark:bg-gray-800">
+                <tr>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    事件名</th>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    参数</th>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    说明</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                    update:modelValue</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">string</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入值改变时触发</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">focus</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">FocusEvent</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框获得焦点时触发</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">blur</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">FocusEvent</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框失去焦点时触发</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Slots Documentation -->
+        <div>
+          <h3 class="text-xl font-medium mb-4">插槽 Slots</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead class="bg-gray-50 dark:bg-gray-800">
+                <tr>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    插槽名</th>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    说明</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">prefix</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框前缀内容，通常用于放置图标</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">suffix</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框后缀内容，通常用于放置图标</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Color Options Documentation -->
+        <div>
+          <h3 class="text-xl font-medium mb-4">颜色主题 Color Options</h3>
+          <p class="mb-4 text-gray-600 dark:text-gray-400">
+            组件支持以下所有 Tailwind 颜色主题，在浅色和深色模式下均提供良好的显示效果：
+          </p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+            <!-- 灰度系列 -->
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-slate-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">slate</h4>
+              </div>
+            </div>
+
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-gray-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">gray</h4>
+              </div>
+            </div>
+
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-zinc-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">zinc</h4>
+              </div>
+            </div>
+
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-neutral-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">neutral</h4>
+              </div>
+            </div>
+
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-stone-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">stone</h4>
+              </div>
+            </div>
+
+            <!-- 红色系列 -->
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-red-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">red</h4>
+              </div>
+            </div>
+
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-orange-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">orange</h4>
+              </div>
+            </div>
+
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-amber-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">amber</h4>
+              </div>
+            </div>
+
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-yellow-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">yellow</h4>
+              </div>
+            </div>
+
+            <!-- 绿色系列 -->
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-lime-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">lime</h4>
+              </div>
+            </div>
+
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-green-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">green</h4>
+              </div>
+            </div>
+
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-emerald-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">emerald</h4>
+              </div>
+            </div>
+
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-teal-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">teal</h4>
+              </div>
+            </div>
+
+            <!-- 蓝色系列 -->
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-cyan-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">cyan</h4>
+              </div>
+            </div>
+
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-sky-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">sky</h4>
+              </div>
+            </div>
+
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-blue-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">blue</h4>
+              </div>
+            </div>
+
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-indigo-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">indigo</h4>
+              </div>
+            </div>
+
+            <!-- 紫色系列 -->
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-violet-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">violet</h4>
+              </div>
+            </div>
+
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-purple-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">purple</h4>
+              </div>
+            </div>
+
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-fuchsia-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">fuchsia</h4>
+              </div>
+            </div>
+
+            <!-- 粉色系列 -->
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-pink-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">pink</h4>
+              </div>
+            </div>
+
+            <div class="rounded-lg overflow-hidden shadow-sm">
+              <div class="bg-rose-500 h-10"></div>
+              <div class="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <h4 class="font-medium text-center">rose</h4>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="mt-5 px-4 py-3 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded-lg">
+            <p class="text-amber-800 dark:text-amber-300 text-sm flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-5 mr-2 flex-shrink-0" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <span>颜色会根据深色/浅色模式自动调整，确保在任何背景下都有良好的可读性和对比度。默认颜色为 <code
+                  class="bg-amber-100 dark:bg-amber-800 px-1 py-0.5 rounded text-sm">indigo</code>。</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { TextInput } from '../../components/TextInput'
+import { reactive, ref } from 'vue'
+import TextInput,{ type ColorType } from '../../components/TextInput'
 
-// 基础用法
-const basic = ref('')
-const password = ref('')
-const number = ref('')
 
-// 不同尺寸
-const sizes = ref({
+// Basic value
+const basicValue = ref('')
+
+// Size examples
+const sizeValues = reactive({
   sm: '',
   md: '',
   lg: ''
 })
 
-// 主题颜色
-const colors = ref({
+// Color options
+const colorOptions = [
+  'indigo', 'blue', 'red', 'green', 'purple', 'teal'
+] as Array<ColorType>
+
+// Color values
+const colorValues = reactive<Record<string, string>>({
+  indigo: '',
   blue: '',
-  emerald: '',
+  red: '',
+  green: '',
   purple: '',
-  rose: '',
-  amber: '',
   teal: ''
 })
 
-// 带图标
-const icons = ref({
-  search: '',
-  link: '',
+// Icon examples
+const iconValues = reactive({
+  prefix: '',
+  suffix: '',
   both: ''
 })
 
-// 状态展示
-const states = ref({
-  disabled: '禁用状态输入框',
-  error: '',
-  description: '',
-  required: ''
+// State examples
+const stateValues = reactive({
+  disabled: 'This input is disabled',
+  required: '',
+  error: ''
 })
 
-const showRequiredError = ref(false)
-const toggleRequiredError = () => {
-  showRequiredError.value = !showRequiredError.value
-}
+// Multiline example
+const multilineValue = ref('')
 
-// 动画输入演示
-const animatedInput = ref('')
-
-// 多行文本
-const multiline = ref('')
-
-// 表单验证
-const form = ref({
-  email: '',
+// Type examples
+const typeValues = reactive({
   password: '',
-  confirmPassword: ''
+  number: '',
+  email: ''
 })
 
-const formErrors = ref({
+// Form example
+const formValues = reactive({
+  name: '',
   email: '',
-  password: '',
-  confirmPassword: ''
+  message: ''
 })
 
-// 校验邮箱格式
-const isValidEmail = computed(() => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return form.value.email.length > 0 && emailRegex.test(form.value.email)
+const formErrors = reactive({
+  name: '',
+  email: '',
+  message: ''
 })
 
-// 表单验证方法
+const formSubmitted = ref(false)
+
 const validateForm = () => {
-  // 重置错误
-  formErrors.value = {
-    email: '',
-    password: '',
-    confirmPassword: ''
+  let isValid = true
+
+  // Reset errors
+  formErrors.name = ''
+  formErrors.email = ''
+  formErrors.message = ''
+
+  // Validate name
+  if (!formValues.name.trim()) {
+    formErrors.name = 'Name is required'
+    isValid = false
   }
 
-  let hasError = false
-
-  // 验证邮箱
-  if (!form.value.email) {
-    formErrors.value.email = '请输入邮箱地址'
-    hasError = true
-  } else if (!isValidEmail.value) {
-    formErrors.value.email = '请输入有效的邮箱地址'
-    hasError = true
+  // Validate email
+  if (!formValues.email.trim()) {
+    formErrors.email = 'Email is required'
+    isValid = false
+  } else if (!/^\S+@\S+\.\S+$/.test(formValues.email)) {
+    formErrors.email = 'Please enter a valid email address'
+    isValid = false
   }
 
-  // 验证密码
-  if (!form.value.password) {
-    formErrors.value.password = '请输入密码'
-    hasError = true
-  } else if (form.value.password.length < 8) {
-    formErrors.value.password = '密码长度不能少于8位'
-    hasError = true
+  // Validate message
+  if (!formValues.message.trim()) {
+    formErrors.message = 'Message is required'
+    isValid = false
   }
 
-  // 验证确认密码
-  if (!form.value.confirmPassword) {
-    formErrors.value.confirmPassword = '请再次输入密码'
-    hasError = true
-  } else if (form.value.confirmPassword !== form.value.password) {
-    formErrors.value.confirmPassword = '两次输入的密码不一致'
-    hasError = true
-  }
+  return isValid
+}
 
-  // 如果表单验证通过
-  if (!hasError) {
-    alert('表单验证通过！模拟提交成功')
-    // 清空表单
-    form.value = {
-      email: '',
-      password: '',
-      confirmPassword: ''
-    }
+const submitForm = () => {
+  if (validateForm()) {
+    formSubmitted.value = true
+    setTimeout(() => {
+      formSubmitted.value = false
+    }, 3000)
   }
 }
 
-// 实时输入反馈
-const liveInput = ref('')
-const colorPickerInput = ref('')
 
-// 计算单词数
-const countWords = (text: string) => {
-  return text.trim().split(/\s+/).filter(word => word.length > 0).length
+
+const capitalize = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-// 验证颜色代码
-const isValidColor = (color: string) => {
-  const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/
-  return color && hexColorRegex.test(color)
-}
 </script>
-
-<style>
-.animate__animated {
-  animation-duration: 0.5s;
-}
-
-.animate__fadeInUp {
-  animation-name: fadeInUp;
-}
-
-.animate__fadeIn {
-  animation-name: fadeIn;
-}
-
-.animate__bounceIn {
-  animation-name: bounceIn;
-  animation-duration: 0.75s;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 20px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes bounceIn {
-  from, 20%, 40%, 60%, 80%, to {
-    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-  }
-  0% {
-    opacity: 0;
-    transform: scale3d(0.3, 0.3, 0.3);
-  }
-  20% {
-    transform: scale3d(1.1, 1.1, 1.1);
-  }
-  40% {
-    transform: scale3d(0.9, 0.9, 0.9);
-  }
-  60% {
-    opacity: 1;
-    transform: scale3d(1.03, 1.03, 1.03);
-  }
-  80% {
-    transform: scale3d(0.97, 0.97, 0.97);
-  }
-  to {
-    opacity: 1;
-    transform: scale3d(1, 1, 1);
-  }
-}
-
-/* 添加淡入淡出过渡效果 */
-.transition-opacity {
-  transition-property: opacity;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
-}
-</style>
