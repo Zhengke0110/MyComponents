@@ -40,7 +40,7 @@
   transition-timing-function: cubic-bezier(0.36, 0, 0.66, -0.56);
 }
 
-/* Custom scrollbar styles */
+/* Custom scrollbar styles with dark mode support */
 .scrollbar-thin {
   scrollbar-width: thin;
 }
@@ -62,4 +62,12 @@
 
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background: var(--scrollbar-thumb-hover, #a5b4fc);
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb, #4b5563);
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover, #6b7280);
 }
