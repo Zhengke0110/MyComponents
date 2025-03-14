@@ -6,6 +6,7 @@
 .segment-button {
   transform: translateZ(0);
   backface-visibility: hidden;
+  will-change: transform;
 }
 
 .segment-button:not(.is-active):hover {
@@ -38,7 +39,17 @@
   outline-offset: -2px;
 }
 
+/* 深色模式下的焦点状态 */
+:is(.dark .segment-button:focus-visible) {
+  outline: 2px solid #34d399;
+}
+
 /* 添加按压效果的阴影变化 */
 .segment-button.is-active {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* 深色模式下的阴影 */
+:is(.dark .segment-button.is-active) {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
 }

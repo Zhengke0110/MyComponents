@@ -18,6 +18,26 @@ const SEGMENT_CONFIGS = {
     md: "text-base",
     lg: "text-lg",
   },
+  colors: {
+    container: {
+      light: "bg-gray-100",
+      dark: "dark:bg-gray-800"
+    },
+    button: {
+      active: {
+        light: "bg-white text-gray-900",
+        dark: "dark:bg-gray-700 dark:text-gray-100"
+      },
+      inactive: {
+        light: "text-gray-500 hover:text-gray-900 hover:bg-gray-50",
+        dark: "dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-700"
+      }
+    },
+    disabled: {
+      light: "opacity-50",
+      dark: "dark:opacity-40"
+    }
+  }
 };
 
 const Segment = defineComponent({
@@ -54,7 +74,9 @@ const Segment = defineComponent({
 
     const containerClass = computed(() => [
       'segment-container inline-flex rounded-lg p-1 transition-all',
-      props.disabled ? 'bg-gray-100 opacity-50' : 'bg-gray-100',
+      SEGMENT_CONFIGS.colors.container.light,
+      SEGMENT_CONFIGS.colors.container.dark,
+      props.disabled ? SEGMENT_CONFIGS.colors.disabled.light + ' ' + SEGMENT_CONFIGS.colors.disabled.dark : '',
       props.block ? 'w-full' : '',
     ]);
 
@@ -71,8 +93,8 @@ const Segment = defineComponent({
             SEGMENT_CONFIGS.sizeClasses[props.size],
             props.block ? 'flex-1' : '',
             isActive
-              ? 'is-active bg-white text-gray-900 shadow'
-              : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50',
+              ? `is-active ${SEGMENT_CONFIGS.colors.button.active.light} ${SEGMENT_CONFIGS.colors.button.active.dark} shadow dark:shadow-gray-900/30`
+              : `${SEGMENT_CONFIGS.colors.button.inactive.light} ${SEGMENT_CONFIGS.colors.button.inactive.dark}`,
             props.disabled ? 'cursor-not-allowed' : 'cursor-pointer',
           ];
 

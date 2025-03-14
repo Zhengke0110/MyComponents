@@ -33,6 +33,21 @@ const options = [
 <Segment v-model="selected" :options="options" />
 ```
 
+## 深色模式
+
+组件支持 Tailwind CSS 的深色模式。在启用深色模式的网站中会自动适配深色主题样式。
+
+```tsx
+// 使用 Tailwind 的 dark 类模式
+<div class="dark">
+  <Segment v-model="selected" :options="options" />
+</div>
+
+// 或者使用媒体查询方式 (如果您的 tailwind.config.js 配置为 darkMode: 'media')
+// 自动根据系统深色模式进行适配
+<Segment v-model="selected" :options="options" />
+```
+
 ## API
 
 ### Props
@@ -70,6 +85,7 @@ interface SegmentOption {
 4. **图标支持**：可以为每个选项添加图标，使界面更加直观
 5. **块级模式**：可设置为块级元素，自适应父容器宽度
 6. **禁用状态**：支持整个组件禁用
+7. **深色模式**：完美支持 Tailwind CSS 的深色模式
 
 ## 设计原则
 
