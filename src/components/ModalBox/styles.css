@@ -1,0 +1,32 @@
+.modal-box-enter-active {
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: var(--transition-duration, 200ms);
+}
+
+.modal-box-leave-active {
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  transition-duration: calc(var(--transition-duration, 200ms) * 0.8);
+}
+
+.modal-box-enter-from,
+.modal-box-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.modal-box-enter-to,
+.modal-box-leave-from {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 添加轻微的模糊效果增强深度感 */
+.modal-box-enter-from {
+  filter: blur(10px);
+}
+
+.modal-box-enter-to {
+  filter: blur(0);
+}

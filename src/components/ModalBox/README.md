@@ -11,10 +11,10 @@ ModalBox 是一个功能丰富的模态对话框组件，支持多种主题样�
   <button @click="showModal = true">打开模态框</button>
   
   <ModalBox v-model="showModal">
-    <div class="bg-white p-6 rounded-lg">
-      <h3 class="text-lg font-medium mb-4">基础模态框</h3>
-      <p class="text-gray-600 mb-4">这是一个基础的模态框示例</p>
-      <button @click="showModal = false">关闭</button>
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg">
+      <h3 class="text-lg font-medium mb-4 text-gray-900 dark:text-white">基础模态框</h3>
+      <p class="text-gray-600 dark:text-gray-300 mb-4">这是一个基础的模态框示例</p>
+      <button @click="showModal = false" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">关闭</button>
     </div>
   </ModalBox>
 </template>
@@ -40,10 +40,10 @@ ModalBox 支持丰富的主题颜色，可以使用 `theme` 属性设置。主�
   </div>
   
   <ModalBox v-model="showModal" :theme="currentTheme">
-    <div class="bg-white p-6 rounded-lg">
-      <h3 class="text-lg font-medium mb-4">{{ currentTheme }} 主题模态框</h3>
-      <p class="text-gray-600 mb-4">这是一个使用 {{ currentTheme }} 主题的模态框</p>
-      <button @click="showModal = false">关闭</button>
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg">
+      <h3 class="text-lg font-medium mb-4 text-gray-900 dark:text-white">{{ currentTheme }} 主题模态框</h3>
+      <p class="text-gray-600 dark:text-gray-300 mb-4">这是一个使用 {{ currentTheme }} 主题的模态框</p>
+      <button @click="showModal = false" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">关闭</button>
     </div>
   </ModalBox>
 </template>
@@ -106,10 +106,10 @@ const showFullscreenModal = ref(false);
   <button @click="showModal = true">打开模态框（禁用遮罩层关闭）</button>
   
   <ModalBox v-model="showModal" :closeOnClickOverlay="false">
-    <div class="bg-white p-6 rounded-lg">
-      <h3 class="text-lg font-medium mb-4">禁用遮罩层关闭的模态框</h3>
-      <p class="text-gray-600 mb-4">这个模态框禁用了点击遮罩层关闭的功能，必须点击按钮才能关闭</p>
-      <button @click="showModal = false">关闭</button>
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg">
+      <h3 class="text-lg font-medium mb-4 text-gray-900 dark:text-white">禁用遮罩层关闭的模态框</h3>
+      <p class="text-gray-600 dark:text-gray-300 mb-4">这个模态框禁用了点击遮罩层关闭的功能，必须点击按钮才能关闭</p>
+      <button @click="showModal = false" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">关闭</button>
     </div>
   </ModalBox>
 </template>
@@ -193,6 +193,50 @@ const showImage = (image) => {
   imageModalVisible.value = true;
 };
 </script>
+```
+
+## 接口定义
+
+```typescript
+/** 
+ * 模态框组件属性接口
+ */
+export interface ModalBoxProps {
+  /**
+   * 控制模态框的显示与隐藏
+   */
+  modelValue: boolean;
+  
+  /**
+   * 模态框主题颜色，可以是预设主题或具体颜色
+   * @default 'primary'
+   */
+  theme?: ColorType | ThemeColorType;
+  
+  /**
+   * 是否全屏显示
+   * @default false
+   */
+  fullscreen?: boolean;
+  
+  /**
+   * 内容区域的自定义类名
+   * @default ''
+   */
+  contentClass?: string;
+  
+  /**
+   * 是否点击遮罩层关闭模态框
+   * @default true
+   */
+  closeOnClickOverlay?: boolean;
+  
+  /**
+   * 过渡动画持续时间（毫秒）
+   * @default 200
+   */
+  transitionDuration?: number;
+}
 ```
 
 ## 属性
