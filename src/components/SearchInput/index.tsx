@@ -1,7 +1,7 @@
 import { computed, defineComponent, ref, type PropType } from 'vue'
 import { useThrottleFn } from "@vueuse/core"
-import type { ColorType } from '../colors'
-import { COLOR_STYLE_MAP } from './config'
+
+import { COLOR_STYLE_MAP, ColorType } from './config'
 
 export type SearchInputSize = 'sm' | 'md' | 'lg'
 

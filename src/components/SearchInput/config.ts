@@ -1,5 +1,4 @@
 // 颜色映射表 - 为所有颜色定义直接样式
-
 export const COLOR_STYLE_MAP = {
   // 默认/灰色系列
   default: {
@@ -284,3 +283,12 @@ export const COLOR_STYLE_MAP = {
     divider: "bg-fuchsia-200 dark:bg-fuchsia-500",
   },
 };
+
+
+// 所有可用的颜色类型
+export type ColorType = 
+  | 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone'  // 灰色系
+  | 'red' | 'orange' | 'amber' | 'yellow'            // 暖色系
+  | 'lime' | 'green' | 'emerald' | 'teal'            // 绿色系
+  | 'cyan' | 'sky' | 'blue' | 'indigo'               // 蓝色系
+  | 'violet' | 'purple' | 'fuchsia' | 'pink' | 'rose'; // 紫粉色系
