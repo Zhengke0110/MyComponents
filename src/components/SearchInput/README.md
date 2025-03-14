@@ -8,7 +8,8 @@ SearchInput 是一个用于搜索功能的输入框组件，包含清除按钮�
 - 内置清除按钮，一键清空输入内容
 - 集成搜索按钮，点击触发搜索事件
 - 支持按下 Enter 键进行搜索
-- 多种主题颜色可选
+- 多种颜色可选，与 Tailwind CSS 颜色系统一致
+- 支持 Tailwind CSS 的暗黑模式
 - 可自定义标签文本和是否显示标签
 - 提供多种尺寸选项
 - 包含动画效果，提升用户体验
@@ -27,7 +28,7 @@ SearchInput 是一个用于搜索功能的输入框组件，包含清除按钮�
 | id         | string  | "search"  | 输入框 id 属性           |
 | name       | string  | "search"  | 输入框 name 属性         |
 | size       | string  | "md"      | 输入框大小，可选：'sm'、'md'、'lg' |
-| theme      | string  | "default" | 主题颜色，可选：'default'、'primary'、'success'、'warning'、'error'、'info' |
+| theme      | string  | "default" | 颜色主题，支持所有 Tailwind 颜色（如 'blue'、'green' 等）或 'default'（灰色） |
 | disabled   | boolean | false     | 是否禁用                 |
 | animate    | boolean | true      | 是否启用动画效果          |
 | rounded    | boolean | false     | 是否使用圆形边角          |
@@ -46,4 +47,33 @@ SearchInput 是一个用于搜索功能的输入框组件，包含清除按钮�
 ## 使用示例
 
 ### 基本用法
+
+```vue
+<SearchInput 
+  v-model="searchText" 
+  label="搜索：" 
+  placeholder="请输入关键词..." 
+  @search="handleSearch"
+/>
+```
+
+### 暗黑模式支持
+
+组件自动适应 Tailwind CSS 的暗黑模式。在启用了 Tailwind 暗黑模式的情况下，组件会自动切换样式。
+
+```vue
+<!-- 在 dark 类或媒体查询的 dark 模式下自动适应 -->
+<div class="dark">
+  <SearchInput v-model="searchText" theme="blue" />
+</div>
+```
+
+### 不同颜色主题
+
+```vue
+<SearchInput v-model="searchText" theme="blue" />
+<SearchInput v-model="searchText" theme="emerald" />
+<SearchInput v-model="searchText" theme="amber" />
+<SearchInput v-model="searchText" theme="violet" />
+```
 
