@@ -77,11 +77,6 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/views/RoundProgressView"),
       },
       {
-        path: "/SearchInput",
-        name: "SearchInput",
-        component: () => import("@/views/SearchInputView"),
-      },
-      {
         path: "/Segment",
         name: "Segment",
         component: () => import("@/views/SegmentView"),

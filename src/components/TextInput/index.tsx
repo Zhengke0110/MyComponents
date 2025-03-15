@@ -53,9 +53,9 @@ export const TextInput = defineComponent({
       type: Number,
       default: 3
     }
-  } as const,
+  },
   emits: ['update:modelValue', 'focus', 'blur'],
-  setup(props: TextInputProps, { emit, slots }) {
+  setup(props, { emit, slots }) {
     const isFocused = ref(false);
 
     // 尺寸相关样式
@@ -69,7 +69,7 @@ export const TextInput = defineComponent({
       lg: {
         input: 'py-2 px-3.5 text-lg tracking-normal',
       }
-    }[props.size ?? 'md']));
+    }[props.size]));
 
 
 
