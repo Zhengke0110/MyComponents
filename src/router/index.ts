@@ -17,6 +17,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/layout/GlobalMain"),
     children: [
       {
+        path: "/Avatar",
+        name: "Avatar",
+        component: () => import("@/libs/Avatar"),
+      },
+      {
         path: "/Badge",
         name: "Badge",
         component: () => import("@/libs/Badge"),
