@@ -6,7 +6,7 @@
         <section class="mb-8">
             <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">基础用法</h2>
             <div class="flex items-center gap-4 flex-wrap">
-                <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="md" />
+                <Avatar :src="Image" size="md" />
                 <Avatar :src="''" initials="ZK" size="md" />
                 <Avatar size="md" />
             </div>
@@ -20,27 +20,27 @@
             <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">不同尺寸</h2>
             <div class="flex items-end gap-4 flex-wrap">
                 <div class="flex flex-col items-center">
-                    <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="xs" />
+                    <Avatar :src="Image" size="xs" />
                     <span class="mt-2 text-xs text-gray-500 dark:text-gray-400">xs</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="sm" />
+                    <Avatar :src="Image" size="sm" />
                     <span class="mt-2 text-xs text-gray-500 dark:text-gray-400">sm</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="md" />
+                    <Avatar :src="Image" size="md" />
                     <span class="mt-2 text-xs text-gray-500 dark:text-gray-400">md</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="lg" />
+                    <Avatar :src="Image" size="lg" />
                     <span class="mt-2 text-xs text-gray-500 dark:text-gray-400">lg</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="xl" />
+                    <Avatar :src="Image" size="xl" />
                     <span class="mt-2 text-xs text-gray-500 dark:text-gray-400">xl</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="2xl" />
+                    <Avatar :src="Image" size="2xl" />
                     <span class="mt-2 text-xs text-gray-500 dark:text-gray-400">2xl</span>
                 </div>
             </div>
@@ -51,12 +51,12 @@
             <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">不同形状</h2>
             <div class="flex gap-8">
                 <div class="flex flex-col items-center">
-                    <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="lg"
+                    <Avatar :src="Image" size="lg"
                         shape="circle" />
                     <span class="mt-2 text-sm text-gray-500 dark:text-gray-400">圆形</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="lg"
+                    <Avatar :src="Image" size="lg"
                         shape="square" />
                     <span class="mt-2 text-sm text-gray-500 dark:text-gray-400">方形</span>
                 </div>
@@ -68,12 +68,12 @@
             <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">边框效果</h2>
             <div class="flex gap-8">
                 <div class="flex flex-col items-center">
-                    <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="lg"
+                    <Avatar :src="Image" size="lg"
                         :bordered="false" />
                     <span class="mt-2 text-sm text-gray-500 dark:text-gray-400">无边框</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="lg"
+                    <Avatar :src="Image" size="lg"
                         :bordered="true" />
                     <span class="mt-2 text-sm text-gray-500 dark:text-gray-400">有边框</span>
                 </div>
@@ -88,22 +88,22 @@
                     <h3 class="text-lg font-medium mb-3 text-gray-700 dark:text-gray-300">顶部位置</h3>
                     <div class="flex gap-4 flex-wrap">
                         <div class="flex flex-col items-center">
-                            <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="lg"
+                            <Avatar :src="Image" size="lg"
                                 status="online" statusPosition="top-right" />
                             <span class="mt-2 text-xs text-gray-500 dark:text-gray-400">在线</span>
                         </div>
                         <div class="flex flex-col items-center">
-                            <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="lg"
+                            <Avatar :src="Image" size="lg"
                                 status="offline" statusPosition="top-right" />
                             <span class="mt-2 text-xs text-gray-500 dark:text-gray-400">离线</span>
                         </div>
                         <div class="flex flex-col items-center">
-                            <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="lg"
+                            <Avatar :src="Image" size="lg"
                                 status="busy" statusPosition="top-right" />
                             <span class="mt-2 text-xs text-gray-500 dark:text-gray-400">忙碌</span>
                         </div>
                         <div class="flex flex-col items-center">
-                            <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="lg"
+                            <Avatar :src="Image" size="lg"
                                 status="away" statusPosition="top-right" />
                             <span class="mt-2 text-xs text-gray-500 dark:text-gray-400">离开</span>
                         </div>
@@ -113,22 +113,22 @@
                     <h3 class="text-lg font-medium mb-3 text-gray-700 dark:text-gray-300">底部位置</h3>
                     <div class="flex gap-4 flex-wrap">
                         <div class="flex flex-col items-center">
-                            <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="lg"
+                            <Avatar :src="Image" size="lg"
                                 status="online" statusPosition="bottom-right" />
                             <span class="mt-2 text-xs text-gray-500 dark:text-gray-400">在线</span>
                         </div>
                         <div class="flex flex-col items-center">
-                            <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="lg"
+                            <Avatar :src="Image" size="lg"
                                 status="offline" statusPosition="bottom-right" />
                             <span class="mt-2 text-xs text-gray-500 dark:text-gray-400">离线</span>
                         </div>
                         <div class="flex flex-col items-center">
-                            <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="lg"
+                            <Avatar :src="Image" size="lg"
                                 status="busy" statusPosition="bottom-right" />
                             <span class="mt-2 text-xs text-gray-500 dark:text-gray-400">忙碌</span>
                         </div>
                         <div class="flex flex-col items-center">
-                            <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="lg"
+                            <Avatar :src="Image" size="lg"
                                 status="away" statusPosition="bottom-right" />
                             <span class="mt-2 text-xs text-gray-500 dark:text-gray-400">离开</span>
                         </div>
@@ -145,7 +145,7 @@
                     <h3 class="text-lg font-medium mb-3 text-gray-700 dark:text-gray-300">圆形头像</h3>
                     <div class="flex gap-4 flex-wrap">
                         <div class="flex flex-col items-center">
-                            <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="lg"
+                            <Avatar :src="Image" size="lg"
                                 shape="circle" status="online" />
                             <span class="mt-2 text-xs text-gray-500 dark:text-gray-400">在线</span>
                         </div>
@@ -155,7 +155,7 @@
                     <h3 class="text-lg font-medium mb-3 text-gray-700 dark:text-gray-300">方形头像</h3>
                     <div class="flex gap-4 flex-wrap">
                         <div class="flex flex-col items-center">
-                            <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="lg"
+                            <Avatar :src="Image" size="lg"
                                 shape="square" status="online" />
                             <span class="mt-2 text-xs text-gray-500 dark:text-gray-400">在线</span>
                         </div>
@@ -232,13 +232,13 @@
             <div class="space-y-4 max-w-md">
                 <!-- 带名称和描述的资料卡片 -->
                 <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                    <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" name="张三"
+                    <Avatar :src="Image" name="张三"
                         description="前端工程师" size="md" profile @click="handleProfileClick" />
                 </div>
 
                 <!-- 只有名称的资料卡片 -->
                 <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                    <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" name="李四" size="md"
+                    <Avatar :src="Image" name="李四" size="md"
                         profile @click="handleProfileClick" />
                 </div>
 
@@ -262,7 +262,7 @@
                 <div class="p-6 bg-white rounded-lg shadow-sm">
                     <h3 class="text-lg font-medium mb-4 text-gray-800">亮色模式</h3>
                     <div class="flex gap-4 flex-wrap">
-                        <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="md"
+                        <Avatar :src="Image" size="md"
                             status="online" />
                         <Avatar :src="''" initials="ZK" size="md" />
                         <Avatar size="md" />
@@ -271,7 +271,7 @@
                 <div class="p-6 bg-gray-900 rounded-lg shadow-sm">
                     <h3 class="text-lg font-medium mb-4 text-white">暗黑模式</h3>
                     <div class="dark flex gap-4 flex-wrap">
-                        <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" size="md"
+                        <Avatar :src="Image" size="md"
                             status="online" />
                         <Avatar :src="''" initials="ZK" size="md" />
                         <Avatar size="md" />
@@ -465,6 +465,7 @@
 
 <script setup lang="ts">
 import Avatar from '../../libs/Avatar/Avatar';
+import Image from '@/assets/images/photo-1472099645785-5658abf4ff4e.jpeg'
 
 // 处理资料卡片点击事件
 const handleProfileClick = () => {
