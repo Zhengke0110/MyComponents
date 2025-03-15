@@ -588,7 +588,7 @@ const handleViewModeChange = (index: number) => {
                 </p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="border border-gray-200 dark:border-gray-700 rounded p-4">
+                    <div class="border border-gray-200 dark:border-gray-700 rounded p-4 ">
                         <h4 class="text-sm font-medium mb-2">导航栏样式</h4>
                         <ButtonGroups :items="navItems" variant="soft" type="primary" :selected-index="navSelectedIndex"
                             @change="navSelectedIndex = $event" />
