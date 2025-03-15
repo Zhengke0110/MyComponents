@@ -4,53 +4,53 @@ export type { ColorType, TextInputSize }
 export const TextInput = defineComponent({
   name: 'TextInput',
   props: {
-    modelValue: String,
+    modelValue: String as PropType<TextInputProps['modelValue']>,
     id: {
-      type: String,
+      type: String as PropType<TextInputProps['id']>,
       required: true
     },
-    name: String,
-    label: String,
+    name: String as PropType<TextInputProps['name']>,
+    label: String as PropType<TextInputProps['label']>,
     type: {
-      type: String,
+      type: String as PropType<TextInputProps['type']>,
       default: 'text'
     },
     placeholder: {
-      type: String,
+      type: String as PropType<TextInputProps['placeholder']>,
       default: ''
     },
     disabled: {
-      type: Boolean,
+      type: Boolean as PropType<TextInputProps['disabled']>,
       default: false
     },
     required: {
-      type: Boolean,
+      type: Boolean as PropType<TextInputProps['required']>,
       default: false
     },
-    description: String,
-    error: String,
+    description: String as PropType<TextInputProps['description']>,
+    error: String as PropType<TextInputProps['error']>,
     color: {
-      type: String as PropType<ColorType>,
+      type: String as PropType<TextInputProps['color']>,
       default: 'indigo'
     },
     size: {
-      type: String as PropType<TextInputSize>,
+      type: String as PropType<TextInputProps['size']>,
       default: 'md'
     },
     wrapperClass: {
-      type: String,
+      type: String as PropType<TextInputProps['wrapperClass']>,
       default: ''
     },
     labelClass: {
-      type: String,
+      type: String as PropType<TextInputProps['labelClass']>,
       default: ''
     },
     multiline: {
-      type: Boolean,
+      type: Boolean as PropType<TextInputProps['multiline']>,
       default: false
     },
     rows: {
-      type: Number,
+      type: Number as PropType<TextInputProps['rows']>,
       default: 3
     }
   },
@@ -69,7 +69,7 @@ export const TextInput = defineComponent({
       lg: {
         input: 'py-2 px-3.5 text-lg tracking-normal',
       }
-    }[props.size]));
+    }[props.size ?? 'md']));
 
 
 
