@@ -146,129 +146,6 @@
       </div>
     </section>
 
-    <!-- 暗色模式与主题切换 (替换暗色主题展示部分) -->
-    <section class="mb-10">
-      <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">暗色主题与主题切换</h2>
-
-      <div class="mb-6 rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800">
-        <h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-white">主题相关信息</h3>
-
-        <div class="mb-4">
-          <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div class="flex flex-col gap-2 rounded-lg bg-gray-50 p-3 dark:bg-gray-700/30">
-              <span class="text-sm font-medium text-gray-700 dark:text-gray-300">当前主题</span>
-              <div class="flex items-center gap-2">
-                <div class="h-3 w-3 rounded-full" :class="isDark ? 'bg-indigo-500' : 'bg-yellow-500'"></div>
-                <Button size="sm" :type="isDark ? 'primary' : 'warning'" variant="soft">{{ isDark ? '暗色' : '亮色'
-                }}</Button>
-              </div>
-            </div>
-
-            <div class="flex flex-col gap-2 rounded-lg bg-gray-50 p-3 dark:bg-gray-700/30">
-              <span class="text-sm font-medium text-gray-700 dark:text-gray-300">系统偏好</span>
-              <div class="flex items-center gap-2">
-                <div class="h-3 w-3 rounded-full" :class="preferredDark ? 'bg-indigo-500' : 'bg-yellow-500'"></div>
-                <Button size="sm" type="gray" variant="soft">{{ preferredDark ? '暗色' : '亮色' }}</Button>
-              </div>
-            </div>
-
-            <div class="flex flex-col gap-2 rounded-lg bg-gray-50 p-3 dark:bg-gray-700/30">
-              <span class="text-sm font-medium text-gray-700 dark:text-gray-300">主题设置</span>
-              <div class="flex items-center gap-2">
-                <Button size="sm" type="purple" variant="soft">{{ currentThemeModeName }}</Button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="mb-4 flex flex-wrap gap-2">
-          <button
-            class="inline-flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 font-medium text-gray-800 hover:bg-gray-200 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
-            @click="toggleDark()">
-            <span class="icon-[material-symbols--wb-sunny-outline-rounded] size-5" v-if="isDark"></span>
-            <span class="icon-[material-symbols--dark-mode-outline-rounded] size-5" v-else></span>
-            <span>切换主题</span>
-          </button>
-
-          <button
-            class="inline-flex items-center gap-2 rounded-lg bg-blue-500 px-4 py-2 font-medium text-white hover:bg-blue-600 dark:bg-indigo-600 dark:hover:bg-indigo-700"
-            @click="setLightTheme" :class="{ 'ring-2 ring-blue-300 dark:ring-indigo-400': themeMode === 'light' }">
-            <span class="icon-[material-symbols--light-mode-outline-rounded] size-5"></span>
-            <span>亮色模式</span>
-          </button>
-
-          <button
-            class="inline-flex items-center gap-2 rounded-lg bg-gray-800 px-4 py-2 font-medium text-white hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600"
-            @click="setDarkTheme" :class="{ 'ring-2 ring-gray-500 dark:ring-gray-400': themeMode === 'dark' }">
-            <span class="icon-[material-symbols--dark-mode-outline-rounded] size-5"></span>
-            <span>暗色模式</span>
-          </button>
-
-          <!-- 修改系统偏好按钮样式 -->
-          <button
-            class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 font-medium text-gray-800 hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
-            @click="useSystemTheme" :class="{ 'ring-2 ring-gray-400 dark:ring-gray-500': themeMode === 'system' }">
-            <span class="icon-[material-symbols--computer-outline-rounded] size-5"></span>
-            <span>系统偏好</span>
-          </button>
-        </div>
-
-        <div class="rounded-lg bg-gray-50 p-4 dark:bg-gray-700/30">
-          <h4 class="mb-2 text-base font-medium text-gray-900 dark:text-white">主题脚本</h4>
-          <p class="mb-2 text-sm text-gray-600 dark:text-gray-300">
-            为避免页面加载时出现闪烁，可以在HTML的&lt;head&gt;中添加如下内联脚本：
-          </p>
-          <pre
-            class="overflow-x-auto rounded bg-gray-100 p-3 text-xs text-gray-800 dark:bg-gray-800 dark:text-gray-200">{{
-              themeScript }}</pre>
-        </div>
-      </div>
-
-      <!-- 亮暗模式对比 -->
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <!-- 亮色模式示例 -->
-        <div class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
-          <h3 class="mb-3 text-lg font-medium text-gray-900">亮色模式示例</h3>
-          <div class="space-y-3">
-            <div class="flex flex-wrap gap-2">
-              <Button variant="solid" type="primary">主要</Button>
-              <Button variant="solid" type="success">成功</Button>
-              <Button variant="solid" type="warning">警告</Button>
-              <Button variant="solid" type="danger">危险</Button>
-            </div>
-            <div class="rounded-lg bg-gray-100 p-4">
-              <div class="flex flex-wrap gap-2">
-                <Button variant="soft" type="primary">柔和主要</Button>
-                <Button variant="outline" type="success">描边成功</Button>
-                <Button variant="ghost" type="warning">幽灵警告</Button>
-                <Button variant="solid" type="danger" size="sm">小型危险</Button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 暗色模式示例 -->
-        <div class="rounded-lg border border-gray-700 bg-gray-800 p-5 shadow-sm">
-          <h3 class="mb-3 text-lg font-medium text-white">暗色模式示例</h3>
-          <div class="space-y-3">
-            <div class="flex flex-wrap gap-2">
-              <Button variant="solid" type="primary">主要</Button>
-              <Button variant="solid" type="success">成功</Button>
-              <Button variant="solid" type="warning">警告</Button>
-              <Button variant="solid" type="danger">危险</Button>
-            </div>
-            <div class="rounded-lg bg-gray-900 p-4">
-              <div class="flex flex-wrap gap-2">
-                <Button variant="soft" type="primary">柔和主要</Button>
-                <Button variant="outline" type="success">描边成功</Button>
-                <Button variant="ghost" type="warning">幽灵警告</Button>
-                <Button variant="solid" type="danger" size="sm">小型危险</Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ColorType 所有颜色展示 -->
     <section class="mb-10">
@@ -584,19 +461,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+
 import { Button } from "./Button";
-// 引入主题相关工具
-import {
-  isDark,
-  toggleDark,
-  preferredDark,
-  themeMode,
-  useSystemTheme,
-  setLightTheme,
-  setDarkTheme,
-  themeScript
-} from "../../utils/theme";
 
 // 变体名称映射
 const variantNames = {
@@ -605,16 +471,5 @@ const variantNames = {
   outline: "描边按钮 (outline)",
   ghost: "幽灵按钮 (ghost)",
 };
-
-// 当前主题模式名称
-const currentThemeModeName = computed(() => {
-  switch (themeMode.value) {
-    case 'light': return '亮色';
-    case 'dark': return '暗色';
-    case 'system': return '跟随系统';
-    default: return '未知';
-  }
-});
-
 
 </script>

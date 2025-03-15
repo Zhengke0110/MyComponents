@@ -17,6 +17,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/layout/GlobalMain"),
     children: [
       {
+        path: "/Badge",
+        name: "Badge",
+        component: () => import("@/libs/Badge"),
+      },
+      {
         path: "/Button",
         name: "Button",
         component: () => import("@/libs/Button"),
@@ -26,11 +31,7 @@ const routes: RouteRecordRaw[] = [
         name: "Message",
         component: () => import("@/views/MessageView"),
       },
-      {
-        path: "/Badges",
-        name: "Badges",
-        component: () => import("@/views/BadgesView"),
-      },
+  
       {
         path: "/Calendars",
         name: "Calendars",

@@ -1,5 +1,5 @@
 import { computed, defineComponent, type PropType } from 'vue'
-import { ColorType, BUTTON_TYPE_MAP, ButtonType, ButtonTypeValue, ButtonSize, ButtonVariant, variantColorMap } from './config'
+import { ColorType, BUTTON_TYPE_MAP, ButtonType, ButtonTypeValue, ButtonSize, ButtonVariant, variantColorMap, validColors, validTypes } from './config'
 interface ButtonProps {
     variant?: ButtonVariant
     size?: ButtonSize
@@ -39,14 +39,6 @@ export const Button = defineComponent({
             type: String as PropType<ButtonType>,
             default: 'blue',
             validator: (value: string): boolean => {
-                const validColors: ColorType[] = [
-                    'slate', 'gray', 'zinc', 'neutral', 'stone',
-                    'red', 'orange', 'amber', 'yellow', 'lime',
-                    'green', 'emerald', 'teal', 'cyan', 'sky',
-                    'blue', 'indigo', 'violet', 'purple', 'fuchsia',
-                    'pink', 'rose'
-                ];
-                const validTypes = ['primary', 'secondary', 'success', 'warning', 'danger', 'info'];
                 return validColors.includes(value as ColorType) || validTypes.includes(value);
             }
         },

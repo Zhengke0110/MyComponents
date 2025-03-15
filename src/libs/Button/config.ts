@@ -123,3 +123,12 @@ export const variantColorMap = {
     rose: "bg-transparent hover:bg-rose-100 text-rose-700 focus:ring-rose-400 dark:hover:bg-rose-900/20 dark:text-rose-400"
   }
 };
+
+export const validColors: ColorType[] = [
+  'slate', 'gray', 'zinc', 'neutral', 'stone',
+  'red', 'orange', 'amber', 'yellow', 'lime',
+  'green', 'emerald', 'teal', 'cyan', 'sky',
+  'blue', 'indigo', 'violet', 'purple', 'fuchsia',
+  'pink', 'rose'
+];
+export const validTypes = ['primary', 'secondary', 'success', 'warning', 'danger', 'info'];
