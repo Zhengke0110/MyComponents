@@ -1,47 +1,32 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
-import { useDark, useToggle } from '@vueuse/core'
 import Dropdowns, { ColorType } from '../../components/Dropdowns'
 import type { DropdownItem } from '../../components/Dropdowns'
+import { isDark } from '../../utils/theme'
 
 
-// 使用 vueuse/core 的暗色模式钩子
-const isDark = useDark({
-  selector: 'html',
-  attribute: 'class',
-  valueDark: 'dark',
-  valueLight: ''
-});
-const toggleDark = useToggle(isDark);
-
-// 检查系统颜色偏好
-const preferredDark = ref(false);
-if (window.matchMedia) {
-  preferredDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches;
-}
-    const baseItems: DropdownItem[] = [
-      {
-        id: '1',
-        type: 'button',
-        label: 'Edit',
-        icon: 'icon-[solar--clapperboard-edit-broken]',
-        onClick: () => console.log('Edit clicked')
-      },
-      {
-        id: '2',
-        type: 'button',
-        label: 'Duplicate',
-        icon: 'icon-[solar--copy-broken]'
-      },
-      { id: 'div1', type: 'divider' },
-      {
-        id: '3',
-        type: 'link', 
-        label: 'Learn more',
-        href: 'https://example.com', // 确保提供 href 属性
-        icon: 'icon-[solar--link-bold-duotone]'
-      }
-    ];
+const baseItems: DropdownItem[] = [
+  {
+    id: '1',
+    type: 'button',
+    label: 'Edit',
+    icon: 'icon-[solar--clapperboard-edit-broken]',
+    onClick: () => console.log('Edit clicked')
+  },
+  {
+    id: '2',
+    type: 'button',
+    label: 'Duplicate',
+    icon: 'icon-[solar--copy-broken]'
+  },
+  { id: 'div1', type: 'divider' },
+  {
+    id: '3',
+    type: 'link',
+    label: 'Learn more',
+    href: 'https://example.com', // 确保提供 href 属性
+    icon: 'icon-[solar--link-bold-duotone]'
+  }
+];
 
 const sizeItems: DropdownItem[] = [
   {
@@ -153,84 +138,13 @@ const safeAreaItems: DropdownItem[] = [
   }
 ]
 
-// 确保暗色模式正确应用
-onMounted(() => {
-  // 初始应用暗色模式
-  if (isDark.value) {
-    document.documentElement.classList.add('dark');
-    document.body.classList.add('dark-mode');
-  }
 
-  // 自动检测并添加使用暗色模式的标记类
-  document.documentElement.classList.add('using-dark-mode');
-});
 
-// 监听暗色模式变化
-watch(isDark, (newVal) => {
-  if (newVal) {
-    document.documentElement.classList.add('dark');
-    document.body.classList.add('dark-mode');
-  } else {
-    document.documentElement.classList.remove('dark');
-    document.body.classList.remove('dark-mode');
-  }
-
-  // 强制触发重新渲染
-  setTimeout(() => {
-    document.body.style.transition = 'background-color 0.3s ease';
-    if (newVal) {
-      document.body.style.backgroundColor = '#1f2937';
-    } else {
-      document.body.style.backgroundColor = '';
-    }
-  }, 0);
-});
-
-// 清理函数
-onBeforeUnmount(() => {
-  document.documentElement.classList.remove('using-dark-mode');
-});
 </script>
 
 <template>
   <div class="p-6 min-h-screen transition-colors duration-300"
     :class="isDark ? 'bg-gray-900 text-white' : 'bg-white text-gray-800'">
-    <!-- Header with Dark Mode Toggle -->
-    <div class="mb-8 flex items-center justify-between">
-      <h1 class="text-2xl font-bold">Dropdowns 下拉菜单</h1>
-      <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2">
-          <span class="text-sm">暗色模式</span>
-          <div
-            class="relative inline-block h-6 w-11 cursor-pointer rounded-full bg-gray-200 transition-colors duration-200 ease-in-out dark:bg-blue-600"
-            @click="toggleDark()">
-            <span :class="[
-              'absolute left-1 top-1 h-4 w-4 rounded-full bg-white transition-transform duration-200 ease-in-out',
-              isDark ? 'translate-x-5' : 'translate-x-0'
-            ]"></span>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-3">
-          <button
-            class="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 bg-blue-500 hover:bg-blue-600 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white font-medium"
-            @click="toggleDark()">
-            <span :class="[
-              isDark ? 'icon-[material-symbols--wb-sunny-outline-rounded]' : 'icon-[material-symbols--dark-mode-outline-rounded]',
-              'size-5'
-            ]"></span>
-            <span>{{ isDark ? "切换到亮色模式" : "切换到暗色模式" }}</span>
-          </button>
-
-          <button
-            class="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium"
-            @click="preferredDark ? toggleDark(false) : toggleDark(true)">
-            <span class="icon-[material-symbols--settings-outline-rounded] size-5"></span>
-            <span>系统偏好</span>
-          </button>
-        </div>
-      </div>
-    </div>
 
     <!-- Basic Usage -->
     <section class="space-y-4 mb-8">
@@ -485,7 +399,7 @@ onBeforeUnmount(() => {
             </h4>
             <p class="text-sm text-blue-700 dark:text-blue-300">
               Dropdowns 组件已内置支持暗色模式，通过 Tailwind CSS 的
-              <code class="rounded bg-blue-100 px-1 py-0.5 font-mono dark:bg-blue-800/60">dark:</code> 
+              <code class="rounded bg-blue-100 px-1 py-0.5 font-mono dark:bg-blue-800/60">dark:</code>
               变体实现自动切换。
             </p>
           </div>

@@ -22,40 +22,53 @@ export const Tooltip = defineComponent({
     const tooltipContainer = ref<HTMLElement | null>(null)
     const tooltip = ref<HTMLElement | null>(null)
     const isVisible = ref(false)
-    const positionStyle = ref({})
+    const positionStyle = ref<{ top?: string; left?: string; position?: string; zIndex?: string }>({})
     const currentPosition = ref<TooltipPosition>(props.position)
 
+    // 使用固定类名而非动态类名，确保 Tailwind 可以识别
     const tooltipClasses = computed(() => [
-      'absolute px-5 py-3 text-center text-gray-600 bg-white rounded-lg shadow-lg dark:shadow-none shadow-gray-200 dark:bg-gray-800 dark:text-white',
-      'transition-opacity duration-200 z-50',
+      'absolute px-5 py-3 text-center text-gray-600 bg-white rounded-lg shadow-lg dark:text-white dark:bg-gray-800 dark:shadow-none shadow-gray-200',
+      'transition-all duration-200 ease-out z-50',
       'min-w-[12rem] max-w-xs',
-      // 根据当前位置添加箭头样式指向触发元素
       `tooltip-${currentPosition.value}`
     ])
+
+    // 箭头样式单独处理，避免动态类问题
+    const arrowClasses = computed(() => [
+      `tooltip-arrow-${currentPosition.value}`
+    ])
+
+    // 使用计算属性处理定位样式
+    const tooltipStyles = computed(() => ({
+      position: 'fixed' as const,
+      top: positionStyle.value.top,
+      left: positionStyle.value.left,
+      zIndex: 9999,
+    }))
 
     const calculatePosition = () => {
       if (!tooltipContainer.value || !tooltip.value) return
 
       // 重置当前位置为初始设置的位置
       currentPosition.value = props.position
-      
+
       // 获取触发元素的位置信息
       const triggerRect = tooltipContainer.value.getBoundingClientRect()
       const tooltipRect = tooltip.value.getBoundingClientRect()
-      
+
       // 视口尺寸
       const viewportWidth = document.documentElement.clientWidth
       const viewportHeight = document.documentElement.clientHeight
-      
+
       // 安全边距，避免贴边
       const safeMargin = 8
-      
+
       let top = 0
       let left = 0
 
       // 基础位置计算 - 水平居中对齐
       left = triggerRect.left + (triggerRect.width - tooltipRect.width) / 2
-      
+
       // 根据指定位置确定垂直方向的位置
       if (currentPosition.value === 'top') {
         // 触发元素上方
@@ -151,7 +164,8 @@ export const Tooltip = defineComponent({
             slots.trigger()
           ) : (
             <button
-              class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500"
+              type="button"
+              class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-300 dark:hover:text-blue-400 hover:text-blue-500"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -172,37 +186,37 @@ export const Tooltip = defineComponent({
         </div>
 
         <Teleport to="body">
-          <Transition name="tooltip-fade">
+          <Transition
+            name="tooltip-fade"
+            enterActiveClass="transition ease-out duration-200"
+            enterFromClass="opacity-0 scale-95"
+            enterToClass="opacity-100 scale-100"
+            leaveActiveClass="transition ease-in duration-150"
+            leaveFromClass="opacity-100 scale-100"
+            leaveToClass="opacity-0 scale-95"
+          >
             {isVisible.value && (
               <div
                 ref={tooltip}
                 class={tooltipClasses.value}
-                style={positionStyle.value}
+                style={tooltipStyles.value}
               >
                 {slots.content ? (
                   slots.content()
                 ) : (
-                  <p class="truncate">{props.content}</p>
+                  <p class="text-sm">{props.content}</p>
                 )}
+                {/* 添加箭头元素 */}
+                <span class={arrowClasses.value}></span>
               </div>
             )}
           </Transition>
         </Teleport>
 
         <style scoped>{`
-          .tooltip-fade-enter-active,
-          .tooltip-fade-leave-active {
-            transition: opacity 0.2s ease, transform 0.2s ease;
-          }
-
-          .tooltip-fade-enter-from,
-          .tooltip-fade-leave-to {
-            opacity: 0;
-            transform: scale(0.95);
-          }
-          
-          /* 添加小箭头指向触发元素的样式 */
-          .tooltip-top::after {
+          /* 箭头样式 - 使用固定类名 */
+          .tooltip-top::after,
+          .tooltip-arrow-top {
             content: "";
             position: absolute;
             bottom: -8px;
@@ -210,10 +224,11 @@ export const Tooltip = defineComponent({
             margin-left: -8px;
             border-width: 8px 8px 0;
             border-style: solid;
-            border-color: white transparent transparent transparent;
+            border-color: #ffffff transparent transparent transparent;
           }
           
-          .tooltip-bottom::after {
+          .tooltip-bottom::after,
+          .tooltip-arrow-bottom {
             content: "";
             position: absolute;
             top: -8px;
@@ -221,15 +236,17 @@ export const Tooltip = defineComponent({
             margin-left: -8px;
             border-width: 0 8px 8px;
             border-style: solid;
-            border-color: transparent transparent white transparent;
+            border-color: transparent transparent #ffffff transparent;
           }
           
-          /* 暗黑模式箭头颜色 */
-          .dark .tooltip-top::after {
+          /* 暗黑模式箭头颜色 - 使用全局选择器适配 Tailwind dark 模式 */
+          :global(.dark) .tooltip-top::after,
+          :global(.dark) .tooltip-arrow-top {
             border-color: #1f2937 transparent transparent transparent;
           }
           
-          .dark .tooltip-bottom::after {
+          :global(.dark) .tooltip-bottom::after,
+          :global(.dark) .tooltip-arrow-bottom {
             border-color: transparent transparent #1f2937 transparent;
           }
         `}</style>
