@@ -170,6 +170,298 @@
                 </Waterfall>
             </div>
         </section>
+
+        <!-- API 文档部分 -->
+        <section class="mb-12 relative">
+            <h2 class="text-xl font-semibold mb-4 dark:text-white">组件API</h2>
+            <div class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+                <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">属性 (Props)</h3>
+                <div class="mb-6 overflow-x-auto">
+                    <table class="min-w-full border-collapse">
+                        <thead>
+                            <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">属性名</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">类型</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">默认值</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">描述</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">data</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">Array</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">[]</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">瀑布流数据源，数组中的每个对象代表一个瀑布流项</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">nodeKey</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">String</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">数据中用作唯一标识的字段名，用于优化重渲染</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">column</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">Number</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">2</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">瀑布流列数</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">columnSpacing</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">Number</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">20</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">列间距（单位：像素）</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">rowSpacing</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">Number</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">20</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">行间距（单位：像素）</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">picturePreReading</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">Boolean</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">true</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">是否开启图片预加载，开启后会等待图片加载完成再计算布局</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">animation</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">Boolean</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">true</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">是否启用动画效果</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">layoutAlgorithm</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">String</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">'default'</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">布局算法，可选值：'default'(默认)、'balanced'(均衡)、'compact'(紧凑)</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">virtualScroll</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">Boolean</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">false</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">是否开启虚拟滚动，适用于大数据量场景</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">virtualScrollBuffer</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">Number</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">5</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">虚拟滚动缓冲项数量</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">responsive</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">Array</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">[]</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">响应式配置断点，格式为 [{width, column, columnSpacing?, rowSpacing?}]</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">resizeDebounceTime</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">Number</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">200</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">窗口大小改变时的节流延迟，单位毫秒</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">loadingClass</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">String</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">''</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">自定义加载状态类名</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">emptyClass</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">String</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">''</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">自定义空状态类名</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">maxHeight</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">String/Number</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">null</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">瀑布流最大高度，超出后显示滚动条</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">事件 (Events)</h3>
+                <div class="mb-6 overflow-x-auto">
+                    <table class="min-w-full border-collapse">
+                        <thead>
+                            <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">事件名</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">回调参数</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">描述</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">item-rendered</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">{item, index, position}</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">某一项渲染完成时触发</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">layout-complete</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">{containerHeight, itemsCount, columnHeights}</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">布局计算完成时触发</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">resize</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">{width, height}</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">容器大小改变时触发</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">visible-items-change</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">number[]</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">可见项变化时触发（虚拟滚动模式下）</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">error</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">{type, message, error}</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">发生错误时触发</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">插槽 (Slots)</h3>
+                <div class="mb-6 overflow-x-auto">
+                    <table class="min-w-full border-collapse">
+                        <thead>
+                            <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">插槽名</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">插槽属性</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">描述</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">default</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">{item, width, index, isVisible}</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">瀑布流项的内容</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">loading</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">首次加载状态</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">loadingOverlay</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">加载叠加层</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">empty</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">空状态</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">footer</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">底部内容，常用于加载更多触发器</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">方法 (Methods)</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full border-collapse">
+                        <thead>
+                            <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">方法名</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">参数</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">返回值</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-900 dark:text-white">描述</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">reset</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">Promise&lt;void&gt;</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">重置瀑布流布局，当容器尺寸变化或需要强制重新计算布局时使用</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">refreshItem</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">index: number</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">Promise&lt;void&gt;</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">刷新指定索引的项，用于动态高度变化的场景</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">getLayoutInfo</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">-</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">Object</td>
+                                <td class="px-4 py-2 text-gray-700 dark:text-gray-300">获取当前布局信息，包含容器宽度、高度、列宽等数据</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 小结与最佳实践 -->
+        <section class="mb-10">
+            <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">小结与最佳实践</h2>
+            <div class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+                <div class="space-y-4">
+                    <p class="text-gray-700 dark:text-gray-300">
+                        瀑布流组件是一个功能强大的布局组件，适用于展示不同高度的内容，特别是图片和卡片。
+                        以下是一些使用建议：
+                    </p>
+
+                    <ul class="ml-6 list-disc space-y-2 text-gray-700 dark:text-gray-300">
+                        <li>始终为组件设置适当的 <code class="bg-gray-100 px-1 py-0.5 rounded dark:bg-gray-700">nodeKey</code> 属性，确保唯一标识，提升渲染性能</li>
+                        <li>对于包含图片的内容，建议保持 <code class="bg-gray-100 px-1 py-0.5 rounded dark:bg-gray-700">picturePreReading</code> 为 true，确保正确的布局计算</li>
+                        <li>在处理大量数据（&gt; 200项）时，启用 <code class="bg-gray-100 px-1 py-0.5 rounded dark:bg-gray-700">virtualScroll</code> 以提升性能</li>
+                        <li>使用 <code class="bg-gray-100 px-1 py-0.5 rounded dark:bg-gray-700">responsive</code> 配置，根据不同设备屏幕大小调整列数和间距</li>
+                        <li>针对不同的使用场景选择合适的布局算法：
+                            <ul class="ml-6 list-disc space-y-1 mt-1">
+                                <li><code class="bg-gray-100 px-1 py-0.5 rounded dark:bg-gray-700">default</code>: 适合普通瀑布流，优先考虑加载速度</li>
+                                <li><code class="bg-gray-100 px-1 py-0.5 rounded dark:bg-gray-700">balanced</code>: 适合需要平衡列高的场景，视觉更为统一</li>
+                                <li><code class="bg-gray-100 px-1 py-0.5 rounded dark:bg-gray-700">compact</code>: 适合追求紧凑布局的场景，最大化利用空间</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <div class="rounded-lg border border-blue-100 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-900/20">
+                        <h4 class="mb-2 flex items-center text-blue-800 dark:text-blue-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            性能优化提示
+                        </h4>
+                        <p class="text-sm text-blue-700 dark:text-blue-300">
+                            对于有大量频繁更新的场景，可以考虑使用 <code class="rounded bg-blue-100 px-1 py-0.5 font-mono dark:bg-blue-800/60">resizeDebounceTime</code> 属性调整窗口大小变化的响应灵敏度，以减少不必要的重新计算。在移动设备上，设置更大的延迟值（如 300-500ms）可以显著提升性能。
+                        </p>
+                    </div>
+
+                    <p class="text-gray-700 dark:text-gray-300">
+                        结合无限滚动和瀑布流组件，可以实现高效、美观的内容浏览体验。通过合理配置和优化，即使是在移动设备上处理大量内容时，也能保持流畅的用户体验。
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 mt-6">
+                        <div class="flex-1 min-w-[200px] rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+                            <h4 class="font-medium mb-2 text-gray-900 dark:text-white">常见应用场景</h4>
+                            <ul class="space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                                <li>• 图片画廊与照片墙</li>
+                                <li>• 商品展示列表</li>
+                                <li>• 社交媒体信息流</li>
+                                <li>• 文章卡片布局</li>
+                                <li>• 动态内容瀑布流</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="flex-1 min-w-[200px] rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+                            <h4 class="font-medium mb-2 text-gray-900 dark:text-white">常见陷阱与解决方案</h4>
+                            <ul class="space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                                <li>• 图片未加载完成导致布局错误 → 启用图片预加载</li>
+                                <li>• 列表频繁更新卡顿 → 使用虚拟滚动</li> 
+                                <li>• 响应式布局不合理 → 优化断点配置</li>
+                                <li>• 性能问题 → 减少数据量或分页加载</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </template>
 

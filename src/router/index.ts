@@ -19,7 +19,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/Button",
         name: "Button",
-        component: () => import("@/views/ButtonView"),
+        component: () => import("@/libs/Button"),
       },
       {
         path: "/Message",
@@ -109,7 +109,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/Waterfall",
         name: "Waterfall",
-        component: () => import("@/views/WaterfallView"),
+        component: () => import("@/libs/Waterfall"),
       },
     ],
   },
