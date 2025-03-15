@@ -11,11 +11,17 @@ const routes: RouteRecordRaw[] = [
     name: "home",
     component: () => import("@/views/Home.vue"),
   },
+ 
   {
     path: "/Main",
     name: "Main",
     component: () => import("@/layout/GlobalMain"),
     children: [
+      {
+        path: "/Alert",
+        name: "Alert",
+        component: () => import("@/libs/Alert"),
+      },
       {
         path: "/Avatar",
         name: "Avatar",
@@ -32,11 +38,21 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/libs/Button"),
       },
       {
+        path: "/ButtonGroups",
+        name: "ButtonGroups",
+        component: () => import("@/libs/ButtonGroups"),
+      },
+      {
+        path: "/Dropdowns",
+        name: "Dropdowns",
+        component: () => import("@/libs/Dropdowns"),
+      },
+
+      {
         path: "/Message",
         name: "Message",
         component: () => import("@/views/MessageView"),
       },
-  
       {
         path: "/Calendars",
         name: "Calendars",
@@ -56,11 +72,6 @@ const routes: RouteRecordRaw[] = [
         path: "/Dialog",
         name: "Dialog",
         component: () => import("@/views/DialogView"),
-      },
-      {
-        path: "/Dropdowns",
-        name: "Dropdowns",
-        component: () => import("@/views/DropdownsView"),
       },
       {
         path: "/ModalBox",
