@@ -6,13 +6,13 @@
         <section class="mb-12">
             <h2 class="mb-4 text-xl font-semibold">基础用法</h2>
 
-            <div class="grid grid-cols-1 gap-6">
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <CodePreview :code="basicUsageCode">
                     <div
                         class="rounded-xl border border-gray-100 bg-white p-4 shadow-md transition-all duration-200 ease-in-out dark:border-gray-700 dark:bg-gray-800">
                         <h3 class="mb-3 text-lg font-semibold">单选模式</h3>
                         <Calendars v-model:selectedDate="dynamicSelectedDate" mode="single" :color="selectedColor"
-                            :key="`single-dynamic-${selectedColor}`" @dateSelect="handleDynamicDateSelect" />
+                            :key="`single-calendar`" @dateSelect="handleDynamicDateSelect" />
                         <div v-if="dynamicSelectedDate" class="mt-3 rounded bg-gray-50 p-2 text-sm dark:bg-gray-700">
                             <div class="font-medium text-gray-700 dark:text-gray-300">
                                 选中日期：{{ dynamicSelectedDate }}
@@ -29,7 +29,7 @@
                         class="rounded-xl border border-gray-100 bg-white p-4 shadow-md transition-all duration-200 ease-in-out dark:border-gray-700 dark:bg-gray-800">
                         <h3 class="mb-3 text-lg font-semibold">范围选择模式</h3>
                         <Calendars v-model:startDate="dynamicStartDate" v-model:endDate="dynamicEndDate" mode="range"
-                            :color="selectedColor" :key="`range-dynamic-${selectedColor}`"
+                            :color="selectedColor" :key="`range-dynamic`"
                             @rangeSelect="handleDynamicRangeSelect" />
                         <div v-if="dynamicStartDate || dynamicEndDate"
                             class="mt-3 rounded bg-gray-50 p-2 text-sm dark:bg-gray-700">
@@ -56,40 +56,45 @@
             <CodePreview :code="customColorCode">
                 <div
                     class="rounded-xl border border-gray-100 bg-white p-4 shadow-md transition-all duration-200 ease-in-out dark:border-gray-700 dark:bg-gray-800">
-                    <h3 class="mb-3 text-lg font-semibold">选择颜色主题</h3>
-                    <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-                        <!-- 色系分组显示 -->
-                        <div v-for="(colors, groupName) in colorGroups" :key="groupName"
-                            class="flex flex-col items-center">
-                            <h3 class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
-                                {{ colorGroupNames[groupName] }}
-                            </h3>
-                            <div class="space-y-2">
-                                <div v-for="color in colors" :key="color"
-                                    class="flex w-24 cursor-pointer items-center justify-between rounded-md px-2 py-1 transition-all"
-                                    :class="[
-                                        getColorButtonClass(color),
-                                        selectedColor === color
-                                            ? `ring-2 ring-offset-1`
-                                            : 'hover:opacity-80',
-                                    ]" @click="setSelectedColor(color)">
-                                    <span>{{ color }}</span>
-                                    <span v-if="selectedColor === color"
-                                        class="icon-[material-symbols--check-rounded] h-4 w-4 text-white"></span>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- 左侧：颜色选择器 -->
+                        <div class="flex flex-col">
+                            <h3 class="mb-3 text-lg font-semibold">选择颜色主题</h3>
+                            <div class="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+                                <!-- 色系分组显示 -->
+                                <div v-for="(colors, groupName) in colorGroups" :key="groupName"
+                                    class="flex flex-col">
+                                    <h3 class="mb-1 text-sm font-medium text-gray-600 dark:text-gray-300">
+                                        {{ colorGroupNames[groupName] }}
+                                    </h3>
+                                    <div class="space-y-1">
+                                        <div v-for="color in colors" :key="color"
+                                            class="flex w-full cursor-pointer items-center justify-between rounded-md px-2 py-0.5 transition-all"
+                                            :class="[
+                                                getColorButtonClass(color),
+                                                selectedColor === color
+                                                    ? `ring-2 ring-offset-1`
+                                                    : 'hover:opacity-80',
+                                            ]" @click="setSelectedColor(color)">
+                                            <span>{{ color }}</span>
+                                            <span v-if="selectedColor === color"
+                                                class="icon-[material-symbols--check-rounded] h-4 w-4 text-white"></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- 当前选中的颜色主题 -->
-                    <div class="mt-6">
-                        <h3 class="mb-3 text-lg font-semibold">
-                            当前选中颜色:
-                            <span :class="`text-${selectedColor}-500 dark:text-${selectedColor}-400`">{{ selectedColor
-                            }}</span>
-                        </h3>
-                        <Calendars v-model:selectedDate="colorPreviewDate" :color="selectedColor"
-                            :key="`preview-${selectedColor}`" />
+                        <!-- 右侧：组件预览 -->
+                        <div class="flex flex-col">
+                            <h3 class="mb-3 text-lg font-semibold">
+                                当前选中颜色:
+                                <span :class="currentColorClasses.text">{{ selectedColor }}</span>
+                            </h3>
+                            <Calendars v-model:selectedDate="colorPreviewDate" :color="selectedColor"
+                                :key="`preview-calendar`" />
+                        </div>
                     </div>
                 </div>
             </CodePreview>
@@ -121,18 +126,38 @@
             <h2 class="mb-4 text-xl font-semibold">日期格式与初始值</h2>
 
             <CodePreview :code="dateFormatCode">
-                <div
-                    class="rounded-xl border border-gray-100 bg-white p-4 shadow-md dark:border-gray-700 dark:bg-gray-800">
-                    <h3 class="mb-3 text-lg font-semibold">自定义日期格式</h3>
-                    <Calendars v-model:selectedDate="formatDateValue" :initialDate="'2023-05-15'"
-                        dateFormat="YYYY/MM/DD" :color="selectedColor" @dateSelect="handleFormatDateSelect" />
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div
+                        class="rounded-xl border border-gray-100 bg-white p-4 shadow-md dark:border-gray-700 dark:bg-gray-800">
+                        <h3 class="mb-3 text-lg font-semibold">自定义日期格式</h3>
+                        <Calendars v-model:selectedDate="formatDateValue" :initialDate="'2023-05-15'"
+                            dateFormat="YYYY/MM/DD" :color="selectedColor" @dateSelect="handleFormatDateSelect" />
 
-                    <div v-if="formatDateValue" class="mt-3 rounded bg-gray-50 p-2 text-sm dark:bg-gray-700">
-                        <div class="font-medium text-gray-700 dark:text-gray-300">
-                            选中日期：{{ formatDateValue }}
+                        <div v-if="formatDateValue" class="mt-3 rounded bg-gray-50 p-2 text-sm dark:bg-gray-700">
+                            <div class="font-medium text-gray-700 dark:text-gray-300">
+                                选中日期：{{ formatDateValue }}
+                            </div>
+                            <div class="text-gray-500 dark:text-gray-400">
+                                初始日期为: 2023-05-15
+                            </div>
                         </div>
-                        <div class="text-gray-500 dark:text-gray-400">
-                            初始日期为: 2023-05-15
+                    </div>
+                    
+                    <div class="rounded-xl border border-gray-100 bg-white p-4 shadow-md dark:border-gray-700 dark:bg-gray-800">
+                        <h3 class="mb-3 text-lg font-semibold">使用说明</h3>
+                        <div class="text-gray-700 dark:text-gray-300 space-y-3">
+                            <p>通过 <code class="px-1 py-0.5 bg-gray-100 dark:bg-gray-800 rounded">initialDate</code> 属性设置日历初始显示的月份和日期。</p>
+                            <p>通过 <code class="px-1 py-0.5 bg-gray-100 dark:bg-gray-800 rounded">dateFormat</code> 属性自定义返回的日期格式，支持多种格式化模式。</p>
+                            <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded">
+                                <div class="font-medium mb-1">支持的格式:</div>
+                                <ul class="list-disc pl-5 text-sm">
+                                    <li>YYYY-MM-DD (默认)</li>
+                                    <li>YYYY/MM/DD</li>
+                                    <li>MM/DD/YYYY</li>
+                                    <li>DD/MM/YYYY</li>
+                                    <li>等其他 dayjs 支持的格式</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -144,15 +169,34 @@
             <h2 class="mb-4 text-xl font-semibold">事件处理</h2>
 
             <CodePreview :code="eventsCode">
-                <div
-                    class="rounded-xl border border-gray-100 bg-white p-4 shadow-md dark:border-gray-700 dark:bg-gray-800">
-                    <h3 class="mb-3 text-lg font-semibold">事件监听示例</h3>
-                    <Calendars v-model:selectedDate="eventDemoDate" mode="single" color="indigo"
-                        @dateSelect="handleEventDemo" />
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div
+                        class="rounded-xl border border-gray-100 bg-white p-4 shadow-md dark:border-gray-700 dark:bg-gray-800">
+                        <h3 class="mb-3 text-lg font-semibold">事件监听示例</h3>
+                        <Calendars v-model:selectedDate="eventDemoDate" mode="single" color="indigo"
+                            :key="`event-demo`" @dateSelect="handleEventDemo" />
 
-                    <div v-if="eventLog" class="mt-3 rounded bg-gray-50 p-2 text-sm dark:bg-gray-700">
-                        <div class="font-medium text-gray-700 dark:text-gray-300">事件记录:</div>
-                        <div class="text-gray-500 dark:text-gray-400">{{ eventLog }}</div>
+                        <div v-if="eventLog" class="mt-3 rounded bg-gray-50 p-2 text-sm dark:bg-gray-700">
+                            <div class="font-medium text-gray-700 dark:text-gray-300">事件记录:</div>
+                            <div class="text-gray-500 dark:text-gray-400">{{ eventLog }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="rounded-xl border border-gray-100 bg-white p-4 shadow-md dark:border-gray-700 dark:bg-gray-800">
+                        <h3 class="mb-3 text-lg font-semibold">事件说明</h3>
+                        <div class="text-gray-700 dark:text-gray-300 space-y-3">
+                            <p>Calendars 组件提供了丰富的事件回调，可以监听用户的各种交互行为。</p>
+                            <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded">
+                                <div class="font-medium mb-1">可用事件:</div>
+                                <ul class="list-disc pl-5 text-sm space-y-2">
+                                    <li><span class="font-medium">dateSelect</span>: 单选模式下选择日期时触发</li>
+                                    <li><span class="font-medium">rangeSelect</span>: 范围模式下完成选择时触发</li>
+                                    <li><span class="font-medium">update:selectedDate</span>: 数据绑定更新</li>
+                                    <li><span class="font-medium">update:startDate/endDate</span>: 范围数据绑定更新</li>
+                                </ul>
+                            </div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">点击左侧日历选择日期，可查看事件触发效果</p>
+                        </div>
                     </div>
                 </div>
             </CodePreview>
@@ -549,7 +593,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import dayjs from 'dayjs';
 import Calendars from './Calendars';
 import CodePreview from '../../components/CodePreview';
@@ -576,10 +620,36 @@ const colorGroupNames = {
 // 当前选择的颜色
 const selectedColor = ref<ColorType>('blue');
 
-// 设置选中的颜色
+// Add this function to debounce color changes
+const debouncedColorChange = (() => {
+    let timeout: ReturnType<typeof setTimeout> | null = null;
+    return (color: ColorType) => {
+        if (timeout) clearTimeout(timeout);
+        isColorChanging.value = true;
+        timeout = setTimeout(() => {
+            selectedColor.value = color;
+            setTimeout(() => {
+                isColorChanging.value = false;
+            }, 50);
+        }, 100);
+    };
+})();
+
+// Add this reactive state to track color change transitions
+const isColorChanging = ref(false);
+
+// Replace the setSelectedColor function
 const setSelectedColor = (color: ColorType) => {
-    selectedColor.value = color;
+    if (color === selectedColor.value) return;
+    debouncedColorChange(color);
 };
+
+// Create cached computed colors for frequently used theme values
+const currentColorClasses = computed(() => ({
+    text: `text-${selectedColor.value}-500 dark:text-${selectedColor.value}-400`,
+    bg: `bg-${selectedColor.value}-500 dark:bg-${selectedColor.value}-600`,
+    border: `border-${selectedColor.value}-500 dark:border-${selectedColor.value}-400`,
+}));
 
 // 单选日期
 const dynamicSelectedDate = ref('');

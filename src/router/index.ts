@@ -11,7 +11,6 @@ const routes: RouteRecordRaw[] = [
     name: "home",
     component: () => import("@/views/Home.vue"),
   },
- 
   {
     path: "/Main",
     name: "Main",
@@ -43,6 +42,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/libs/ButtonGroups"),
       },
       {
+        path: "/Calendars",
+        name: "Calendars",
+        component: () => import("@/libs/Calendars"),
+      },
+      {
         path: "/Dropdowns",
         name: "Dropdowns",
         component: () => import("@/libs/Dropdowns"),
@@ -53,11 +57,7 @@ const routes: RouteRecordRaw[] = [
         name: "Message",
         component: () => import("@/views/MessageView"),
       },
-      {
-        path: "/Calendars",
-        name: "Calendars",
-        component: () => import("@/views/CalendarsView"),
-      },
+
       {
         path: "/CheckBox",
         name: "CheckBox",

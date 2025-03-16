@@ -241,11 +241,11 @@ export default defineComponent<CodePreviewProps>({
                             onClick={toggleCodeVisibility}
                             class={styles.codeToggle.button}>
                             <span 
-                                class={`transform transition-transform duration-300 inline-flex ${isCodeVisible.value ? 'rotate-180' : 'rotate-0'}`}
+                                class={`transform transition-transform duration-100 inline-flex ${isCodeVisible.value ? 'rotate-180' : 'rotate-0'}`}
                             >
                                 <span class="icon-[solar--map-arrow-down-linear] w-4 h-4"></span>
                             </span>
-                            <span class="transition-opacity duration-300">
+                            <span class="transition-opacity duration-100">
                                 {isCodeVisible.value ? 'Hide code' : 'Show code'}
                             </span>
                         </button>
@@ -254,7 +254,7 @@ export default defineComponent<CodePreviewProps>({
                     {/* Code display area with enhanced styling */}
                     {props.code && (
                         <div 
-                            class="transform-gpu transition-all duration-200 ease-out overflow-hidden"
+                            class="transform-gpu transition-all duration-100 ease-out overflow-hidden"
                             style={{
                                 maxHeight: isCodeVisible.value ? `${codeHeightTransition.value}px` : '0px',
                                 opacity: isCodeVisible.value ? '1' : '0',
