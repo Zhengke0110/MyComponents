@@ -170,7 +170,7 @@ export const dangerActionsCode = `\`\`\`vue
     :items="[
       { id: '1', type: 'button', label: '编辑', icon: 'icon-[solar--pen-broken]' },
       { id: 'div1', type: 'divider' },
-      { id: '2', type: 'button', label: '删除', icon: 'icon-[solar--trash-bin-broken]', danger: true },
+      { id: '2', type: 'button', label: '删除', icon: 'icon-[material-symbols--restore-from-trash-outline-rounded]', danger: true },
     ]"
     @select="handleSelect"
   />

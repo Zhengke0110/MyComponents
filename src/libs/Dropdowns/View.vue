@@ -460,7 +460,7 @@ const dangerItems: DropdownItem[] = [
     id: "2",
     type: "button",
     label: "删除",
-    icon: "icon-[solar--trash-bin-broken]",
+    icon: "icon-[material-symbols--restore-from-trash-outline-rounded]",
     danger: true,
   },
 ];
