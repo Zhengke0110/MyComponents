@@ -15,11 +15,13 @@
                 class="mb-4 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded transition-colors">
                 {{ visibleAlerts.basic ? '隐藏' : '显示' }}基础提示框
             </button>
-            <div class="h-20">
-                <transition-alert>
-                    <Alert v-if="visibleAlerts.basic" message="这是一个基础的信息提示框" />
-                </transition-alert>
-            </div>
+            <CodePreview :code="basicAlertCode">
+                <div class="h-20">
+                    <transition-alert>
+                        <Alert v-if="visibleAlerts.basic" message="这是一个基础的信息提示框" />
+                    </transition-alert>
+                </div>
+            </CodePreview>
         </section>
 
         <!-- 不同类型 -->
@@ -31,12 +33,14 @@
                     显示{{ typeLabels[type] }}
                 </button>
             </div>
-            <div class="h-20">
-                <transition-alert>
-                    <Alert v-if="currentTypeAlert" :type="currentTypeAlert"
-                        :message="`这是一个${typeLabels[currentTypeAlert]}提示框`" />
-                </transition-alert>
-            </div>
+            <CodePreview :code="typeAlertCode">
+                <div class="h-20">
+                    <transition-alert>
+                        <Alert v-if="currentTypeAlert" :type="currentTypeAlert"
+                            :message="`这是一个${typeLabels[currentTypeAlert]}提示框`" />
+                    </transition-alert>
+                </div>
+            </CodePreview>
         </section>
 
         <!-- 带标题 -->
@@ -52,14 +56,16 @@
                     显示警告提示
                 </button>
             </div>
-            <div class="h-42">
-                <transition-alert>
-                    <Alert v-if="visibleAlerts.titleSuccess" type="success" title="成功" message="操作已成功完成" />
-                </transition-alert>
-                <transition-alert>
-                    <Alert v-if="visibleAlerts.titleWarning" type="warning" title="注意" message="此操作需要谨慎处理" />
-                </transition-alert>
-            </div>
+            <CodePreview :code="titleAlertCode">
+                <div class="h-42">
+                    <transition-alert>
+                        <Alert v-if="visibleAlerts.titleSuccess" type="success" title="成功" message="操作已成功完成" />
+                    </transition-alert>
+                    <transition-alert>
+                        <Alert v-if="visibleAlerts.titleWarning" type="warning" title="注意" message="此操作需要谨慎处理" />
+                    </transition-alert>
+                </div>
+            </CodePreview>
         </section>
 
         <!-- 带动画的提示框 -->
@@ -70,15 +76,17 @@
                     class="w-fit px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded transition-colors duration-200">
                     {{ showAnimatedAlert ? '隐藏' : '显示' }}动画提示框
                 </button>
-                <div class="h-[80px]">
-                    <transition enter-from-class="opacity-0 -translate-y-4"
-                        enter-active-class="transition-all duration-300 ease-out"
-                        enter-to-class="opacity-100 translate-y-0" leave-from-class="opacity-100 translate-y-0"
-                        leave-active-class="transition-all duration-300 ease-in"
-                        leave-to-class="opacity-0 translate-y-4">
-                        <Alert v-if="showAnimatedAlert" type="info" title="动画提示" message="这个提示框有淡入上滑的动画效果" />
-                    </transition>
-                </div>
+                <CodePreview :code="animatedAlertCode">
+                    <div class="h-[80px]">
+                        <transition enter-from-class="opacity-0 -translate-y-4"
+                            enter-active-class="transition-all duration-300 ease-out"
+                            enter-to-class="opacity-100 translate-y-0" leave-from-class="opacity-100 translate-y-0"
+                            leave-active-class="transition-all duration-300 ease-in"
+                            leave-to-class="opacity-0 translate-y-4">
+                            <Alert v-if="showAnimatedAlert" type="info" title="动画提示" message="这个提示框有淡入上滑的动画效果" />
+                        </transition>
+                    </div>
+                </CodePreview>
             </div>
         </section>
 
@@ -99,12 +107,14 @@
                     显示粉色提示框
                 </button>
             </div>
-            <div class="h-24">
-                <transition-alert>
-                    <Alert v-if="currentColorAlert" :color="currentColorAlert"
-                        :message="`这是${colorLabels[currentColorAlert]}提示框`" />
-                </transition-alert>
-            </div>
+            <CodePreview :code="colorAlertCode">
+                <div class="h-24">
+                    <transition-alert>
+                        <Alert v-if="currentColorAlert" :color="currentColorAlert"
+                            :message="`这是${colorLabels[currentColorAlert]}提示框`" />
+                    </transition-alert>
+                </div>
+            </CodePreview>
         </section>
 
         <!-- 可关闭与不可关闭 -->
@@ -120,15 +130,17 @@
                     显示不可关闭提示框
                 </button>
             </div>
-            <div class="space-y-4 h-40">
-                <transition-alert>
-                    <Alert v-if="visibleAlerts.closable" message="这是可关闭的提示框（默认）"
-                        @close="visibleAlerts.closable = false" />
-                </transition-alert>
-                <transition-alert>
-                    <Alert v-if="visibleAlerts.nonClosable" message="这是不可关闭的提示框（点击按钮可隐藏）" :closable="false" />
-                </transition-alert>
-            </div>
+            <CodePreview :code="closableAlertCode">
+                <div class="space-y-4 h-40">
+                    <transition-alert>
+                        <Alert v-if="visibleAlerts.closable" message="这是可关闭的提示框（默认）"
+                            @close="visibleAlerts.closable = false" />
+                    </transition-alert>
+                    <transition-alert>
+                        <Alert v-if="visibleAlerts.nonClosable" message="这是不可关闭的提示框（点击按钮可隐藏）" :closable="false" />
+                    </transition-alert>
+                </div>
+            </CodePreview>
         </section>
 
         <!-- 无图标 -->
@@ -138,11 +150,13 @@
                 class="mb-4 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded transition-colors">
                 {{ visibleAlerts.noIcon ? '隐藏' : '显示' }}无图标提示框
             </button>
-            <div class="h-20">
-                <transition-alert>
-                    <Alert v-if="visibleAlerts.noIcon" message="这是没有图标的提示框" :showIcon="false" />
-                </transition-alert>
-            </div>
+            <CodePreview :code="noIconAlertCode">
+                <div class="h-20">
+                    <transition-alert>
+                        <Alert v-if="visibleAlerts.noIcon" message="这是没有图标的提示框" :showIcon="false" />
+                    </transition-alert>
+                </div>
+            </CodePreview>
         </section>
 
         <!-- 无边框 -->
@@ -152,11 +166,13 @@
                 class="mb-4 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded transition-colors">
                 {{ visibleAlerts.noBorder ? '隐藏' : '显示' }}无边框提示框
             </button>
-            <div class="h-20">
-                <transition-alert>
-                    <Alert v-if="visibleAlerts.noBorder" message="这是没有边框的提示框" :bordered="false" />
-                </transition-alert>
-            </div>
+            <CodePreview :code="noBorderAlertCode">
+                <div class="h-20">
+                    <transition-alert>
+                        <Alert v-if="visibleAlerts.noBorder" message="这是没有边框的提示框" :bordered="false" />
+                    </transition-alert>
+                </div>
+            </CodePreview>
         </section>
 
         <!-- 自定义样式 -->
@@ -172,16 +188,18 @@
                     显示阴影提示框
                 </button>
             </div>
-            <div class="h-24">
-                <transition-alert>
-                    <Alert v-if="customStyle === 'gradient'" message="这是应用了渐变背景的提示框"
-                        customClass="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-blue-900" />
-                </transition-alert>
-                <transition-alert>
-                    <Alert v-if="customStyle === 'shadow'" message="这是应用了阴影效果的提示框"
-                        customClass="shadow-lg border-indigo-300 dark:border-indigo-700" />
-                </transition-alert>
-            </div>
+            <CodePreview :code="customStyleAlertCode">
+                <div class="h-24">
+                    <transition-alert>
+                        <Alert v-if="customStyle === 'gradient'" message="这是应用了渐变背景的提示框"
+                            customClass="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-blue-900" />
+                    </transition-alert>
+                    <transition-alert>
+                        <Alert v-if="customStyle === 'shadow'" message="这是应用了阴影效果的提示框"
+                            customClass="shadow-lg border-indigo-300 dark:border-indigo-700" />
+                    </transition-alert>
+                </div>
+            </CodePreview>
         </section>
 
         <!-- 悬浮效果 -->
@@ -191,14 +209,16 @@
                 class="mb-4 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded transition-colors">
                 {{ visibleAlerts.hover ? '隐藏' : '显示' }}悬浮效果提示框
             </button>
-            <div class="h-20">
-                <transition-alert>
-                    <div v-if="visibleAlerts.hover" class="group cursor-pointer">
-                        <Alert message="鼠标悬浮在此处查看效果"
-                            customClass="transition-all duration-300 ease-in-out group-hover:scale-[1.02] group-hover:shadow-lg" />
-                    </div>
-                </transition-alert>
-            </div>
+            <CodePreview :code="hoverAlertCode">
+                <div class="h-20">
+                    <transition-alert>
+                        <div v-if="visibleAlerts.hover" class="group cursor-pointer">
+                            <Alert message="鼠标悬浮在此处查看效果"
+                                customClass="transition-all duration-300 ease-in-out group-hover:scale-[1.02] group-hover:shadow-lg" />
+                        </div>
+                    </transition-alert>
+                </div>
+            </CodePreview>
         </section>
 
         <!-- 自定义图标 -->
@@ -208,15 +228,17 @@
                 class="mb-4 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded transition-colors">
                 {{ visibleAlerts.customIcon ? '隐藏' : '显示' }}自定义图标提示框
             </button>
-            <div class="h-20">
-                <transition-alert>
-                    <Alert v-if="visibleAlerts.customIcon" type="info" message="这是自定义图标的提示框">
-                        <template #icon>
-                            <i class="icon-[mdi--star] size-5 text-amber-500 animate-spin-slow"></i>
-                        </template>
-                    </Alert>
-                </transition-alert>
-            </div>
+            <CodePreview :code="customIconAlertCode">
+                <div class="h-20">
+                    <transition-alert>
+                        <Alert v-if="visibleAlerts.customIcon" type="info" message="这是自定义图标的提示框">
+                            <template #icon>
+                                <i class="icon-[mdi--star] size-5 text-amber-500 animate-spin-slow"></i>
+                            </template>
+                        </Alert>
+                    </transition-alert>
+                </div>
+            </CodePreview>
         </section>
 
         <!-- 使用默认插槽 -->
@@ -226,20 +248,22 @@
                 class="mb-4 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded transition-colors">
                 {{ visibleAlerts.defaultSlot ? '隐藏' : '显示' }}默认插槽提示框
             </button>
-            <div class="h-20">
-                <transition-alert>
-                    <Alert v-if="visibleAlerts.defaultSlot" type="info">
-                        <div>
-                            这是通过<span class="font-bold">默认插槽</span>定义的内容
-                            <a href="#"
-                                class="underline text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
-                                点击这里
-                            </a>
-                            了解更多信息
-                        </div>
-                    </Alert>
-                </transition-alert>
-            </div>
+            <CodePreview :code="defaultSlotAlertCode">
+                <div class="h-20">
+                    <transition-alert>
+                        <Alert v-if="visibleAlerts.defaultSlot" type="info">
+                            <div>
+                                这是通过<span class="font-bold">默认插槽</span>定义的内容
+                                <a href="#"
+                                    class="underline text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
+                                    点击这里
+                                </a>
+                                了解更多信息
+                            </div>
+                        </Alert>
+                    </transition-alert>
+                </div>
+            </CodePreview>
         </section>
 
         <!-- 使用额外内容插槽 -->
@@ -249,24 +273,26 @@
                 class="mb-4 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded transition-colors">
                 {{ visibleAlerts.extraSlot ? '隐藏' : '显示' }}额外插槽提示框
             </button>
-            <div class="h-32">
-                <transition-alert>
-                    <Alert v-if="visibleAlerts.extraSlot" type="warning" title="提示" message="您的账户即将到期">
-                        <template #extra>
-                            <div class="flex space-x-2">
-                                <button
-                                    class="px-4 py-1 bg-amber-100 hover:bg-amber-200 dark:bg-amber-900 dark:hover:bg-amber-800 rounded text-amber-800 dark:text-amber-200 transition-colors">
-                                    立即续费
-                                </button>
-                                <button
-                                    class="px-4 py-1 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded transition-colors">
-                                    了解详情
-                                </button>
-                            </div>
-                        </template>
-                    </Alert>
-                </transition-alert>
-            </div>
+            <CodePreview :code="extraSlotAlertCode">
+                <div class="h-32">
+                    <transition-alert>
+                        <Alert v-if="visibleAlerts.extraSlot" type="warning" title="提示" message="您的账户即将到期">
+                            <template #extra>
+                                <div class="flex space-x-2">
+                                    <button
+                                        class="px-4 py-1 bg-amber-100 hover:bg-amber-200 dark:bg-amber-900 dark:hover:bg-amber-800 rounded text-amber-800 dark:text-amber-200 transition-colors">
+                                        立即续费
+                                    </button>
+                                    <button
+                                        class="px-4 py-1 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded transition-colors">
+                                        了解详情
+                                    </button>
+                                </div>
+                            </template>
+                        </Alert>
+                    </transition-alert>
+                </div>
+            </CodePreview>
         </section>
 
         <!-- 自动关闭 -->
@@ -277,16 +303,18 @@
                     class="w-fit px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded transition-colors duration-200">
                     显示自动关闭提示框 (3秒)
                 </button>
-                <div class="h-[80px]">
-                    <transition enter-from-class="opacity-0 translate-y-4"
-                        enter-active-class="transition-all duration-500 ease-out"
-                        enter-to-class="opacity-100 translate-y-0" leave-from-class="opacity-100 translate-y-0"
-                        leave-active-class="transition-all duration-300 ease-in"
-                        leave-to-class="opacity-0 translate-y-4">
-                        <Alert v-if="autoCloseVisible" type="success" message="这个提示框将在3秒后自动关闭" :duration="3000"
-                            @close="autoCloseVisible = false" />
-                    </transition>
-                </div>
+                <CodePreview :code="autoCloseAlertCode">
+                    <div class="h-[80px]">
+                        <transition enter-from-class="opacity-0 translate-y-4"
+                            enter-active-class="transition-all duration-500 ease-out"
+                            enter-to-class="opacity-100 translate-y-0" leave-from-class="opacity-100 translate-y-0"
+                            leave-active-class="transition-all duration-300 ease-in"
+                            leave-to-class="opacity-0 translate-y-4">
+                            <Alert v-if="autoCloseVisible" type="success" message="这个提示框将在3秒后自动关闭" :duration="3000"
+                                @close="autoCloseVisible = false" />
+                        </transition>
+                    </div>
+                </CodePreview>
             </div>
         </section>
 
@@ -297,15 +325,17 @@
                 class="mb-4 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded transition-colors">
                 {{ visibleAlerts.shake ? '隐藏' : '显示' }}交互式提示框
             </button>
-            <div class="h-20">
-                <transition-alert>
-                    <div v-if="visibleAlerts.shake" ref="shakingAlertContainer" class="cursor-pointer"
-                        @click="shakeAlert">
-                        <Alert ref="shakingAlert" type="danger" title="互动提示" message="点击这个提示框会产生晃动效果！"
-                            :closable="false" />
-                    </div>
-                </transition-alert>
-            </div>
+            <CodePreview :code="shakeAlertCode">
+                <div class="h-20">
+                    <transition-alert>
+                        <div v-if="visibleAlerts.shake" ref="shakingAlertContainer" class="cursor-pointer"
+                            @click="shakeAlert">
+                            <Alert ref="shakingAlert" type="danger" title="互动提示" message="点击这个提示框会产生晃动效果！"
+                                :closable="false" />
+                        </div>
+                    </transition-alert>
+                </div>
+            </CodePreview>
         </section>
 
         <!-- 多重组合效果 -->
@@ -321,15 +351,17 @@
                     }[type] }}通知
                 </button>
             </div>
-            <div class="notification-container fixed bottom-4 right-4 z-10 space-y-2 w-80">
-                <transition-group enter-from-class="opacity-0 translate-x-8"
-                    enter-active-class="transition-all duration-300 ease-out" enter-to-class="opacity-100 translate-x-0"
-                    leave-from-class="opacity-100 translate-x-0"
-                    leave-active-class="transition-all duration-200 ease-in" leave-to-class="opacity-0 translate-x-8">
-                    <Alert v-for="alert in notifications" :key="alert.id" :type="alert.type" :message="alert.message"
-                        @close="removeNotification(alert.id)" />
-                </transition-group>
-            </div>
+            <CodePreview :code="notificationStackCode">
+                <div class="notification-container fixed bottom-4 right-4 z-10 space-y-2 w-80">
+                    <transition-group enter-from-class="opacity-0 translate-x-8"
+                        enter-active-class="transition-all duration-300 ease-out" enter-to-class="opacity-100 translate-x-0"
+                        leave-from-class="opacity-100 translate-x-0"
+                        leave-active-class="transition-all duration-200 ease-in" leave-to-class="opacity-0 translate-x-8">
+                        <Alert v-for="alert in notifications" :key="alert.id" :type="alert.type" :message="alert.message"
+                            @close="removeNotification(alert.id)" />
+                    </transition-group>
+                </div>
+            </CodePreview>
         </section>
 
         <!-- API 文档部分 -->
@@ -505,7 +537,14 @@
 <script setup lang="ts">
 import { ref, reactive, defineComponent, h, onUnmounted } from 'vue';;
 import Alert from './Alert';
+import CodePreview from "../../components/CodePreview";
 import type { ThemeColorType, ColorType } from './config';
+import { 
+    basicAlertCode, typeAlertCode, titleAlertCode, animatedAlertCode, 
+    colorAlertCode, closableAlertCode, noIconAlertCode, noBorderAlertCode, 
+    customStyleAlertCode, hoverAlertCode, customIconAlertCode, defaultSlotAlertCode, 
+    extraSlotAlertCode, autoCloseAlertCode, shakeAlertCode, notificationStackCode 
+} from './code';
 
 // 通用过渡效果组件
 const TransitionAlert = defineComponent({
