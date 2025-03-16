@@ -2,79 +2,163 @@
     <div class="mx-auto max-w-7xl p-4 md:p-8">
         <h1 class="mb-8 text-2xl font-bold">日历组件展示</h1>
 
-        <!-- 所有颜色展示 -->
+        <!-- 基础用法 -->
         <section class="mb-12">
-            <h2 class="mb-4 text-xl font-semibold">所有可用颜色主题</h2>
-            <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-                <!-- 色系分组显示 -->
-                <div v-for="(colors, groupName) in colorGroups" :key="groupName" class="flex flex-col items-center">
-                    <h3 class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
-                        {{ colorGroupNames[groupName] }}
-                    </h3>
-                    <div class="space-y-2">
-                        <div v-for="color in colors" :key="color"
-                            class="flex w-24 cursor-pointer items-center justify-between rounded-md px-2 py-1 transition-all"
-                            :class="[
-                                getColorButtonClass(color),
-                                selectedColor === color
-                                    ? `ring-2 ring-offset-1`
-                                    : 'hover:opacity-80',
-                            ]" @click="setSelectedColor(color)">
-                            <span>{{ color }}</span>
-                            <span v-if="selectedColor === color"
-                                class="icon-[material-symbols--check-rounded] h-4 w-4 text-white"></span>
+            <h2 class="mb-4 text-xl font-semibold">基础用法</h2>
+
+            <div class="grid grid-cols-1 gap-6">
+                <CodePreview :code="basicUsageCode">
+                    <div
+                        class="rounded-xl border border-gray-100 bg-white p-4 shadow-md transition-all duration-200 ease-in-out dark:border-gray-700 dark:bg-gray-800">
+                        <h3 class="mb-3 text-lg font-semibold">单选模式</h3>
+                        <Calendars v-model:selectedDate="dynamicSelectedDate" mode="single" :color="selectedColor"
+                            :key="`single-dynamic-${selectedColor}`" @dateSelect="handleDynamicDateSelect" />
+                        <div v-if="dynamicSelectedDate" class="mt-3 rounded bg-gray-50 p-2 text-sm dark:bg-gray-700">
+                            <div class="font-medium text-gray-700 dark:text-gray-300">
+                                选中日期：{{ dynamicSelectedDate }}
+                            </div>
+                            <div class="text-gray-500 dark:text-gray-400">
+                                {{ formatSelectedDate(dynamicSelectedDate) }}
+                            </div>
                         </div>
                     </div>
-                </div>
+                </CodePreview>
+
+                <CodePreview :code="rangeSelectCode">
+                    <div
+                        class="rounded-xl border border-gray-100 bg-white p-4 shadow-md transition-all duration-200 ease-in-out dark:border-gray-700 dark:bg-gray-800">
+                        <h3 class="mb-3 text-lg font-semibold">范围选择模式</h3>
+                        <Calendars v-model:startDate="dynamicStartDate" v-model:endDate="dynamicEndDate" mode="range"
+                            :color="selectedColor" :key="`range-dynamic-${selectedColor}`"
+                            @rangeSelect="handleDynamicRangeSelect" />
+                        <div v-if="dynamicStartDate || dynamicEndDate"
+                            class="mt-3 rounded bg-gray-50 p-2 text-sm dark:bg-gray-700">
+                            <div class="font-medium text-gray-700 dark:text-gray-300">
+                                选择范围：{{ dynamicStartDate || "未选择" }} 至
+                                {{ dynamicEndDate || "未选择" }}
+                            </div>
+                            <div v-if="dynamicStartDate && dynamicEndDate" class="text-gray-500 dark:text-gray-400">
+                                共 {{ getDaysBetween(dynamicStartDate, dynamicEndDate) }} 天
+                            </div>
+                            <div v-if="lastRangeSelectTime" class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                最后选择时间：{{ formatTime(lastRangeSelectTime) }}
+                            </div>
+                        </div>
+                    </div>
+                </CodePreview>
             </div>
         </section>
 
-        <!-- 当前选中主题的日历 -->
+        <!-- 颜色主题 -->
         <section class="mb-12">
-            <h2 class="mb-4 text-xl font-semibold">
-                当前选中颜色:
-                <span :class="`text-${selectedColor}-500 dark:text-${selectedColor}-400`">{{ selectedColor }}</span>
-            </h2>
-            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <h2 class="mb-4 text-xl font-semibold">颜色主题</h2>
+
+            <CodePreview :code="customColorCode">
                 <div
                     class="rounded-xl border border-gray-100 bg-white p-4 shadow-md transition-all duration-200 ease-in-out dark:border-gray-700 dark:bg-gray-800">
-                    <h3 class="mb-3 text-lg font-semibold">单选模式</h3>
-                    <Calendars v-model:selectedDate="dynamicSelectedDate" mode="single" :color="selectedColor"
-                        :key="`single-dynamic-${selectedColor}`" @dateSelect="handleDynamicDateSelect" />
-                    <div v-if="dynamicSelectedDate" class="mt-3 rounded bg-gray-50 p-2 text-sm dark:bg-gray-700">
+                    <h3 class="mb-3 text-lg font-semibold">选择颜色主题</h3>
+                    <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+                        <!-- 色系分组显示 -->
+                        <div v-for="(colors, groupName) in colorGroups" :key="groupName"
+                            class="flex flex-col items-center">
+                            <h3 class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+                                {{ colorGroupNames[groupName] }}
+                            </h3>
+                            <div class="space-y-2">
+                                <div v-for="color in colors" :key="color"
+                                    class="flex w-24 cursor-pointer items-center justify-between rounded-md px-2 py-1 transition-all"
+                                    :class="[
+                                        getColorButtonClass(color),
+                                        selectedColor === color
+                                            ? `ring-2 ring-offset-1`
+                                            : 'hover:opacity-80',
+                                    ]" @click="setSelectedColor(color)">
+                                    <span>{{ color }}</span>
+                                    <span v-if="selectedColor === color"
+                                        class="icon-[material-symbols--check-rounded] h-4 w-4 text-white"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 当前选中的颜色主题 -->
+                    <div class="mt-6">
+                        <h3 class="mb-3 text-lg font-semibold">
+                            当前选中颜色:
+                            <span :class="`text-${selectedColor}-500 dark:text-${selectedColor}-400`">{{ selectedColor
+                            }}</span>
+                        </h3>
+                        <Calendars v-model:selectedDate="colorPreviewDate" :color="selectedColor"
+                            :key="`preview-${selectedColor}`" />
+                    </div>
+                </div>
+            </CodePreview>
+        </section>
+
+        <!-- 语言本地化 -->
+        <section class="mb-12">
+            <h2 class="mb-4 text-xl font-semibold">语言本地化</h2>
+
+            <CodePreview :code="localizationCode">
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div
+                        class="rounded-xl border border-gray-100 bg-white p-4 shadow-md dark:border-gray-700 dark:bg-gray-800">
+                        <h3 class="mb-3 text-lg font-semibold">英文 (en)</h3>
+                        <Calendars v-model:selectedDate="localeEnDate" locale="en" color="blue" />
+                    </div>
+
+                    <div
+                        class="rounded-xl border border-gray-100 bg-white p-4 shadow-md dark:border-gray-700 dark:bg-gray-800">
+                        <h3 class="mb-3 text-lg font-semibold">中文 (zh-cn)</h3>
+                        <Calendars v-model:selectedDate="localeZhDate" locale="zh-cn" color="blue" />
+                    </div>
+                </div>
+            </CodePreview>
+        </section>
+
+        <!-- 日期格式与初始值 -->
+        <section class="mb-12">
+            <h2 class="mb-4 text-xl font-semibold">日期格式与初始值</h2>
+
+            <CodePreview :code="dateFormatCode">
+                <div
+                    class="rounded-xl border border-gray-100 bg-white p-4 shadow-md dark:border-gray-700 dark:bg-gray-800">
+                    <h3 class="mb-3 text-lg font-semibold">自定义日期格式</h3>
+                    <Calendars v-model:selectedDate="formatDateValue" :initialDate="'2023-05-15'"
+                        dateFormat="YYYY/MM/DD" :color="selectedColor" @dateSelect="handleFormatDateSelect" />
+
+                    <div v-if="formatDateValue" class="mt-3 rounded bg-gray-50 p-2 text-sm dark:bg-gray-700">
                         <div class="font-medium text-gray-700 dark:text-gray-300">
-                            选中日期：{{ dynamicSelectedDate }}
+                            选中日期：{{ formatDateValue }}
                         </div>
                         <div class="text-gray-500 dark:text-gray-400">
-                            {{ formatSelectedDate(dynamicSelectedDate) }}
+                            初始日期为: 2023-05-15
                         </div>
                     </div>
                 </div>
-
-                <div
-                    class="rounded-xl border border-gray-100 bg-white p-4 shadow-md transition-all duration-200 ease-in-out dark:border-gray-700 dark:bg-gray-800">
-                    <h3 class="mb-3 text-lg font-semibold">范围选择模式</h3>
-                    <Calendars v-model:startDate="dynamicStartDate" v-model:endDate="dynamicEndDate" mode="range"
-                        :color="selectedColor" :key="`range-dynamic-${selectedColor}`"
-                        @rangeSelect="handleDynamicRangeSelect" />
-                    <div v-if="dynamicStartDate || dynamicEndDate"
-                        class="mt-3 rounded bg-gray-50 p-2 text-sm dark:bg-gray-700">
-                        <div class="font-medium text-gray-700 dark:text-gray-300">
-                            选择范围：{{ dynamicStartDate || "未选择" }} 至
-                            {{ dynamicEndDate || "未选择" }}
-                        </div>
-                        <div v-if="dynamicStartDate && dynamicEndDate" class="text-gray-500 dark:text-gray-400">
-                            共 {{ getDaysBetween(dynamicStartDate, dynamicEndDate) }} 天
-                        </div>
-                        <div v-if="lastRangeSelectTime" class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                            最后选择时间：{{ formatTime(lastRangeSelectTime) }}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </CodePreview>
         </section>
 
-        <!-- 完整颜色预览 -->
+        <!-- 事件处理 -->
+        <section class="mb-12">
+            <h2 class="mb-4 text-xl font-semibold">事件处理</h2>
+
+            <CodePreview :code="eventsCode">
+                <div
+                    class="rounded-xl border border-gray-100 bg-white p-4 shadow-md dark:border-gray-700 dark:bg-gray-800">
+                    <h3 class="mb-3 text-lg font-semibold">事件监听示例</h3>
+                    <Calendars v-model:selectedDate="eventDemoDate" mode="single" color="indigo"
+                        @dateSelect="handleEventDemo" />
+
+                    <div v-if="eventLog" class="mt-3 rounded bg-gray-50 p-2 text-sm dark:bg-gray-700">
+                        <div class="font-medium text-gray-700 dark:text-gray-300">事件记录:</div>
+                        <div class="text-gray-500 dark:text-gray-400">{{ eventLog }}</div>
+                    </div>
+                </div>
+            </CodePreview>
+        </section>
+
+        <!-- 完整颜色预览 (保留原代码) -->
         <section class="mb-12">
             <h2 class="mb-4 text-xl font-semibold">全部颜色主题预览</h2>
 
@@ -114,7 +198,7 @@
             </div>
         </section>
 
-        <!-- 所有颜色范围模式预览 -->
+        <!-- 所有颜色范围模式预览 (保留原代码) -->
         <section class="mb-12">
             <h2 class="mb-4 text-xl font-semibold">范围选择模式 - 全部颜色</h2>
 
@@ -151,7 +235,7 @@
                                     getDaysBetween(
                                         colorRangeMap[color].start,
                                         colorRangeMap[color].end,
-                                )
+                                    )
                                 }}
                                 天
                             </div>
@@ -165,7 +249,7 @@
             </div>
         </section>
 
-        <!-- API 文档部分 -->
+        <!-- API 文档部分 (保留原代码) -->
         <section class="mb-10">
             <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
                 组件API
@@ -435,51 +519,29 @@
             <div class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
                 <div class="space-y-4">
                     <p class="text-gray-700 dark:text-gray-300">
-                        Calendars
-                        日历组件是界面中常用的日期选择元素，适用于各种需要用户选择日期或日期范围的场景。以下是一些使用建议：
+                        Calendars 组件是一个功能丰富的日历选择器，支持单选和范围选择，并提供多种颜色主题和语言选项。下面是一些使用建议：
                     </p>
 
                     <ul class="ml-6 list-disc space-y-2 text-gray-700 dark:text-gray-300">
-                        <li>
-                            根据业务需求选择合适的模式：单日期选择适用于选择具体某一天，范围选择适用于时间段筛选
-                        </li>
-                        <li>使用符合品牌色调的颜色主题，提供一致的设计体验</li>
-                        <li>结合表单验证，确保用户选择的日期符合业务规则</li>
-                        <li>在表单中使用时，提供清晰的标签和必要的提示信息</li>
-                        <li>根据国际化需求，选择合适的语言设置</li>
+                        <li>根据业务需求选择合适的选择模式（单选或范围选择）</li>
+                        <li>配合项目设计风格选择合适的颜色主题</li>
+                        <li>针对国际化需求设置适当的语言 (locale) 和日期格式 (dateFormat)</li>
+                        <li>利用 initialDate 属性设置默认显示的月份，提高用户体验</li>
+                        <li>在复杂表单中，可以利用事件回调进行表单验证或联动操作</li>
                     </ul>
 
                     <div
                         class="rounded-lg border border-blue-100 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-900/20">
                         <h4 class="mb-2 flex items-center text-blue-800 dark:text-blue-300">
-                            <span class="icon-[material-symbols--lightbulb-outline] mr-2 h-5 w-5"></span>
-                            日期选择建议
+                            <span class="icon-[material-symbols--info-outline-rounded] mr-2 h-5 w-5"></span>
+                            提示
                         </h4>
                         <p class="text-sm text-blue-700 dark:text-blue-300">
-                            日期选择器最常见的用途是预订系统、筛选数据和表单填写。在这些场景中，日历组件应该提供良好的可访问性和直观的交互体验。
-                            考虑添加辅助提示，特别是对于日期范围选择，帮助用户理解选择的含义和限制条件。
+                            Calendars 组件已完全适配暗色模式，无需额外配置。通过设置 HTML 根元素上的
+                            <code class="rounded bg-blue-100 px-1 py-0.5 font-mono dark:bg-blue-800/60">dark</code>
+                            类即可启用暗色主题。
                         </p>
                     </div>
-
-                    <div
-                        class="mt-4 rounded-lg border border-emerald-100 bg-emerald-50 p-4 dark:border-emerald-900 dark:bg-emerald-900/20">
-                        <h4 class="mb-2 flex items-center text-emerald-800 dark:text-emerald-300">
-                            <span class="icon-[material-symbols--tips-and-updates-outline-rounded] mr-2 h-5 w-5"></span>
-                            性能优化提示
-                        </h4>
-                        <p class="text-sm text-emerald-700 dark:text-emerald-300">
-                            使用
-                            <code
-                                class="rounded bg-emerald-100 px-1 py-0.5 font-mono text-xs dark:bg-emerald-800/60">:key</code>
-                            属性确保在主题或日期变化时组件能正确重新渲染。当在列表或循环中渲染多个日历组件时，确保每个实例
-                            有唯一的标识符，避免不必要的重新渲染。
-                        </p>
-                    </div>
-
-                    <p class="text-gray-700 dark:text-gray-300">
-                        日历组件已针对暗色模式和不同颜色主题进行了优化，可以无缝融入各种设计系统。使用合适的日历组件配置，
-                        可以显著提升用户在日期选择相关任务中的体验和效率。
-                    </p>
                 </div>
             </div>
         </section>
@@ -487,219 +549,111 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from "vue";
-import Calendars, {
-    ColorType,
-    colorGroups,
-    getColorButtonClass,
-} from "./Calendars";
-import dayjs from "dayjs";
+import { ref, reactive } from 'vue';
+import dayjs from 'dayjs';
+import Calendars from './Calendars';
+import CodePreview from '../../components/CodePreview';
+import { ColorType, colorGroups } from './config';
+import { getColorButtonClass } from './utils';
+import {
+    basicUsageCode,
+    rangeSelectCode,
+    customColorCode,
+    localizationCode,
+    dateFormatCode,
+    eventsCode
+} from './code';
 
-// 颜色组的名称映射
+// 颜色组名称映射
 const colorGroupNames = {
-    gray: "灰色系",
-    warm: "暖色系",
-    green: "绿色系",
-    blue: "蓝色系",
-    purple: "紫粉色系",
+    gray: '灰色系',
+    warm: '暖色系',
+    green: '绿色系',
+    blue: '蓝色系',
+    purple: '紫粉色系',
 };
 
-// 当前选中的颜色
-const selectedColor = ref<ColorType>("blue");
+// 当前选择的颜色
+const selectedColor = ref<ColorType>('blue');
 
 // 设置选中的颜色
 const setSelectedColor = (color: ColorType) => {
     selectedColor.value = color;
 };
 
-// 基础用法示例数据
-const singleDate = ref("");
-const startDate = ref("");
-const endDate = ref("");
-
-// 动态主题日历的数据
-const dynamicSelectedDate = ref("");
-const dynamicStartDate = ref("");
-const dynamicEndDate = ref("");
-const lastRangeSelectTime = ref<Date | null>(null);
-
-// 为每种颜色创建日期状态
-const colorDateMap: Record<ColorType, string> = reactive({
-    slate: "",
-    gray: "",
-    zinc: "",
-    neutral: "",
-    stone: "",
-    red: "",
-    orange: "",
-    amber: "",
-    yellow: "",
-    lime: "",
-    green: "",
-    emerald: "",
-    teal: "",
-    cyan: "",
-    sky: "",
-    blue: "",
-    indigo: "",
-    violet: "",
-    purple: "",
-    fuchsia: "",
-    pink: "",
-    rose: "",
-});
-
-// 为每种颜色创建日期选择时间记录
-const colorDateSelectTimes: Record<ColorType, Date | null> = reactive({
-    slate: null,
-    gray: null,
-    zinc: null,
-    neutral: null,
-    stone: null,
-    red: null,
-    orange: null,
-    amber: null,
-    yellow: null,
-    lime: null,
-    green: null,
-    emerald: null,
-    teal: null,
-    cyan: null,
-    sky: null,
-    blue: null,
-    indigo: null,
-    violet: null,
-    purple: null,
-    fuchsia: null,
-    pink: null,
-    rose: null,
-});
-
-// 为每种颜色创建日期范围状态
-const colorRangeMap: Record<ColorType, { start: string; end: string }> =
-    reactive({
-        slate: { start: "", end: "" },
-        gray: { start: "", end: "" },
-        zinc: { start: "", end: "" },
-        neutral: { start: "", end: "" },
-        stone: { start: "", end: "" },
-        red: { start: "", end: "" },
-        orange: { start: "", end: "" },
-        amber: { start: "", end: "" },
-        yellow: { start: "", end: "" },
-        lime: { start: "", end: "" },
-        green: { start: "", end: "" },
-        emerald: { start: "", end: "" },
-        teal: { start: "", end: "" },
-        cyan: { start: "", end: "" },
-        sky: { start: "", end: "" },
-        blue: { start: "", end: "" },
-        indigo: { start: "", end: "" },
-        violet: { start: "", end: "" },
-        purple: { start: "", end: "" },
-        fuchsia: { start: "", end: "" },
-        pink: { start: "", end: "" },
-        rose: { start: "", end: "" },
-    });
-
-// 为每种颜色创建范围选择时间记录
-const colorRangeSelectTimes: Record<ColorType, Date | null> = reactive({
-    slate: null,
-    gray: null,
-    zinc: null,
-    neutral: null,
-    stone: null,
-    red: null,
-    orange: null,
-    amber: null,
-    yellow: null,
-    lime: null,
-    green: null,
-    emerald: null,
-    teal: null,
-    cyan: null,
-    sky: null,
-    blue: null,
-    indigo: null,
-    violet: null,
-    purple: null,
-    fuchsia: null,
-    pink: null,
-    rose: null,
-});
-
-// 初始化一些示例日期以更好地展示效果
-const initializeExampleDates = () => {
-    const today = new Date();
-
-    // 设置一些预设值提高展示效果
-    singleDate.value = dayjs(today).format("YYYY-MM-DD");
-    startDate.value = dayjs(today).subtract(3, "day").format("YYYY-MM-DD");
-    endDate.value = dayjs(today).add(3, "day").format("YYYY-MM-DD");
-
-    // 为紫色和琥珀色预设范围
-    colorRangeMap.violet.start = dayjs(today)
-        .subtract(3, "day")
-        .format("YYYY-MM-DD");
-    colorRangeMap.violet.end = dayjs(today).add(3, "day").format("YYYY-MM-DD");
-    colorRangeSelectTimes.violet = new Date();
-
-    colorRangeMap.amber.start = dayjs(today)
-        .subtract(5, "day")
-        .format("YYYY-MM-DD");
-    colorRangeMap.amber.end = dayjs(today).add(2, "day").format("YYYY-MM-DD");
-    colorRangeSelectTimes.amber = new Date();
+// 单选日期
+const dynamicSelectedDate = ref('');
+const handleDynamicDateSelect = (date: string) => {
+    dynamicSelectedDate.value = date;
 };
 
-// 获取格式化的时间
-const formatTime = (date: Date | null): string => {
-    if (!date) return "";
-    return dayjs(date).format("YYYY-MM-DD HH:mm:ss");
+// 日期范围选择
+const dynamicStartDate = ref('');
+const dynamicEndDate = ref('');
+const lastRangeSelectTime = ref('');
+const handleDynamicRangeSelect = (start: string, end: string) => {
+    lastRangeSelectTime.value = new Date().toLocaleTimeString();
 };
 
-// 格式化选中的日期
-const formatSelectedDate = (date: string): string => {
-    if (!date) return "";
-    const d = dayjs(date);
-    return `${d.year()}年${d.month() + 1}月${d.date()}日 星期${["日", "一", "二", "三", "四", "五", "六"][d.day()]}`;
+// 格式化日期
+const formatSelectedDate = (date: string) => {
+    if (!date) return '';
+    return dayjs(date).format('YYYY年MM月DD日 dddd');
+};
+
+// 格式化时间
+const formatTime = (time: string) => {
+    return time;
 };
 
 // 计算两个日期之间的天数
-const getDaysBetween = (startDate: string, endDate: string): number => {
-    if (!startDate || !endDate) return 0;
-    const start = dayjs(startDate);
-    const end = dayjs(endDate);
-    return end.diff(start, "day") + 1; // 包含首尾日期
+const getDaysBetween = (start: string, end: string) => {
+    if (!start || !end) return 0;
+    return dayjs(end).diff(dayjs(start), 'day') + 1;
 };
 
-// 动态主题日历的事件处理
-const handleDynamicDateSelect = (date: string) => {
-    console.log(`[${selectedColor.value}] 单选模式选择日期:`, date);
+// 为每个颜色保存选择的日期
+const colorDateMap = reactive<Record<string, string>>({});
+const colorDateSelectTimes = reactive<Record<string, string>>({});
+
+// 处理颜色日期选择
+const handleColorDateSelect = (color: string, date: string) => {
+    colorDateMap[color] = date;
+    colorDateSelectTimes[color] = new Date().toLocaleTimeString();
 };
 
-const handleDynamicRangeSelect = (start: string, end: string) => {
-    console.log(`[${selectedColor.value}] 范围模式选择:`, { start, end });
-    lastRangeSelectTime.value = new Date();
-};
+// 为每个颜色保存日期范围
+const colorRangeMap = reactive<Record<string, { start: string; end: string }>>({});
+const colorRangeSelectTimes = reactive<Record<string, string>>({});
 
-// 颜色预览的事件处理
-const handleColorDateSelect = (color: ColorType, date: string) => {
-    console.log(`[${color}] 单选模式选择日期:`, date);
-    colorDateSelectTimes[color] = new Date();
-};
-
-const handleColorRangeSelect = (
-    color: ColorType,
-    start: string,
-    end: string,
-) => {
-    console.log(`[${color}] 范围模式选择:`, { start, end });
-    colorRangeSelectTimes[color] = new Date();
-};
-
-// 页面加载时初始化数据
-onMounted(() => {
-    // 初始化示例数据
-    initializeExampleDates();
+// 初始化所有颜色的日期范围映射
+Object.values(colorGroups).forEach((group) => {
+    group.forEach((color) => {
+        colorRangeMap[color] = { start: '', end: '' };
+    });
 });
+
+// 处理颜色范围选择
+const handleColorRangeSelect = (color: string, start: string, end: string) => {
+    colorRangeMap[color].start = start;
+    colorRangeMap[color].end = end;
+    colorRangeSelectTimes[color] = new Date().toLocaleTimeString();
+};
+
+// 新增: CodePreview 相关的响应式变量
+const colorPreviewDate = ref('');
+const localeEnDate = ref('');
+const localeZhDate = ref('');
+const formatDateValue = ref('');
+const eventDemoDate = ref('');
+const eventLog = ref('');
+
+// 事件处理函数
+const handleEventDemo = (date: string) => {
+    eventLog.value = `选择了日期: ${date} (${new Date().toLocaleTimeString()})`;
+};
+
+const handleFormatDateSelect = (date: string) => {
+    console.log('格式化后的日期:', date);
+};
 </script>
