@@ -7,12 +7,14 @@
       <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
         基础用法
       </h2>
-      <div class="flex flex-wrap gap-4">
-        <Button>默认按钮</Button>
-        <Button type="red">红色按钮</Button>
-        <Button type="green">绿色按钮</Button>
-        <Button type="yellow">黄色按钮</Button>
-      </div>
+      <CodePreview :code="basicUsageCode">
+        <div class="flex flex-wrap gap-4">
+          <Button>默认按钮</Button>
+          <Button type="red">红色按钮</Button>
+          <Button type="green">绿色按钮</Button>
+          <Button type="yellow">黄色按钮</Button>
+        </div>
+      </CodePreview>
     </section>
 
     <!-- 语义化类型 -->
@@ -20,14 +22,16 @@
       <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
         语义化类型
       </h2>
-      <div class="flex flex-wrap gap-4">
-        <Button type="primary">主要按钮</Button>
-        <Button type="secondary">次要按钮</Button>
-        <Button type="success">成功按钮</Button>
-        <Button type="warning">警告按钮</Button>
-        <Button type="danger">危险按钮</Button>
-        <Button type="info">信息按钮</Button>
-      </div>
+      <CodePreview :code="semanticTypesCode">
+        <div class="flex flex-wrap gap-4">
+          <Button type="primary">主要按钮</Button>
+          <Button type="secondary">次要按钮</Button>
+          <Button type="success">成功按钮</Button>
+          <Button type="warning">警告按钮</Button>
+          <Button type="danger">危险按钮</Button>
+          <Button type="info">信息按钮</Button>
+        </div>
+      </CodePreview>
     </section>
 
     <!-- 按钮变体 -->
@@ -39,50 +43,58 @@
       <h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-white">
         实心按钮 (solid)
       </h3>
-      <div class="mb-4 flex flex-wrap gap-4">
-        <Button variant="solid" type="primary">主要</Button>
-        <Button variant="solid" type="secondary">次要</Button>
-        <Button variant="solid" type="success">成功</Button>
-        <Button variant="solid" type="warning">警告</Button>
-        <Button variant="solid" type="danger">危险</Button>
-        <Button variant="solid" type="info">信息</Button>
-      </div>
+      <CodePreview :code="buttonVariantsCode.solid">
+        <div class="mb-4 flex flex-wrap gap-4">
+          <Button variant="solid" type="primary">主要</Button>
+          <Button variant="solid" type="secondary">次要</Button>
+          <Button variant="solid" type="success">成功</Button>
+          <Button variant="solid" type="warning">警告</Button>
+          <Button variant="solid" type="danger">危险</Button>
+          <Button variant="solid" type="info">信息</Button>
+        </div>
+      </CodePreview>
 
-      <h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-white">
+      <h3 class="mb-3 mt-6 text-lg font-medium text-gray-900 dark:text-white">
         柔和按钮 (soft)
       </h3>
-      <div class="mb-4 flex flex-wrap gap-4">
-        <Button variant="soft" type="primary">主要</Button>
-        <Button variant="soft" type="secondary">次要</Button>
-        <Button variant="soft" type="success">成功</Button>
-        <Button variant="soft" type="warning">警告</Button>
-        <Button variant="soft" type="danger">危险</Button>
-        <Button variant="soft" type="info">信息</Button>
-      </div>
+      <CodePreview :code="buttonVariantsCode.soft">
+        <div class="mb-4 flex flex-wrap gap-4">
+          <Button variant="soft" type="primary">主要</Button>
+          <Button variant="soft" type="secondary">次要</Button>
+          <Button variant="soft" type="success">成功</Button>
+          <Button variant="soft" type="warning">警告</Button>
+          <Button variant="soft" type="danger">危险</Button>
+          <Button variant="soft" type="info">信息</Button>
+        </div>
+      </CodePreview>
 
-      <h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-white">
+      <h3 class="mb-3 mt-6 text-lg font-medium text-gray-900 dark:text-white">
         描边按钮 (outline)
       </h3>
-      <div class="mb-4 flex flex-wrap gap-4">
-        <Button variant="outline" type="primary">主要</Button>
-        <Button variant="outline" type="secondary">次要</Button>
-        <Button variant="outline" type="success">成功</Button>
-        <Button variant="outline" type="warning">警告</Button>
-        <Button variant="outline" type="danger">危险</Button>
-        <Button variant="outline" type="info">信息</Button>
-      </div>
+      <CodePreview :code="buttonVariantsCode.outline">
+        <div class="mb-4 flex flex-wrap gap-4">
+          <Button variant="outline" type="primary">主要</Button>
+          <Button variant="outline" type="secondary">次要</Button>
+          <Button variant="outline" type="success">成功</Button>
+          <Button variant="outline" type="warning">警告</Button>
+          <Button variant="outline" type="danger">危险</Button>
+          <Button variant="outline" type="info">信息</Button>
+        </div>
+      </CodePreview>
 
-      <h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-white">
+      <h3 class="mb-3 mt-6 text-lg font-medium text-gray-900 dark:text-white">
         幽灵按钮 (ghost)
       </h3>
-      <div class="flex flex-wrap gap-4">
-        <Button variant="ghost" type="primary">主要</Button>
-        <Button variant="ghost" type="secondary">次要</Button>
-        <Button variant="ghost" type="success">成功</Button>
-        <Button variant="ghost" type="warning">警告</Button>
-        <Button variant="ghost" type="danger">危险</Button>
-        <Button variant="ghost" type="info">信息</Button>
-      </div>
+      <CodePreview :code="buttonVariantsCode.ghost">
+        <div class="flex flex-wrap gap-4">
+          <Button variant="ghost" type="primary">主要</Button>
+          <Button variant="ghost" type="secondary">次要</Button>
+          <Button variant="ghost" type="success">成功</Button>
+          <Button variant="ghost" type="warning">警告</Button>
+          <Button variant="ghost" type="danger">危险</Button>
+          <Button variant="ghost" type="info">信息</Button>
+        </div>
+      </CodePreview>
     </section>
 
     <!-- 按钮尺寸 -->
@@ -90,13 +102,15 @@
       <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
         按钮尺寸
       </h2>
-      <div class="flex flex-wrap items-center gap-4">
-        <Button size="xs" type="primary">超小</Button>
-        <Button size="sm" type="primary">小型</Button>
-        <Button size="md" type="primary">中等</Button>
-        <Button size="lg" type="primary">大型</Button>
-        <Button size="xl" type="primary">超大</Button>
-      </div>
+      <CodePreview :code="buttonSizesCode">
+        <div class="flex flex-wrap items-center gap-4">
+          <Button size="xs" type="primary">超小</Button>
+          <Button size="sm" type="primary">小型</Button>
+          <Button size="md" type="primary">中等</Button>
+          <Button size="lg" type="primary">大型</Button>
+          <Button size="xl" type="primary">超大</Button>
+        </div>
+      </CodePreview>
     </section>
 
     <!-- 带图标的按钮 -->
@@ -104,22 +118,24 @@
       <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
         带图标的按钮
       </h2>
-      <div class="mb-4 flex flex-wrap items-center gap-4">
-        <Button type="primary" icon="icon-[carbon--add]">添加</Button>
-        <Button type="success" icon="icon-[carbon--checkmark]">确认</Button>
-        <Button type="danger" icon="icon-[carbon--trash-can]">删除</Button>
-        <Button type="warning" icon="icon-[carbon--warning]">警告</Button>
-      </div>
+      <CodePreview :code="buttonWithIconCode">
+        <div class="mb-4 flex flex-wrap items-center gap-4">
+          <Button type="primary" icon="icon-[carbon--add]">添加</Button>
+          <Button type="success" icon="icon-[carbon--checkmark]">确认</Button>
+          <Button type="danger" icon="icon-[carbon--trash-can]">删除</Button>
+          <Button type="warning" icon="icon-[carbon--warning]">警告</Button>
+        </div>
 
-      <h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-white">
-        仅图标按钮
-      </h3>
-      <div class="flex flex-wrap items-center gap-4">
-        <Button type="primary" icon="icon-[carbon--add]" />
-        <Button type="success" icon="icon-[carbon--checkmark]" />
-        <Button type="danger" icon="icon-[carbon--trash-can]" />
-        <Button type="warning" icon="icon-[carbon--warning]" />
-      </div>
+        <h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-white">
+          仅图标按钮
+        </h3>
+        <div class="flex flex-wrap items-center gap-4">
+          <Button type="primary" icon="icon-[carbon--add]" />
+          <Button type="success" icon="icon-[carbon--checkmark]" />
+          <Button type="danger" icon="icon-[carbon--trash-can]" />
+          <Button type="warning" icon="icon-[carbon--warning]" />
+        </div>
+      </CodePreview>
     </section>
 
     <!-- 状态按钮 -->
@@ -127,11 +143,13 @@
       <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
         状态按钮
       </h2>
-      <div class="flex flex-wrap items-center gap-4">
-        <Button type="primary">正常</Button>
-        <Button type="primary" disabled>禁用</Button>
-        <Button type="primary" loading>加载中</Button>
-      </div>
+      <CodePreview :code="buttonStatesCode">
+        <div class="flex flex-wrap items-center gap-4">
+          <Button type="primary">正常</Button>
+          <Button type="primary" disabled>禁用</Button>
+          <Button type="primary" loading>加载中</Button>
+        </div>
+      </CodePreview>
     </section>
 
     <!-- 块级按钮 -->
@@ -139,11 +157,13 @@
       <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
         块级按钮
       </h2>
-      <div class="max-w-md space-y-4">
-        <Button type="primary" block>块级按钮</Button>
-        <Button type="success" block>块级按钮</Button>
-        <Button type="warning" block>块级按钮</Button>
-      </div>
+      <CodePreview :code="blockButtonCode">
+        <div class="max-w-md space-y-4">
+          <Button type="primary" block>块级按钮</Button>
+          <Button type="success" block>块级按钮</Button>
+          <Button type="warning" block>块级按钮</Button>
+        </div>
+      </CodePreview>
     </section>
 
 
@@ -152,84 +172,56 @@
       <h2 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
         所有颜色按钮
       </h2>
-
-      <h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-white">
-        灰色系
-      </h3>
-      <div class="mb-6 flex flex-wrap gap-3">
-        <Button type="slate">石板灰</Button>
-        <Button type="gray">灰色</Button>
-        <Button type="zinc">锌灰</Button>
-        <Button type="neutral">中性灰</Button>
-        <Button type="stone">石灰</Button>
-      </div>
-
-      <h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-white">
-        暖色系
-      </h3>
-      <div class="mb-6 flex flex-wrap gap-3">
-        <Button type="red">红色</Button>
-        <Button type="orange">橙色</Button>
-        <Button type="amber">琥珀色</Button>
-        <Button type="yellow">黄色</Button>
-      </div>
-
-      <h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-white">
-        绿色系
-      </h3>
-      <div class="mb-6 flex flex-wrap gap-3">
-        <Button type="lime">青柠色</Button>
-        <Button type="green">绿色</Button>
-        <Button type="emerald">翠绿色</Button>
-        <Button type="teal">蓝绿色</Button>
-      </div>
-
-      <h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-white">
-        蓝色系
-      </h3>
-      <div class="mb-6 flex flex-wrap gap-3">
-        <Button type="cyan">青色</Button>
-        <Button type="sky">天蓝色</Button>
-        <Button type="blue">蓝色</Button>
-        <Button type="indigo">靛青色</Button>
-      </div>
-
-      <h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-white">
-        紫粉色系
-      </h3>
-      <div class="mb-6 flex flex-wrap gap-3">
-        <Button type="violet">紫罗兰</Button>
-        <Button type="purple">紫色</Button>
-        <Button type="fuchsia">品红色</Button>
-        <Button type="pink">粉色</Button>
-        <Button type="rose">玫瑰色</Button>
-      </div>
-
-      <div class="mt-8 rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800">
-        <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">
-          不同变体的颜色展示
-        </h3>
-
-        <div class="space-y-6">
-          <div v-for="(variant, idx) in [
-            'solid',
-            'soft',
-            'outline',
-            'ghost',
-          ] as const" :key="idx">
-            <h4 class="mb-2 text-base font-medium text-gray-900 dark:text-white">
-              {{ variantNames[variant] }}
-            </h4>
-            <div class="flex flex-wrap gap-3">
-              <Button :variant="variant" type="blue">蓝色</Button>
-              <Button :variant="variant" type="emerald">翠绿色</Button>
-              <Button :variant="variant" type="amber">琥珀色</Button>
-              <Button :variant="variant" type="rose">玫瑰色</Button>
-              <Button :variant="variant" type="purple">紫色</Button>
-            </div>
+      <CodePreview :code="colorTypeShowcaseCode">
+        <div class="space-y-4">
+          <!-- 灰色系 -->
+          <h3 class="text-md font-medium text-gray-900 dark:text-white">灰色系</h3>
+          <div class="flex flex-wrap gap-2">
+            <Button type="slate">Slate</Button>
+            <Button type="gray">Gray</Button>
+            <Button type="zinc">Zinc</Button>
+            <Button type="neutral">Neutral</Button>
+            <Button type="stone">Stone</Button>
+          </div>
+          
+          <!-- 暖色系 -->
+          <h3 class="text-md font-medium text-gray-900 dark:text-white">暖色系</h3>
+          <div class="flex flex-wrap gap-2">
+            <Button type="red">Red</Button>
+            <Button type="orange">Orange</Button>
+            <Button type="amber">Amber</Button>
+            <Button type="yellow">Yellow</Button>
+          </div>
+          
+          <!-- 绿色系 -->
+          <h3 class="text-md font-medium text-gray-900 dark:text-white">绿色系</h3>
+          <div class="flex flex-wrap gap-2">
+            <Button type="lime">Lime</Button>
+            <Button type="green">Green</Button>
+            <Button type="emerald">Emerald</Button>
+            <Button type="teal">Teal</Button>
+          </div>
+          
+          <!-- 蓝色系 -->
+          <h3 class="text-md font-medium text-gray-900 dark:text-white">蓝色系</h3>
+          <div class="flex flex-wrap gap-2">
+            <Button type="cyan">Cyan</Button>
+            <Button type="sky">Sky</Button>
+            <Button type="blue">Blue</Button>
+            <Button type="indigo">Indigo</Button>
+          </div>
+          
+          <!-- 紫粉色系 -->
+          <h3 class="text-md font-medium text-gray-900 dark:text-white">紫粉色系</h3>
+          <div class="flex flex-wrap gap-2">
+            <Button type="violet">Violet</Button>
+            <Button type="purple">Purple</Button>
+            <Button type="fuchsia">Fuchsia</Button>
+            <Button type="pink">Pink</Button>
+            <Button type="rose">Rose</Button>
           </div>
         </div>
-      </div>
+      </CodePreview>
     </section>
 
     <!-- 实际应用场景 -->
@@ -463,6 +455,17 @@
 <script setup lang="ts">
 
 import { Button } from "./Button";
+import CodePreview from "../../components/CodePreview";
+import { 
+  basicUsageCode, 
+  semanticTypesCode, 
+  buttonVariantsCode, 
+  buttonSizesCode, 
+  buttonWithIconCode, 
+  buttonStatesCode, 
+  blockButtonCode, 
+  colorTypeShowcaseCode 
+} from './code';
 
 // 变体名称映射
 const variantNames = {
