@@ -119,7 +119,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/Pagination",
         name: "Pagination",
-        component: () => import("@/views/PaginationView"),
+        component: () => import("@/libs/Pagination"),
       },
       {
         path: "/Popover",
