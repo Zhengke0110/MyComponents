@@ -132,6 +132,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/libs/Progress"),
       },
       {
+        path: "/RadioBox",
+        name: "RadioBox",
+        component: () => import("@/libs/RadioBox"),
+      },
+      {
         path: "/Segment",
         name: "Segment",
         component: () => import("@/views/SegmentView"),
