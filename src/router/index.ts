@@ -112,6 +112,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/libs/ModalBox"),
       },
       {
+        path: "/Notification",
+        name: "Notification",
+        component: () => import("@/libs/Notification"),
+      },
+      {
         path: "/Pagination",
         name: "Pagination",
         component: () => import("@/views/PaginationView"),
