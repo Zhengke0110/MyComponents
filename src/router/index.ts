@@ -47,6 +47,26 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/libs/Calendars"),
       },
       {
+        path: "/Card",
+        name: "Card",
+        component: () => import("@/libs/Card"),
+      },
+      {
+        path: "/Carousel",
+        name: "Carousel",
+        component: () => import("@/libs/Carousel"),
+      },
+      {
+        path: "/CheckBox",
+        name: "CheckBox",
+        component: () => import("@/libs/CheckBox"),
+      },
+      {
+        path: "/ColorInput",
+        name: "ColorInput",
+        component: () => import("@/libs/ColorInput"),
+      },
+      {
         path: "/Dropdowns",
         name: "Dropdowns",
         component: () => import("@/libs/Dropdowns"),
@@ -58,16 +78,8 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/views/MessageView"),
       },
 
-      {
-        path: "/CheckBox",
-        name: "CheckBox",
-        component: () => import("@/views/CheckBoxView"),
-      },
-      {
-        path: "/ColorInput",
-        name: "ColorInput",
-        component: () => import("@/views/ColorInputView"),
-      },
+
+
       {
         path: "/Dialog",
         name: "Dialog",

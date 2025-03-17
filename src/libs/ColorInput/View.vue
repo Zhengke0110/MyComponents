@@ -285,7 +285,7 @@ interface ColorInputProps {
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ColorInput } from '../../components/ColorInput'
+import { ColorInput } from './ColorInput'
 import { isDark } from '../../utils/theme'
 
 // Basic usage

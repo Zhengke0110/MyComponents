@@ -6,7 +6,7 @@ import {
   COLOR_INTENSITIES,
   THEME_COLOR_MAP,
   ColorIntensity,
-  DEFAULT_INTENSITY, 
+  DEFAULT_INTENSITY,
   ColorType
 } from './constant';
 
@@ -133,14 +133,6 @@ export const ColorInput = defineComponent({
       selectedColorType.value = colorType;
       const colorValue = THEME_COLOR_MAP[colorType][currentIntensity.value];
       selectColor(colorValue);
-    };
-
-    const handleIntensityChange = (intensity: ColorIntensity) => {
-      currentIntensity.value = intensity;
-      if (selectedColorType.value) {
-        const colorValue = THEME_COLOR_MAP[selectedColorType.value][intensity];
-        selectColor(colorValue);
-      }
     };
 
     // 检查颜色类型是否被选中
@@ -317,36 +309,6 @@ export const ColorInput = defineComponent({
       );
     };
 
-    // 渲染主题色块
-    const renderThemeColorBlock = (colorType: ColorType) => {
-      const colorValue = THEME_COLOR_MAP[colorType][currentIntensity.value];
-      const isSelected = isColorTypeSelected(colorType);
-
-      return (
-        <div key={colorType} class="group relative">
-          <div
-            class={[
-              "relative h-8 w-8 cursor-pointer rounded-lg ring-2 transition-all duration-200",
-              isSelected
-                ? "ring-blue-400 ring-offset-2 hover:ring-blue-500 scale-110 dark:ring-blue-500 dark:hover:ring-blue-400"
-                : "ring-transparent",
-              "hover:scale-110 hover:ring-blue-400 hover:ring-offset-2 dark:hover:ring-blue-400",
-              "focus:outline-none",
-            ]}
-            style={{ backgroundColor: colorValue }}
-            onClick={() => handleThemeColorSelect(colorType)}
-            tabindex={0}
-            role="gridcell"
-            aria-label={`选择颜色: ${colorType}`}
-            aria-selected={isSelected}
-          />
-          <div class="mt-1 text-center text-xs opacity-0 transition-opacity group-hover:opacity-100 text-gray-700 dark:text-gray-300">
-            {colorType}
-          </div>
-        </div>
-      );
-    };
-
     return () => (
       <div class="relative" ref={colorPickerRef}>
         <div
@@ -382,37 +344,8 @@ export const ColorInput = defineComponent({
 
             {/* 预设颜色选择区 */}
             <div class="mb-4 grid grid-cols-8 gap-2 rounded-xl bg-gray-50 p-2 dark:bg-gray-900" role="grid">
-              {colorList.value.map((color, index) => 
+              {colorList.value.map((color, index) =>
                 renderColorBlock(color, index)
-              )}
-            </div>
-
-            {/* 主题色强度选择器 */}
-            <div class="mb-4">
-              <p class="text-sm mb-2 text-gray-700 dark:text-gray-300">颜色强度:</p>
-              <div class="flex flex-wrap gap-2">
-                {COLOR_INTENSITIES.map(intensity => (
-                  <button
-                    key={intensity}
-                    class={[
-                      "px-2 py-1 rounded text-xs font-medium transition-colors",
-                      currentIntensity.value === intensity
-                        ? "bg-blue-600 text-white dark:bg-blue-700" 
-                        : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300",
-                      "hover:bg-opacity-80",
-                    ]}
-                    onClick={() => handleIntensityChange(intensity)}
-                  >
-                    {intensity}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* 颜色类型选择 */}
-            <div class="mb-4 grid grid-cols-6 gap-4 rounded-xl bg-gray-50 p-2 dark:bg-gray-900">
-              {Object.keys(THEME_COLOR_MAP).map((colorType) => 
-                renderThemeColorBlock(colorType as ColorType)
               )}
             </div>
 
