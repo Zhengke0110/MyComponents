@@ -77,6 +77,16 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/libs/Dialog"),
       },
       {
+        path: "/Divider",
+        name: "Divider",
+        component: () => import("@/libs/Divider"),
+      },
+      {
+        path: "/Drawer",
+        name: "Drawer",
+        component: () => import("@/libs/Drawer"),
+      },
+      {
         path: "/Dropdowns",
         name: "Dropdowns",
         component: () => import("@/libs/Dropdowns"),
