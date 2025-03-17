@@ -225,7 +225,7 @@
 </template>
 
 <script setup lang="ts">
-import Message from '../../components/Message'
+import Message from './index'
 
 // Basic message demos
 const showMessage = (type: 'success' | 'warning' | 'error' | 'info') => {
