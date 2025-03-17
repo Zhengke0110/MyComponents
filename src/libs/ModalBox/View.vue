@@ -38,7 +38,7 @@
           <div class="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
             <h3 class="text-2xl font-bold">全屏模态框</h3>
             <button
-              class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors w-10 h-10 flex items-center justify-center"
               @click="fullscreenModalVisible = false">
               <span class="icon-[solar--close-circle-bold] w-6 h-6"></span>
             </button>
@@ -153,7 +153,7 @@
 
           <!-- 关闭按钮 -->
           <button
-            class="absolute top-4 right-4 p-2 rounded-full bg-black/30 hover:bg-black/50 text-white transition-all duration-200"
+            class="absolute top-4 right-4 p-2 rounded-full bg-black/30 hover:bg-black/50 text-white transition-all duration-200 w-10 h-10 flex items-center justify-center"
             @click="imageModalVisible = false">
             <span class="icon-[solar--close-circle-bold] w-6 h-6"></span>
           </button>
@@ -578,7 +578,7 @@ export interface ModalBoxProps {
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import ModalBox, { ColorType, ThemeColorType, THEME_COLOR_MAP, type ModalBoxProps } from '../../components/ModalBox';
+import ModalBox, { ColorType, ThemeColorType, THEME_COLOR_MAP } from './ModalBox';
 
 // Modal visibility states
 const basicModalVisible = ref(false);

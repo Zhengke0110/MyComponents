@@ -91,19 +91,25 @@ const routes: RouteRecordRaw[] = [
         name: "Dropdowns",
         component: () => import("@/libs/Dropdowns"),
       },
-
+      {
+        path: "/Empty",
+        name: "Empty",
+        component: () => import("@/libs/Empty"),
+      },
+      {
+        path: "/ImagePreview",
+        name: "ImagePreview",
+        component: () => import("@/libs/ImagePreview"),
+      },
       {
         path: "/Message",
         name: "Message",
-        component: () => import("@/views/MessageView"),
+        component: () => import("@/libs/Message/View.vue"),
       },
-
-
-
       {
         path: "/ModalBox",
         name: "ModalBox",
-        component: () => import("@/views/ModalBoxView"),
+        component: () => import("@/libs/ModalBox"),
       },
       {
         path: "/Pagination",
