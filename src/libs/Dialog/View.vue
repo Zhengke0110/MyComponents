@@ -233,9 +233,9 @@
 </template>
 
 <script setup lang="ts">
-import Dialog from '@/components/Dialog';
+import Dialog from './Dialog';
 import { ref } from 'vue';
-import type { ColorType } from '@/components/Dialog';
+import type { ColorType } from './Dialog';
 
 // Color types array
 const colorTypes: ColorType[] = ['blue', 'green', 'red', 'yellow', 'zinc', 'gray'];

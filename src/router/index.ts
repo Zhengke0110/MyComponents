@@ -67,6 +67,16 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/libs/ColorInput"),
       },
       {
+        path: "/Comment",
+        name: "Comment",
+        component: () => import("@/libs/Comment"),
+      },
+      {
+        path: "/Dialog",
+        name: "Dialog",
+        component: () => import("@/libs/Dialog"),
+      },
+      {
         path: "/Dropdowns",
         name: "Dropdowns",
         component: () => import("@/libs/Dropdowns"),
@@ -80,11 +90,6 @@ const routes: RouteRecordRaw[] = [
 
 
 
-      {
-        path: "/Dialog",
-        name: "Dialog",
-        component: () => import("@/views/DialogView"),
-      },
       {
         path: "/ModalBox",
         name: "ModalBox",
