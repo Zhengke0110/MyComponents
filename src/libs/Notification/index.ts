@@ -1,5 +1,5 @@
-import Notification, { NotificationContainer, NotificationType, NotificationPlacement } from "./Notification";
-export { Notification, NotificationContainer, type NotificationType, type NotificationPlacement };
+import Notification, { NotificationContainer, NotificationType } from "./Notification";
+export { Notification, NotificationContainer, type NotificationType };
 
 import View from "./View.vue";
 export default View;
