@@ -1,0 +1,156 @@
+/* 进度条激活状态动画 */
+@keyframes progress-active {
+  0% {
+    opacity: 0.1;
+    width: 0;
+  }
+  20% {
+    opacity: 0.5;
+    width: 0;
+  }
+  100% {
+    opacity: 0;
+    width: 100%;
+  }
+}
+
+.progress-active::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  border-radius: inherit;
+  opacity: 0;
+  animation: progress-active 2.4s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+  content: '';
+}
+
+/* 圆形进度条动画效果 */
+@keyframes circle-progress-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.circle-progress-spin {
+  animation: circle-progress-spin 2s linear infinite;
+}
+
+/* 状态图标动画效果 */
+@keyframes success-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes error-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(45deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.animate-success-appear {
+  animation: success-appear 0.3s ease-out forwards;
+}
+
+.animate-error-appear {
+  animation: error-appear 0.3s ease-out forwards;
+}
+
+/* 深色模式适配 */
+.dark .progress-active::before {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dark :root {
+  --progress-color-normal: #1890ff;
+  --progress-color-success: #52c41a;
+  --progress-color-exception: #ff4d4f;
+}
+
+/* 步骤进度条样式 */
+.dark .progress-steps-item {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .progress-steps-item.active {
+  background-color: var(--progress-color-normal);
+}
+
+/* 深色模式下轨道颜色调整 */
+.dark svg path:first-child {
+  stroke: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 确保步骤之间的间隔在深色模式下可见 */
+.dark .progress-steps .progress-step + .progress-step {
+  margin-left: 2px;
+}
+
+/* 确保在深色模式下图标背景颜色更明显 */
+.dark .bg-green-600 {
+  background-color: rgb(22, 163, 74);
+}
+
+.dark .bg-red-600 {
+  background-color: rgb(220, 38, 38);
+}
+
+/* 状态图标样式优化 */
+.icon-container {
+  width: 20px;
+  height: 20px;
+}
+
+.icon-svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* 小型进度条图标尺寸 */
+.text-xs .icon-container {
+  width: 16px;
+  height: 16px;
+}
+
+.text-xs .icon-svg {
+  width: 10px;
+  height: 10px;
+  stroke-width: 3.5;
+}
+
+/* 圆形进度条中的图标样式 */
+[class*="type-circle"] .icon-container,
+[class*="type-dashboard"] .icon-container {
+  width: 24px;
+  height: 24px;
+}
+
+[class*="type-circle"] .icon-svg,
+[class*="type-dashboard"] .icon-svg {
+  width: 16px;
+  height: 16px;
+}

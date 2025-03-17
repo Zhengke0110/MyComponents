@@ -124,12 +124,12 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/Popover",
         name: "Popover",
-        component: () => import("@/views/PopoverView"),
+        component: () => import("@/libs/Popover"),
       },
       {
-        path: "/RoundProgress",
-        name: "RoundProgress",
-        component: () => import("@/views/RoundProgressView"),
+        path: "/Progress",
+        name: "Progress",
+        component: () => import("@/libs/Progress"),
       },
       {
         path: "/Segment",
