@@ -257,7 +257,13 @@
         </h3>
         <div class="space-y-3">
           <div v-for="(task, index) in tasks" :key="index" class="flex items-center gap-3">
-            <CheckBox :id="`todo-${index}`" v-model="task.completed" :type="task.completed ? 'success' : 'primary'" />
+            <CheckBox 
+              :id="`todo-${index}`" 
+              v-model="task.completed" 
+              :type="task.completed ? 'success' : 'primary'"
+              :label="task.text" 
+              labelClass="sr-only" 
+            />
             <span :class="{ 'line-through text-gray-400': task.completed }">
               {{ task.text }}
             </span>
@@ -539,7 +545,7 @@ const myProps: CheckBoxProps = {
 
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue";
-import { CheckBox } from "../../components/CheckBox";
+import { CheckBox } from "./CheckBox";
 
 // 复选框状态管理
 const checkState = reactive({
