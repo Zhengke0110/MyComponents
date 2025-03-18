@@ -6,7 +6,7 @@
 
 ```tsx
 import { ref } from 'vue';
-import Segment from '@/components/Segment';
+import Segment from '@/libs/Segment';
 
 const selected = ref('daily');
 const options = [

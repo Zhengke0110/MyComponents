@@ -149,7 +149,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/Segment",
         name: "Segment",
-        component: () => import("@/views/SegmentView"),
+        component: () => import("@/libs/Segment"),
       },
       {
         path: "/SelectMenus",

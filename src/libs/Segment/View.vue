@@ -457,7 +457,7 @@ export interface SegmentOption {
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import Segment from '../../components/Segment';
+import Segment from './Segment';
 
 // 移除了深色模式切换相关代码
 
