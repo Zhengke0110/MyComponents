@@ -306,6 +306,373 @@
                 </div>
             </section>
         </div>
+
+        <!-- 小结与最佳实践 -->
+        <section class="mt-16 bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white border-b pb-2 border-gray-200 dark:border-gray-700">
+                小结与最佳实践
+            </h2>
+            <div class="space-y-6 text-gray-700 dark:text-gray-300">
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-3">
+                        <span class="text-blue-500 dark:text-blue-400 mr-2">•</span>何时使用滑动输入条
+                    </h3>
+                    <ul class="list-disc list-inside space-y-2 ml-5 text-gray-600 dark:text-gray-400">
+                        <li>当用户需要在一个范围内调整数值时</li>
+                        <li>当需要展示某个范围的百分比或分布情况时</li>
+                        <li>适合直观、交互式的数值选择场景，尤其是数值范围较大时</li>
+                        <li>作为音量、亮度等控制器的首选组件</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-3">
+                        <span class="text-green-500 dark:text-green-400 mr-2">•</span>设计建议
+                    </h3>
+                    <ul class="list-disc list-inside space-y-2 ml-5 text-gray-600 dark:text-gray-400">
+                        <li>根据数据精度合理设置步长，避免过于精细或粗糙的调节</li>
+                        <li>对于重要的数值区间，可使用 marks 属性添加标记以增强可读性</li>
+                        <li>若数值含义较为重要，建议显示提示工具 (tooltip) 以增强用户体验</li>
+                        <li>考虑移动设备使用场景，提供足够大的可点击区域</li>
+                        <li>对于专业场景，可结合输入框，让用户选择输入方式</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-3">
+                        <span class="text-purple-500 dark:text-purple-400 mr-2">•</span>无障碍设计
+                    </h3>
+                    <ul class="list-disc list-inside space-y-2 ml-5 text-gray-600 dark:text-gray-400">
+                        <li>确保 Slider 组件可通过键盘进行控制（左右箭头键调整值）</li>
+                        <li>为滑块添加适当的 aria 属性，如 aria-valuenow, aria-valuemin, aria-valuemax</li>
+                        <li>使用合适的颜色对比度，确保视觉障碍用户可以辨识组件</li>
+                        <li>添加文本标签，帮助屏幕阅读器用户理解组件功能</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-3">
+                        <span class="text-yellow-500 dark:text-yellow-400 mr-2">•</span>性能考量
+                    </h3>
+                    <ul class="list-disc list-inside space-y-2 ml-5 text-gray-600 dark:text-gray-400">
+                        <li>处理频繁的滑动事件时，考虑使用节流（throttle）或防抖（debounce）技术</li>
+                        <li>避免在滑动过程中进行复杂计算或频繁更新视图</li>
+                        <li>对于大量标记点或刻度线的场景，考虑使用虚拟滚动或按需渲染</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- API文档 -->
+        <section class="mt-12 bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white border-b pb-2 border-gray-200 dark:border-gray-700">
+                API 文档
+            </h2>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                属性
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                类型
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                默认值
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                说明
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                modelValue (v-model)
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                number | number[]
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                0
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                滑块的当前值。当 range 为 true 时，需要提供数组形式的值 [min, max]。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                min
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                number
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                0
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                滑块可选的最小值。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                max
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                number
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                100
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                滑块可选的最大值。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                step
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                number | null
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                1
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                滑块移动的步长。值为 null 时滑块可以任意移动。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                range
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                boolean
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                false
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                设置为范围选择模式，显示两个滑块。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                vertical
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                boolean
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                false
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                设置为垂直方向的滑块。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                disabled
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                boolean
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                false
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                设置为禁用状态。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                reverse
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                boolean
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                false
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                反向展示滑块，从右往左或从上往下。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                dots
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                boolean
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                false
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                是否在滑块轨道上显示刻度点。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                included
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                boolean
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                true
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                marks 不为空时，是否只显示标记刻度。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                marks
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                object
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                {}
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                刻度标记，格式为 {number: string | {style: object, label: string}} 的对象。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                tipFormatter
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                function | null
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                (value) => String(value)
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                格式化提示文本的函数，值为 null 时隐藏提示。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                tooltipPlacement
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                string
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                ''
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                提示气泡的位置，可选 'top', 'bottom', 'left', 'right'。为空时自动判断。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                tooltipOpen
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                boolean
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                false
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                提示气泡是否始终显示。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                autofocus
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                boolean
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                false
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                挂载时是否获得焦点。
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3 class="text-xl font-semibold mt-8 mb-4 text-gray-800 dark:text-white">事件</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                事件名称
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                说明
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                回调参数
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                update:modelValue
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                当值发生改变时触发，支持 v-model
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                value: number | number[]
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                change
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                当值发生改变时触发
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                value: number | number[]
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                afterChange
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                拖拽结束后触发
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                value: number | number[]
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3 class="text-xl font-semibold mt-8 mb-4 text-gray-800 dark:text-white">CSS 自定义</h3>
+            <p class="text-gray-700 dark:text-gray-300 mb-4">
+                Slider 组件支持通过CSS类自定义样式。以下是可以自定义的主要样式类：
+            </p>
+            <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-md overflow-auto">
+                <pre class="text-sm text-gray-700 dark:text-gray-300">
+.slider-blue .bg-blue-500 {
+    background-color: #3b82f6; /* 自定义活动轨道颜色 */
+}
+
+.slider-green .bg-blue-500 {
+    background-color: #22c55e; /* 自定义活动轨道颜色 */
+}
+
+/* 可以添加更多自定义样式类 */</pre>
+            </div>
+        </section>
     </div>
 </template>
 
