@@ -154,7 +154,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/SelectMenus",
         name: "SelectMenus",
-        component: () => import("@/views/SelectMenusView"),
+        component: () => import("@/libs/SelectMenus"),
       },
       {
         path: "/Tabs",

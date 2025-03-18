@@ -460,7 +460,7 @@ const iconOptions = [
 
 <script setup>
 import { ref } from 'vue';
-import SelectMenus, { SelectMenuTheme } from '../../components/SelectMenus';
+import SelectMenus, { SelectMenuTheme } from './SelectMenus';
 
 // Basic options
 const basicOptions = [

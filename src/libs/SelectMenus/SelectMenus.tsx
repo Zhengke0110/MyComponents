@@ -4,7 +4,6 @@ import { useEventListener, useWindowScroll } from "@vueuse/core";
 import './styles.css';
 import { SelectOption, ColorType, SelectMenuTheme, defaultColor, getColorClasses } from './config'
 
-// Export types and enums for component consumers
 export { SelectMenuTheme, type SelectOption };
 
 export interface SelectMenuProps {
