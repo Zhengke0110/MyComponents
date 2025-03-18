@@ -156,27 +156,17 @@
         <div class="flex flex-col gap-6">
           <div class="flex flex-wrap gap-4 items-center">
             <div class="w-64">
-              <SelectMenus
-                v-model="selectedTheme"
-                :options="allThemes"
-                label="Choose a theme"
-                placeholder="Select theme"
-                :theme="selectedTheme?.id || SelectMenuTheme.Indigo"
-              />
+              <SelectMenus v-model="selectedTheme" :options="allThemes" label="Choose a theme"
+                placeholder="Select theme" :theme="selectedTheme?.id || SelectMenuTheme.Indigo" />
             </div>
             <div class="text-sm text-gray-600">
               Try out different themes and see how they affect the component below
             </div>
           </div>
-          
+
           <div class="bg-slate-50 p-6 rounded-lg border border-slate-200">
-            <SelectMenus
-              v-model="dynamicThemeSelection"
-              :options="basicOptions"
-              label="Dynamic theme example"
-              placeholder="Select an option"
-              :theme="selectedTheme?.id || SelectMenuTheme.Indigo"
-            />
+            <SelectMenus v-model="dynamicThemeSelection" :options="basicOptions" label="Dynamic theme example"
+              placeholder="Select an option" :theme="selectedTheme?.id || SelectMenuTheme.Indigo" />
             <div class="mt-4 text-sm text-gray-700">
               Selected theme: <span class="font-semibold">{{ selectedTheme?.name || 'Indigo (Default)' }}</span>
             </div>
@@ -193,35 +183,20 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
               <h3 class="font-medium text-gray-200 mb-4">Indigo Theme</h3>
-              <SelectMenus
-                v-model="darkModeThemes.indigo"
-                :options="basicOptions"
-                label="Select category"
-                placeholder="Choose category"
-                :theme="SelectMenuTheme.Indigo"
-              />
+              <SelectMenus v-model="darkModeThemes.indigo" :options="basicOptions" label="Select category"
+                placeholder="Choose category" :theme="SelectMenuTheme.Indigo" />
             </div>
-            
+
             <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
               <h3 class="font-medium text-gray-200 mb-4">Blue Theme</h3>
-              <SelectMenus
-                v-model="darkModeThemes.blue"
-                :options="basicOptions"
-                label="Select category"
-                placeholder="Choose category"
-                :theme="SelectMenuTheme.Blue"
-              />
+              <SelectMenus v-model="darkModeThemes.blue" :options="basicOptions" label="Select category"
+                placeholder="Choose category" :theme="SelectMenuTheme.Blue" />
             </div>
-            
+
             <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
               <h3 class="font-medium text-gray-200 mb-4">Green Theme</h3>
-              <SelectMenus
-                v-model="darkModeThemes.green"
-                :options="basicOptions"
-                label="Select category"
-                placeholder="Choose category"
-                :theme="SelectMenuTheme.Green"
-              />
+              <SelectMenus v-model="darkModeThemes.green" :options="basicOptions" label="Select category"
+                placeholder="Choose category" :theme="SelectMenuTheme.Green" />
             </div>
           </div>
         </div>
@@ -253,8 +228,8 @@
               </div>
 
               <div>
-                <SelectMenus v-model="formData.assignee" :options="userOptions" label="Assignee"
-                  placeholder="Assign to" :theme="SelectMenuTheme.Blue" />
+                <SelectMenus v-model="formData.assignee" :options="userOptions" label="Assignee" placeholder="Assign to"
+                  :theme="SelectMenuTheme.Blue" />
               </div>
             </div>
 
@@ -278,34 +253,25 @@
     <section class="mb-12">
       <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
         <h2 class="text-2xl font-semibold text-gray-700 mb-4">高级主题使用</h2>
-        
+
         <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
           <h3 class="text-lg font-medium text-gray-700 mb-4">主题动态切换</h3>
-          
+
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <div class="mb-4">
                 <p class="text-sm text-gray-600 mb-2">从下拉菜单中选择一个主题</p>
-                <SelectMenus
-                  v-model="themeSelectorExample.theme"
-                  :options="themeSelectorExample.themeOptions"
-                  label="选择主题"
-                  placeholder="请选择主题"
-                  :theme="themeSelectorExample.theme?.value || SelectMenuTheme.Indigo"
-                />
+                <SelectMenus v-model="themeSelectorExample.theme" :options="themeSelectorExample.themeOptions"
+                  label="选择主题" placeholder="请选择主题"
+                  :theme="themeSelectorExample.theme?.value || SelectMenuTheme.Indigo" />
               </div>
-              
+
               <div class="mt-6">
-                <SelectMenus
-                  v-model="themeSelectorExample.selection"
-                  :options="basicOptions"
-                  label="使用动态主题"
-                  placeholder="选择一个选项"
-                  :theme="themeSelectorExample.theme?.value || SelectMenuTheme.Indigo"
-                />
+                <SelectMenus v-model="themeSelectorExample.selection" :options="basicOptions" label="使用动态主题"
+                  placeholder="选择一个选项" :theme="themeSelectorExample.theme?.value || SelectMenuTheme.Indigo" />
               </div>
             </div>
-            
+
             <div class="bg-white p-4 rounded border border-gray-200">
               <h4 class="text-sm font-medium text-gray-700 mb-2">代码示例:</h4>
               <pre class="text-xs bg-gray-50 p-3 rounded overflow-auto"><code>// 首先导入组件和主题枚举
@@ -346,7 +312,7 @@ const selection = ref(null);
         <h2 class="text-2xl font-semibold text-gray-700 mb-4">无障碍特性</h2>
         <div class="space-y-6">
           <p class="text-gray-600">SelectMenus组件实现了完整的键盘导航和ARIA属性支持，提高了应用的无障碍性:</p>
-          
+
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
               <h3 class="text-lg font-medium text-gray-700 mb-2">键盘支持</h3>
@@ -377,7 +343,7 @@ const selection = ref(null);
                 </li>
               </ul>
             </div>
-            
+
             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
               <h3 class="text-lg font-medium text-gray-700 mb-2">ARIA支持</h3>
               <ul class="space-y-1.5 text-sm text-gray-600">
@@ -390,18 +356,14 @@ const selection = ref(null);
               </ul>
             </div>
           </div>
-          
+
           <div class="mt-4 p-4 bg-indigo-50 border border-indigo-100 rounded-lg">
             <p class="text-sm text-indigo-700">
               <strong>尝试一下:</strong> 点击下面的下拉框，然后使用键盘（方向键、Enter）来导航和选择选项。
             </p>
             <div class="mt-3 max-w-xs">
-              <SelectMenus
-                v-model="accessibilityDemoSelection"
-                :options="basicOptions"
-                label="键盘导航示例"
-                placeholder="使用键盘尝试"
-              />
+              <SelectMenus v-model="accessibilityDemoSelection" :options="basicOptions" label="键盘导航示例"
+                placeholder="使用键盘尝试" />
             </div>
           </div>
         </div>
@@ -412,7 +374,7 @@ const selection = ref(null);
     <section class="mb-12">
       <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
         <h2 class="text-2xl font-semibold text-gray-700 mb-4">Usage Guide</h2>
-        
+
         <div class="space-y-6">
           <div>
             <h3 class="text-lg font-medium text-gray-700 mb-2">基本用法</h3>
@@ -423,7 +385,7 @@ const selection = ref(null);
   placeholder="请选择"
 /&gt;</code></pre>
           </div>
-          
+
           <div>
             <h3 class="text-lg font-medium text-gray-700 mb-2">使用预定义主题</h3>
             <pre class="text-sm bg-gray-50 p-4 rounded-md overflow-auto"><code>import SelectMenus, { SelectMenuTheme } from '路径/SelectMenus';
@@ -460,7 +422,8 @@ const iconOptions = [
 
 <script setup>
 import { ref } from 'vue';
-import SelectMenus, { SelectMenuTheme } from './SelectMenus';
+import SelectMenus from './SelectMenus';
+import { SelectMenuTheme } from "./config";
 
 // Basic options
 const basicOptions = [
