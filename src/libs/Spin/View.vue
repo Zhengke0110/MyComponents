@@ -220,7 +220,7 @@
                                             <div class="text-sm font-medium text-gray-800 dark:text-gray-200">用户 {{ i }}
                                             </div>
                                             <div class="text-xs text-gray-500 dark:text-gray-400">user{{ i
-                                                }}@example.com</div>
+                                            }}@example.com</div>
                                         </div>
                                     </div>
                                 </div>
@@ -526,7 +526,7 @@
                                     <div class="mt-1 flex items-end">
                                         <Spin :spinning="card.loading">
                                             <span class="text-2xl font-bold text-gray-800 dark:text-white">{{ card.value
-                                            }}</span>
+                                                }}</span>
                                             <span class="ml-2 text-xs"
                                                 :class="card.trend === 'up' ? 'text-green-500' : 'text-red-500'">
                                                 {{ card.trend === 'up' ? '↑' : '↓' }} {{ card.change }}%
@@ -579,6 +579,334 @@
                 </div>
             </section>
         </div>
+
+        <!-- 小结与最佳实践 -->
+        <section class="mt-16 bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm">
+            <h2
+                class="text-2xl font-bold mb-6 text-gray-800 dark:text-white border-b pb-2 border-gray-200 dark:border-gray-700">
+                小结与最佳实践
+            </h2>
+            <div class="space-y-6 text-gray-700 dark:text-gray-300">
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-3">
+                        <span class="text-blue-500 dark:text-blue-400 mr-2">•</span>何时使用加载中组件
+                    </h3>
+                    <ul class="list-disc list-inside space-y-2 ml-5 text-gray-600 dark:text-gray-400">
+                        <li>当系统需要等待异步数据时</li>
+                        <li>页面或组件正在进行不能被打断的渲染时</li>
+                        <li>表单提交、数据处理等需要显示进度的场景</li>
+                        <li>需要阻止用户与某区域交互，同时表明系统正在工作</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-3">
+                        <span class="text-green-500 dark:text-green-400 mr-2">•</span>设计建议
+                    </h3>
+                    <ul class="list-disc list-inside space-y-2 ml-5 text-gray-600 dark:text-gray-400">
+                        <li>为长时间的加载提供文字提示，减轻用户等待焦虑</li>
+                        <li>对于可能很快完成的操作，使用延迟属性避免闪烁</li>
+                        <li>考虑使用自定义指示符来匹配应用的品牌风格</li>
+                        <li>全屏加载时添加半透明遮罩和模糊效果，保持上下文可见</li>
+                        <li>对于需要精确进度的场景，考虑结合进度指示器使用</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-3">
+                        <span class="text-purple-500 dark:text-purple-400 mr-2">•</span>无障碍设计
+                    </h3>
+                    <ul class="list-disc list-inside space-y-2 ml-5 text-gray-600 dark:text-gray-400">
+                        <li>添加适当的 ARIA 属性，如 aria-busy="true" 和 aria-live="polite"</li>
+                        <li>确保加载中的文字提示对屏幕阅读器可访问</li>
+                        <li>避免仅依赖颜色传达加载状态，结合动效和文本提示</li>
+                        <li>考虑为长时间加载添加进度指示或描述性提示</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-3">
+                        <span class="text-yellow-500 dark:text-yellow-400 mr-2">•</span>性能考量
+                    </h3>
+                    <ul class="list-disc list-inside space-y-2 ml-5 text-gray-600 dark:text-gray-400">
+                        <li>在包裹模式下，避免内容频繁渲染导致的性能问题</li>
+                        <li>复杂的自定义指示符可能影响性能，尤其在低端设备上</li>
+                        <li>对于资源密集型操作，考虑使用 Web Workers 避免主线程阻塞</li>
+                        <li>不要同时显示过多的 Spin 组件，会增加用户困惑与性能负担</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-3">
+                        <span class="text-red-500 dark:text-red-400 mr-2">•</span>常见错误
+                    </h3>
+                    <ul class="list-disc list-inside space-y-2 ml-5 text-gray-600 dark:text-gray-400">
+                        <li>没有设置合理的延迟时间，导致加载指示器频繁闪烁</li>
+                        <li>未提供明确的文字提示，用户不清楚正在等待什么</li>
+                        <li>加载状态无法取消或超时处理，导致用户体验不佳</li>
+                        <li>在首屏加载时使用过于复杂的动画，延长用户感知的等待时间</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- API文档 -->
+        <section class="mt-12 bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm mb-8">
+            <h2
+                class="text-2xl font-bold mb-6 text-gray-800 dark:text-white border-b pb-2 border-gray-200 dark:border-gray-700">
+                API 文档
+            </h2>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead>
+                        <tr>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                属性
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                类型
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                默认值
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                说明
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        <tr>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                spinning
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                boolean
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                true
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                是否为加载中状态
+                            </td>
+                        </tr>
+                        <tr>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                delay
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                number
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                -
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                延迟显示加载效果的时间（防止闪烁），单位毫秒
+                            </td>
+                        </tr>
+                        <tr>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                size
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                string
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                'default'
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                组件大小，可选值为 'small', 'default', 'large'
+                            </td>
+                        </tr>
+                        <tr>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                tip
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                string
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                -
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                当作为包裹元素时，可以自定义描述文案
+                            </td>
+                        </tr>
+                        <tr>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                wrapperClassName
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                string
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                ''
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                包装器的类名
+                            </td>
+                        </tr>
+                        <tr>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                indicator
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                VNode | slot
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                -
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                加载指示符，可以自定义指示符的内容和样式
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-semibold mt-8 mb-4 text-gray-800 dark:text-white">插槽</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead>
+                        <tr>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                插槽名称
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                说明
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        <tr>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                default
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                需要被包裹的内容
+                            </td>
+                        </tr>
+                        <tr>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                tip
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                自定义描述文案
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-semibold mt-8 mb-4 text-gray-800 dark:text-white">静态方法</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead>
+                        <tr>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                方法名称
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                说明
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                参数
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        <tr>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                setDefaultIndicator
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                设置全局默认的加载指示符
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                options: {indicator: VNode}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-semibold mt-8 mb-4 text-gray-800 dark:text-white">使用示例</h3>
+            <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-md overflow-auto mb-6">
+                <pre class="text-sm text-gray-700 dark:text-gray-300">
+            // 基础使用
+            &lt;Spin /&gt;
+
+            // 不同尺寸
+            &lt;Spin size="small" /&gt;
+            &lt;Spin /&gt;
+            &lt;Spin size="large" /&gt;
+
+            // 带有文字提示
+            &lt;Spin tip="加载中..." /&gt;
+
+            // 延迟显示
+            &lt;Spin :spinning="loading" :delay="500" /&gt;
+
+            // 包裹模式
+            &lt;Spin :spinning="loading" tip="加载数据中..."&gt;
+            &lt;div class="content"&gt;
+            内容区域
+            &lt;/div&gt;
+            &lt;/Spin&gt;
+
+            // 使用自定义指示符
+            &lt;Spin :indicator="customIndicator" /&gt;
+
+            // 设置全局默认指示符
+            import { h } from 'vue';
+            import { setDefaultIndicator } from './Spin';
+
+            setDefaultIndicator({
+            indicator: h('div', {
+            class: 'custom-loading-indicator'
+            })
+            });</pre>
+            </div>
+
+            <h3 class="text-xl font-semibold mt-8 mb-4 text-gray-800 dark:text-white">常见应用场景</h3>
+            <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                <p><strong class="text-gray-900 dark:text-white">1. 页面加载：</strong> 在页面初始化数据时显示加载状态，给用户提供反馈。</p>
+                <p><strong class="text-gray-900 dark:text-white">2. 内容更新：</strong> 当内容重新加载或更新时，在内容区域展示加载动效。</p>
+                <p><strong class="text-gray-900 dark:text-white">3. 表单提交：</strong> 在表单提交过程中显示加载状态，防止用户重复提交。</p>
+                <p><strong class="text-gray-900 dark:text-white">4. 按钮加载：</strong> 在按钮上显示加载状态，表明操作正在处理中。</p>
+                <p><strong class="text-gray-900 dark:text-white">5. 懒加载：</strong> 在图片或大型组件加载时展示加载占位。</p>
+            </div>
+
+            <h3 class="text-xl font-semibold mt-8 mb-4 text-gray-800 dark:text-white">注意事项</h3>
+            <div
+                class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-md text-sm text-yellow-800 dark:text-yellow-200 mb-6">
+                <ul class="space-y-2">
+                    <li>• 设置了 delay 属性后，短时间内的加载状态将不会显示，有效避免了闪烁</li>
+                    <li>• 使用 setDefaultIndicator 会影响所有未指定自定义 indicator 的 Spin 组件</li>
+                    <li>• 在包裹模式下，被包裹的内容会在加载状态时变为半透明</li>
+                    <li>• 自定义指示符需要自行处理动画效果，建议使用 CSS 动画而非 JavaScript 动画</li>
+                    <li>• 如果需要展示进度，可以结合 Progress 组件或自定义指示符实现</li>
+                </ul>
+            </div>
+        </section>
     </div>
 </template>
 

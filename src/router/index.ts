@@ -167,6 +167,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/libs/Spin"),
       },
       {
+        path: "/Steps",
+        name: "Steps",
+        component: () => import("@/libs/Steps"),
+      },
+      {
         path: "/Tabs",
         name: "Tabs",
         component: () => import("@/views/TabsView"),
