@@ -221,7 +221,7 @@
     <!-- API 文档 -->
     <section>
       <h2 class="mb-4 text-xl font-bold">API 文档</h2>
-      
+
       <div class="space-y-6 rounded-lg bg-gray-50 p-6 dark:bg-gray-800">
         <!-- Props 属性 -->
         <div>
@@ -283,36 +283,36 @@
             </table>
           </div>
         </div>
-        
+
         <!-- TabItem 接口 -->
         <div>
           <h3 class="mb-3 text-lg font-medium">TabItem 接口</h3>
           <div class="overflow-x-auto rounded-lg bg-gray-100 p-4 dark:bg-gray-700">
             <pre class="text-sm text-gray-800 dark:text-gray-200"><code>interface TabItem {
-  name: string;      // 选项卡名称（必需）
-  href?: string;     // 选项卡链接，默认为 #name
-  disabled?: boolean; // 是否禁用，默认为false
-  content?: string;  // 选项卡内容
-  [key: string]: any; // 其他自定义属性
-}</code></pre>
+            name: string; // 选项卡名称（必需）
+            href?: string; // 选项卡链接，默认为 #name
+            disabled?: boolean; // 是否禁用，默认为false
+            content?: string; // 选项卡内容
+            [key: string]: any; // 其他自定义属性
+            }</code></pre>
           </div>
         </div>
-        
+
         <!-- TabTheme 枚举 -->
         <div>
           <h3 class="mb-3 text-lg font-medium">TabTheme 枚举</h3>
           <div class="overflow-x-auto rounded-lg bg-gray-100 p-4 dark:bg-gray-700">
             <pre class="text-sm text-gray-800 dark:text-gray-200"><code>enum TabTheme {
-  Primary = "primary",   // 蓝色
-  Secondary = "secondary", // 灰色
-  Success = "success",   // 绿色
-  Danger = "danger",     // 红色
-  Warning = "warning",   // 黄色
-  Info = "info",         // 靛蓝色（默认）
-}</code></pre>
+            Primary = "primary", // 蓝色
+            Secondary = "secondary", // 灰色
+            Success = "success", // 绿色
+            Danger = "danger", // 红色
+            Warning = "warning", // 黄色
+            Info = "info", // 靛蓝色（默认）
+            }</code></pre>
           </div>
         </div>
-        
+
         <!-- ColorType 类型 -->
         <div>
           <h3 class="mb-3 text-lg font-medium">ColorType 类型</h3>
@@ -320,15 +320,15 @@
             Tabs 组件支持所有 Tailwind CSS 的颜色：
           </p>
           <div class="overflow-x-auto rounded-lg bg-gray-100 p-4 dark:bg-gray-700">
-            <pre class="text-sm text-gray-800 dark:text-gray-200"><code>type ColorType = 
-  | 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone'  // 灰色系
-  | 'red' | 'orange' | 'amber' | 'yellow'            // 暖色系
-  | 'lime' | 'green' | 'emerald' | 'teal'            // 绿色系
-  | 'cyan' | 'sky' | 'blue' | 'indigo'               // 蓝色系
-  | 'violet' | 'purple' | 'fuchsia' | 'pink' | 'rose'; // 紫粉色系</code></pre>
+            <pre class="text-sm text-gray-800 dark:text-gray-200"><code>type ColorType =
+            | 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone' // 灰色系
+            | 'red' | 'orange' | 'amber' | 'yellow' // 暖色系
+            | 'lime' | 'green' | 'emerald' | 'teal' // 绿色系
+            | 'cyan' | 'sky' | 'blue' | 'indigo' // 蓝色系
+            | 'violet' | 'purple' | 'fuchsia' | 'pink' | 'rose'; // 紫粉色系</code></pre>
           </div>
         </div>
-        
+
         <!-- 事件 -->
         <div>
           <h3 class="mb-3 text-lg font-medium">事件</h3>
@@ -361,7 +361,7 @@
             </table>
           </div>
         </div>
-        
+
         <!-- 插槽 -->
         <div>
           <h3 class="mb-3 text-lg font-medium">插槽</h3>
@@ -395,7 +395,7 @@
     <!-- 小结与最佳实践部分 -->
     <section>
       <h2 class="mb-4 text-xl font-bold">小结与最佳实践</h2>
-      
+
       <div class="space-y-6 rounded-lg bg-gray-50 p-6 dark:bg-gray-800">
         <!-- 何时使用 -->
         <div>
@@ -407,7 +407,7 @@
             <li>当希望提供更好的信息组织方式，避免一次性展示过多内容时</li>
           </ul>
         </div>
-        
+
         <!-- 何时不使用 -->
         <div>
           <h3 class="mb-3 text-lg font-medium">何时不使用</h3>
@@ -418,7 +418,7 @@
             <li>当用户操作流程是线性的，内容应该按特定顺序呈现时（考虑使用步骤条）</li>
           </ul>
         </div>
-        
+
         <!-- 可访问性建议 -->
         <div>
           <h3 class="mb-3 text-lg font-medium">可访问性建议</h3>
@@ -430,7 +430,7 @@
             <li>选中状态应当同时使用颜色和其他视觉指示（如下划线），不仅依赖颜色</li>
           </ul>
         </div>
-        
+
         <!-- 性能优化 -->
         <div>
           <h3 class="mb-3 text-lg font-medium">性能优化</h3>
@@ -442,7 +442,7 @@
             <li>标签数量过多时考虑使用滚动或分页式标签栏，避免标签挤压</li>
           </ul>
         </div>
-        
+
         <!-- 与其他组件的组合 -->
         <div>
           <h3 class="mb-3 text-lg font-medium">与其他组件的组合</h3>
@@ -454,7 +454,7 @@
             <li>与Breadcrumb组件结合，展示用户在层级导航中的位置</li>
           </ul>
         </div>
-        
+
         <!-- 响应式设计注意事项 -->
         <div>
           <h3 class="mb-3 text-lg font-medium">响应式设计注意事项</h3>
@@ -466,7 +466,7 @@
             <li>在小屏幕上考虑使用全宽的标签栏布局</li>
           </ul>
         </div>
-        
+
         <!-- 国际化与本地化 -->
         <div>
           <h3 class="mb-3 text-lg font-medium">国际化与本地化</h3>
@@ -477,7 +477,7 @@
             <li>数据格式化（如日期、货币）应根据用户的区域设置调整</li>
           </ul>
         </div>
-        
+
         <!-- 常见陷阱与解决方案 -->
         <div>
           <h3 class="mb-3 text-lg font-medium">常见陷阱与解决方案</h3>
@@ -496,7 +496,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { Tabs, TabTheme } from "./Tabs";
+import { Tabs, TabTheme } from "./Tab";
 
 // 基础用法数据
 const basicTab = ref("first");

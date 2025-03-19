@@ -629,7 +629,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import TextInput,{ type ColorType } from '../../components/TextInput'
+import TextInput, { type ColorType } from './TextInput'
 
 
 // Basic value

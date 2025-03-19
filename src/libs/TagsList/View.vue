@@ -107,9 +107,15 @@
       <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
         <TagsList v-model="buttonTags" placeholder="输入标签" />
         <div class="mt-4 flex gap-2 flex-wrap">
-          <Button size="sm" @click="addRandomTag">添加随机标签</Button>
-          <Button size="sm" type="danger" @click="clearAllTags">清空所有标签</Button>
-          <Button size="sm" type="secondary" @click="shuffleTags">随机排序标签</Button>
+          <button
+            class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500"
+            @click="addRandomTag">添加随机标签</button>
+          <button
+            class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 bg-red-600 text-white hover:bg-red-700 focus:ring-red-500"
+            @click="clearAllTags">清空所有标签</button>
+          <button
+            class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 bg-gray-500 text-white hover:bg-gray-600 focus:ring-gray-400 dark:bg-gray-600 dark:hover:bg-gray-700"
+            @click="shuffleTags">随机排序标签</button>
         </div>
       </div>
     </section>
@@ -135,7 +141,7 @@
       <h2 class="text-xl font-semibold border-b pb-2 dark:border-gray-700">小结与最佳实践</h2>
       <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
         <h3 class="text-lg font-medium mb-4 dark:text-white">使用 TagsList 组件的建议</h3>
-        
+
         <ul class="space-y-4 text-gray-700 dark:text-gray-300">
           <li class="flex gap-2">
             <span class="text-green-500 flex-shrink-0">
@@ -147,7 +153,7 @@
               <span class="font-medium">明确标签的用途</span>：在使用标签列表前，确定标签的具体用途和业务含义，如分类、标注、关键词等。
             </div>
           </li>
-          
+
           <li class="flex gap-2">
             <span class="text-green-500 flex-shrink-0">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,7 +164,7 @@
               <span class="font-medium">设置合理的标签限制</span>：使用 maxTags 属性限制标签数量，防止用户添加过多标签导致界面混乱。
             </div>
           </li>
-          
+
           <li class="flex gap-2">
             <span class="text-green-500 flex-shrink-0">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -169,7 +175,7 @@
               <span class="font-medium">添加有效验证</span>：使用 validation 属性验证标签内容，避免无效或不合规的标签。
             </div>
           </li>
-          
+
           <li class="flex gap-2">
             <span class="text-green-500 flex-shrink-0">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -180,7 +186,7 @@
               <span class="font-medium">选择恰当的颜色</span>：根据界面主题选择合适的标签颜色，或使用 randomColors 属性增加视觉区分度。
             </div>
           </li>
-          
+
           <li class="flex gap-2">
             <span class="text-green-500 flex-shrink-0">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -191,7 +197,7 @@
               <span class="font-medium">考虑深色模式</span>：组件已内置深色模式支持，确保您的应用在两种模式下都能良好显示。
             </div>
           </li>
-          
+
           <li class="flex gap-2">
             <span class="text-green-500 flex-shrink-0">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -205,11 +211,11 @@
         </ul>
       </div>
     </section>
-    
+
     <!-- API 文档 -->
     <section class="space-y-4">
       <h2 class="text-xl font-semibold border-b pb-2 dark:border-gray-700">API 文档</h2>
-      
+
       <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
         <div class="border-b dark:border-gray-700">
           <div class="px-6 py-4">
@@ -219,66 +225,98 @@
             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
               <thead class="bg-gray-50 dark:bg-gray-700">
                 <tr>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">属性名</th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">类型</th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">默认值</th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">说明</th>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    属性名</th>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    类型</th>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    默认值</th>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    说明</th>
                 </tr>
               </thead>
               <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                 <tr>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">modelValue</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>string[]</code></td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">modelValue
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>string[]</code>
+                  </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">必填</td>
                   <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">标签数组，支持v-model绑定</td>
                 </tr>
                 <tr>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">color</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>ThemeColor</code></td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>'blue'</code></td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    <code>ThemeColor</code>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>'blue'</code>
+                  </td>
                   <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">标签颜色主题</td>
                 </tr>
                 <tr>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">size</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>'sm' | 'md' | 'lg'</code></td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>'md'</code></td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    <code>'sm' | 'md' | 'lg'</code>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>'md'</code>
+                  </td>
                   <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">标签尺寸</td>
                 </tr>
                 <tr>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">placeholder</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>string</code></td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>'请输入标签'</code></td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">placeholder
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>string</code>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>'请输入标签'</code>
+                  </td>
                   <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">输入框占位文本</td>
                 </tr>
                 <tr>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">maxTags</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>number</code></td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>Infinity</code></td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>number</code>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>Infinity</code>
+                  </td>
                   <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">最大标签数量</td>
                 </tr>
                 <tr>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">validation</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>(tag: string) => boolean | string</code></td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>undefined</code></td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">validation
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    <code>(tag: string) => boolean | string</code>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    <code>undefined</code>
+                  </td>
                   <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">自定义验证函数，返回true表示验证通过，返回字符串表示错误信息</td>
                 </tr>
                 <tr>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">allowDuplicates</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>boolean</code></td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>false</code></td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                    allowDuplicates</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>boolean</code>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>false</code>
+                  </td>
                   <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">是否允许添加重复标签</td>
                 </tr>
                 <tr>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">randomColors</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>boolean</code></td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>false</code></td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">randomColors
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>boolean</code>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>false</code>
+                  </td>
                   <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">是否为每个标签随机分配颜色</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-        
+
         <div class="border-b dark:border-gray-700">
           <div class="px-6 py-4">
             <h3 class="text-lg font-medium dark:text-white">事件</h3>
@@ -287,27 +325,38 @@
             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
               <thead class="bg-gray-50 dark:bg-gray-700">
                 <tr>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">事件名</th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">参数</th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">说明</th>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    事件名</th>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    参数</th>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    说明</th>
                 </tr>
               </thead>
               <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                 <tr>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">update:modelValue</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>(tags: string[])</code></td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                    update:modelValue</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    <code>(tags: string[])</code>
+                  </td>
                   <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">当标签列表变化时触发</td>
                 </tr>
                 <tr>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">error</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"><code>(message: string)</code></td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    <code>(message: string)</code>
+                  </td>
                   <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">当验证失败时触发，返回错误信息</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-        
+
         <div>
           <div class="px-6 py-4">
             <h3 class="text-lg font-medium dark:text-white">类型定义</h3>
@@ -334,9 +383,8 @@ type ThemeColor =
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import TagsList from '../../components/TagsList';
-import Button from '../../components/Button';
-import type { ThemeColor } from '../../components/TagsList';
+import TagsList from './TagsList';
+import type { ThemeColor } from './TagsList';
 
 // 基本用法
 const basicTags = ref<string[]>(['Vue', 'React', 'Angular']);

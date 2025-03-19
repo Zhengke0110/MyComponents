@@ -177,19 +177,19 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/libs/SwitchBox"),
       },
       {
-        path: "/Tabs",
-        name: "Tabs",
-        component: () => import("@/libs/Tabs"),
+        path: "/Tab",
+        name: "Tab",
+        component: () => import("@/libs/Tab"),
       },
       {
         path: "/TagsList",
         name: "TagsList",
-        component: () => import("@/views/TagsListView"),
+        component: () => import("@/libs/TagsList"),
       },
       {
         path: "/TextInput",
         name: "TextInput",
-        component: () => import("@/views/TextInputView"),
+        component: () => import("@/libs/TextInput"),
       },
       {
         path: "/Tooltip",
