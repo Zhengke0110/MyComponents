@@ -496,7 +496,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { Tabs, TabTheme } from "../../components/Tabs";
+import { Tabs, TabTheme } from "./Tabs";
 
 // 基础用法数据
 const basicTab = ref("first");
