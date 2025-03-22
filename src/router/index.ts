@@ -192,6 +192,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/libs/TextInput"),
       },
       {
+        path: "/Timeline",
+        name: "Timeline",
+        component: () => import("@/libs/Timeline"),
+      },
+      {
         path: "/Tooltip",
         name: "Tooltip",
         component: () => import("@/views/TooltipView"),
