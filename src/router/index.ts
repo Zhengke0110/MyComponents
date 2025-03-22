@@ -197,6 +197,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/libs/Timeline"),
       },
       {
+        path: "/TimePicker",
+        name: "TimePicker",
+        component: () => import("@/libs/TimePicker"),
+      },
+      {
         path: "/Tooltip",
         name: "Tooltip",
         component: () => import("@/views/TooltipView"),
