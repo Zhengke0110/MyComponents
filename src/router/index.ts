@@ -204,7 +204,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/Tooltip",
         name: "Tooltip",
-        component: () => import("@/views/TooltipView"),
+        component: () => import("@/libs/Tooltip"),
       },
       {
         path: "/Waterfall",
