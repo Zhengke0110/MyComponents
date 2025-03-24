@@ -216,6 +216,11 @@ const routes: RouteRecordRaw[] = [
         name: "Waterfall",
         component: () => import("@/libs/Waterfall"),
       },
+      {
+        path: "/Watermark",
+        name: "Watermark",
+        component: () => import("@/libs/Watermark"),
+      },
     ],
   },
 
