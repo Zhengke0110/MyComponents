@@ -1,44 +1,46 @@
 <template>
   <div class="mt-12 max-w-2xl mx-auto">
-    <div v-if="profile" class="bg-white rounded-lg border border-slate-200 p-6 transition-all duration-200">
+    <div v-if="profile"
+      class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6 transition-all duration-200">
       <div class="flex items-start space-x-6">
-        <div class="avatar-wrapper">
-          <img 
-            :src="profile.avatar_url" 
-            :alt="profile.login"
-            class="w-20 h-20 rounded-lg border-2 border-slate-200"
-          >
+        <div
+          class="relative p-0.5 rounded-lg bg-gradient-to-tr from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 group">
+          <img :src="profile.avatar_url" :alt="profile.login"
+            class="w-20 h-20 rounded-lg border-2 border-slate-200 dark:border-slate-700 relative z-10">
+          <div
+            class="absolute inset-0 rounded-lg p-0.5 bg-gradient-to-tr from-slate-200 to-slate-100 dark:from-slate-800 dark:to-slate-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0">
+          </div>
         </div>
         <div class="flex-1">
-          <h2 class="text-xl font-semibold text-slate-800">{{ profile.name }}</h2>
-          <p class="text-slate-500 font-mono">@{{ profile.login }}</p>
-        </div>
-      </div>
-      
-      <div class="mt-6 grid grid-cols-3 gap-4">
-        <div class="stat-box">
-          <div class="text-xl font-semibold text-slate-800">{{ profile.public_repos }}</div>
-          <div class="text-sm text-slate-500">Repositories</div>
-        </div>
-        <div class="stat-box">
-          <div class="text-xl font-semibold text-slate-800">{{ profile.followers }}</div>
-          <div class="text-sm text-slate-500">Followers</div>
-        </div>
-        <div class="stat-box">
-          <div class="text-xl font-semibold text-slate-800">{{ profile.following }}</div>
-          <div class="text-sm text-slate-500">Following</div>
+          <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-100">{{ profile.name }}</h2>
+          <p class="text-slate-500 dark:text-slate-400 font-mono">@{{ profile.login }}</p>
         </div>
       </div>
 
-      <a 
-        :href="profile.html_url"
-        target="_blank"
-        class="mt-6 block w-full py-2.5 px-4 bg-white border border-slate-200 rounded-md text-center text-slate-700 hover:border-blue-100 hover:text-blue-500 transition-colors duration-150"
-      >
+      <div class="mt-6 grid grid-cols-3 gap-4">
+        <div
+          class="bg-white dark:bg-slate-700 p-4 rounded-md border border-slate-200 dark:border-slate-600 text-center transition-all duration-150 hover:border-blue-100 dark:hover:border-blue-500 hover:-translate-y-0.5">
+          <div class="text-xl font-semibold text-slate-800 dark:text-slate-100">{{ profile.public_repos }}</div>
+          <div class="text-sm text-slate-500 dark:text-slate-400">Repositories</div>
+        </div>
+        <div
+          class="bg-white dark:bg-slate-700 p-4 rounded-md border border-slate-200 dark:border-slate-600 text-center transition-all duration-150 hover:border-blue-100 dark:hover:border-blue-500 hover:-translate-y-0.5">
+          <div class="text-xl font-semibold text-slate-800 dark:text-slate-100">{{ profile.followers }}</div>
+          <div class="text-sm text-slate-500 dark:text-slate-400">Followers</div>
+        </div>
+        <div
+          class="bg-white dark:bg-slate-700 p-4 rounded-md border border-slate-200 dark:border-slate-600 text-center transition-all duration-150 hover:border-blue-100 dark:hover:border-blue-500 hover:-translate-y-0.5">
+          <div class="text-xl font-semibold text-slate-800 dark:text-slate-100">{{ profile.following }}</div>
+          <div class="text-sm text-slate-500 dark:text-slate-400">Following</div>
+        </div>
+      </div>
+
+      <a :href="profile.html_url" target="_blank"
+        class="mt-6 block w-full py-2.5 px-4 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md text-center text-slate-700 dark:text-slate-200 hover:border-blue-100 dark:hover:border-blue-500 hover:text-blue-500 dark:hover:text-blue-300 transition-colors duration-150">
         View Profile
       </a>
     </div>
-    <div v-else class="text-center text-slate-600">
+    <div v-else class="text-center text-slate-600 dark:text-slate-400">
       Loading profile data...
     </div>
   </div>
@@ -68,44 +70,3 @@ onMounted(async () => {
   }
 })
 </script>
-
-<style scoped>
-.stat-box {
-  background-color: white; /* bg-white */
-  padding: 1rem; /* p-4 */
-  border-radius: 0.375rem; /* rounded-md */
-  border: 1px solid #e2e8f0; /* border border-slate-200 */
-  text-align: center; /* text-center */
-  transition: all 0.15s ease; /* transition-all duration-150 */
-}
-
-.stat-box:hover {
-  border-color: #bee3f8; /* border-blue-100 */
-  transform: translateY(-0.125rem); /* -translate-y-0.5 */
-}
-
-.avatar-wrapper {
-  position: relative;
-  padding: 2px;
-  border-radius: 0.5rem;
-  background: linear-gradient(45deg, #f1f5f9, #e2e8f0);
-}
-
-.avatar-wrapper::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 0.5rem;
-  padding: 2px;
-  background: linear-gradient(45deg, #e2e8f0, #f1f5f9);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: xor;
-  -webkit-mask-composite: xor;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.avatar-wrapper:hover::after {
-  opacity: 1;
-}
-</style>
