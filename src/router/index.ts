@@ -207,6 +207,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/libs/Tooltip"),
       },
       {
+        path: "/Upload",
+        name: "Upload",
+        component: () => import("@/libs/Upload"),
+      },
+      {
         path: "/Waterfall",
         name: "Waterfall",
         component: () => import("@/libs/Waterfall"),
