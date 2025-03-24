@@ -277,7 +277,7 @@ const componentRoutes = computed(() =>
   router.getRoutes()
     .filter(route => {
       // 过滤掉 home、not-found 和重定向路由
-      return !['home', 'not-found', 'Main'].includes(route.name as string)
+      return !['home', 'not-found', 'Main', "Guide"].includes(route.name as string)
         && !route.redirect
         && route.name
     })

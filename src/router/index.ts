@@ -21,6 +21,14 @@ const routes: RouteRecordRaw[] = [
         }
       },
       {
+        path: "/guide",
+        name: "Guide",
+        component: () => import("@/views/Guide.vue"),
+        meta: {
+          description: "组件库首页，展示组件库概览和使用指南"
+        }
+      },
+      {
         path: "/Alert",
         name: "Alert",
         component: () => import("@/libs/Alert"),

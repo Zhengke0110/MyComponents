@@ -222,21 +222,6 @@ export default defineComponent({
                                 </RouterLink>
 
                                 <RouterLink
-                                    to="/components"
-                                    class={({ isActive }: { isActive: boolean }) => [
-                                        'relative px-3 py-2 text-sm font-medium transition-all duration-200',
-                                        'hover:text-blue-600 dark:hover:text-blue-400',
-                                        isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'
-                                    ].join(' ')}
-                                >
-                                    <span class={[
-                                        'absolute bottom-0 left-0 h-0.5 w-full origin-left transform scale-x-0 rounded-full bg-blue-600 transition-transform duration-300 dark:bg-blue-400',
-                                        ({ isActive }: { isActive: boolean }) => isActive ? 'scale-x-100' : ''
-                                    ].join(' ')}></span>
-                                    组件
-                                </RouterLink>
-
-                                <RouterLink
                                     to="/guide"
                                     class={({ isActive }: { isActive: boolean }) => [
                                         'relative px-3 py-2 text-sm font-medium transition-all duration-200',
@@ -291,7 +276,7 @@ export default defineComponent({
 
                                 {/* GitHub链接 */}
                                 <a
-                                    href="https://github.com"
+                                    href="https://github.com/Zhengke0110"
                                     target="_blank"
                                     class="group relative flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-gray-100/70 dark:hover:bg-gray-800/70"
                                 >
@@ -401,18 +386,6 @@ export default defineComponent({
                                     ].join(' ')}
                                 >
                                     首页
-                                </RouterLink>
-
-                                <RouterLink
-                                    to="/components"
-                                    class={({ isActive }: { isActive: boolean }) => [
-                                        'block rounded-lg px-3 py-2 font-medium transition-colors',
-                                        isActive
-                                            ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400'
-                                            : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/30'
-                                    ].join(' ')}
-                                >
-                                    组件
                                 </RouterLink>
 
                                 <RouterLink
